@@ -1,0 +1,17 @@
+.list-group a:hover {
+    background-color : blue;
+    color : white;
+}
+.sidebar {
+    /* diğer stiller */
+  
+    &.open {
+      /* açık durum için stil */
+      width: 250px; /* veya istediğiniz genişlik */
+    }
+  
+    &.closed {
+      /* kapalı durum için stil */
+      width: 0;
+    }
+}

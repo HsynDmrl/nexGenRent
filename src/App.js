@@ -1,99 +1,53 @@
-import React, { useEffect, useState } from 'react';
-import './App.css';
-import CarService from "./services/CarService";
-import ModelService from "./services/ModelService";
-import ColorService from "./services/ColorService";
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  selectCar,
+  updateNewCarData,
+  updateUpdateCarData,
+  fetchCars,
+  fetchModelsAndColors,
+} from './store/slices/carSlice';
+import CarService from './services/CarService';
 
 function App() {
-  const [carsData, setCarsData] = useState([]);
-  const [selectedCar, setSelectedCar] = useState(null);
-  const [newCarData, setNewCarData] = useState({
-    plate: '',
-    modelId: '',
-    colorId: '',
-    kilometer: 0,
-    year: 2022,
-    dailyPrice: 0,
-  });
-  const [updateCarData, setUpdateCarData] = useState({
-    plate: '',
-    modelId: '',
-    colorId: '',
-    kilometer: 0,
-    year: 2022,
-    dailyPrice: 0,
-  });
-  const [models, setModels] = useState([]);
-  const [colors, setColors] = useState([]);
+  const dispatch = useDispatch();
+
+  const carsData = useSelector((state) => state.cars.cars);
+  const selectedCar = useSelector((state) => state.cars.selectedCar);
+  const newCarData = useSelector((state) => state.cars.newCarData);
+  const updateCarData = useSelector((state) => state.cars.updateCarData);
+  const models = useSelector((state) => state.cars.models);
+  const colors = useSelector((state) => state.cars.colors);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const carService = new CarService();
-        const response = await carService.getAll();
-
-        if (Array.isArray(response.data)) {
-          setCarsData(response.data);
-        } else {
-          console.error('Error: Response data is not an array');
-        }
-      } catch (error) {
-        console.error('Error fetching cars:', error);
-      }
-    };
-
-    const fetchModelsAndColors = async () => {
-      try {
-        const modelService = new ModelService();
-        const colorService = new ColorService();
-
-        const modelResponse = await modelService.getAll();
-        const colorResponse = await colorService.getAll();
-
-        if (Array.isArray(modelResponse.data)) {
-          setModels(modelResponse.data);
-        } else {
-          console.error('Error: Model response data is not an array');
-        }
-
-        if (Array.isArray(colorResponse.data)) {
-          setColors(colorResponse.data);
-        } else {
-          console.error('Error: Color response data is not an array');
-        }
-      } catch (error) {
-        console.error('Error fetching models and colors:', error);
-      }
-    };
-
-    fetchData();
-    fetchModelsAndColors();
-  }, []);
+    dispatch(fetchCars());
+    dispatch(fetchModelsAndColors());
+  }, [dispatch]);
 
   const handleCarClick = (car) => {
-    setSelectedCar(car);
-    setUpdateCarData({
+    dispatch(selectCar(car));
+    dispatch(updateUpdateCarData({
       plate: car.plate,
       modelId: car.modelId,
       colorId: car.colorId,
       kilometer: car.kilometer,
       year: car.year,
       dailyPrice: car.dailyPrice,
-    });
+    }));
   };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setNewCarData((prevData) => ({
-      ...prevData,
+    dispatch(updateNewCarData({
+      ...newCarData,
       [name]: value,
     }));
   };
 
   const handleUpdateInputChange = (e) => {
     const { name, value } = e.target;
-    setUpdateCarData((prevData) => ({
-      ...prevData,
+    dispatch(updateUpdateCarData({
+      ...updateCarData,
       [name]: value,
     }));
   };
@@ -103,10 +57,7 @@ function App() {
       const carService = new CarService();
       await carService.add(newCarData);
 
-      const updatedResponse = await carService.getAll();
-      if (Array.isArray(updatedResponse.data)) {
-        setCarsData(updatedResponse.data);
-      }
+      dispatch(fetchCars());
     } catch (error) {
       console.error('Error adding car:', error);
     }
@@ -128,11 +79,8 @@ function App() {
 
       await carService.update(updateData);
 
-      const updatedResponse = await carService.getAll();
-      if (Array.isArray(updatedResponse.data)) {
-        setCarsData(updatedResponse.data);
-        setSelectedCar(null);
-      }
+      dispatch(fetchCars());
+      dispatch(selectCar(null));
     } catch (error) {
       console.error('Error updating car:', error);
     }
@@ -143,11 +91,8 @@ function App() {
       const carService = new CarService();
       await carService.delete(selectedCar.id);
 
-      const updatedResponse = await carService.getAll();
-      if (Array.isArray(updatedResponse.data)) {
-        setCarsData(updatedResponse.data);
-        setSelectedCar(null);
-      }
+      dispatch(fetchCars());
+      dispatch(selectCar(null));
     } catch (error) {
       console.error('Error deleting car:', error);
     }

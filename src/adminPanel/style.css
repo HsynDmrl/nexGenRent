@@ -3,15 +3,12 @@
     color : white;
 }
 .sidebar {
-    /* diğer stiller */
   
     &.open {
-      /* açık durum için stil */
-      width: 250px; /* veya istediğiniz genişlik */
+      width: 250px;
     }
   
     &.closed {
-      /* kapalı durum için stil */
       width: 0;
     }
 }

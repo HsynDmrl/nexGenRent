@@ -15,6 +15,7 @@ import Col from 'react-bootstrap/Col';
 import Card from 'react-bootstrap/Card';
 import Table from 'react-bootstrap/Table';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import App from '../App';
 function Home() {
   
   const [toggle, setToggle] = useState(true);
@@ -151,8 +152,8 @@ function Home() {
           <Col md={3} className='p-1'>
             <Card className='p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded'>
               <div>
-                <h3 className='fs-2'>20%</h3>
-                <p className='fs-5'>Increase</p>
+                <h3 className='fs-2'>2</h3>
+                <p className='fs-5'>Users</p>
               </div>
               <i className='bi bi-graph-up-arrow p-3 fs-1'></i>
             </Card>
@@ -186,6 +187,12 @@ function Home() {
           ))}
         </tbody>
       </Table>
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <App />
     </Container>
   );
 }

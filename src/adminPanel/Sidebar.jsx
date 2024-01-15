@@ -1,42 +1,42 @@
 import React from 'react';
-import './style.css';
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { Navbar, Nav, Button } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBars, faTimes, faHome, faCar, faChartBar, faUsers, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 
-function Sidebar() {
+const Sidebar = () => {
+  const [isSidebarOpen, setSidebarOpen] = useState(false);
+
+  const toggleSidebar = () => {
+    setSidebarOpen(!isSidebarOpen);
+  };
+
   return (
-    <div className='bg-white sidebar p-2'>
-      <div className='m-2'>
-        <i className='bi bi-bootstrap-fill me-3 fs-4'></i>
-        <span className='brand-name fs-4'>Adminpanel</span>
-      </div>
-      <hr className='text-dark' />
-      <div className='list-group list-group-flush'>
-        <a className='list-group-item py-2'>
-          <i className='bi bi-speedometer2 fs-5 me-3'></i>
-          <span>Dashboard</span>
-        </a>
-        <a className='list-group-item py-2 '>
-          <i className='bi bi-house fs-5 me-3'></i>
-          <span>Home</span>
-        </a>
-        <a className='list-group-item py-2'>
-          <i className='bi bi-table fs-5 me-3'></i>
-          <span>Cars</span>
-        </a>
-        <a className='list-group-item py-2'>
-          <i className='bi bi-clipboard-data fs-5 me-3'></i>
-          <span>Reports</span>
-        </a>
-        <a className='list-group-item py-2'>
-          <i className='bi bi-people fs-5 me-3'></i>
-          <span>Customers</span>
-        </a>
-        <a className='list-group-item py-2'>
-          <i className='bi bi-power fs-5 me-3'></i>
-          <span>Logout</span>
-        </a>
+    <div className='bg-dark'>
+      <Navbar variant="dark" expand="lg" fixed="sticky" className='mt-4'>
+        <Navbar.Toggle onClick={toggleSidebar}>
+          <FontAwesomeIcon icon={isSidebarOpen ? faTimes : faBars} />
+        </Navbar.Toggle>
+        <Navbar.Collapse id="basic-navbar-nav" className={isSidebarOpen ? 'show' : ''}>
+          <Nav className="flex-column">
+            <Navbar.Brand as={Link} to="/adminhome">Logo</Navbar.Brand>
+            <Nav.Link as={Link} to="/adminhome"><FontAwesomeIcon icon={faHome} /> Dashboard</Nav.Link>
+            <Nav.Link as={Link} to="/cars"><FontAwesomeIcon icon={faCar} /> Cars</Nav.Link>
+            <Nav.Link as={Link} to="/reports"><FontAwesomeIcon icon={faChartBar} /> Reports</Nav.Link>
+            <Nav.Link as={Link} to="/customers"><FontAwesomeIcon icon={faUsers} /> Customers</Nav.Link>
+            <Nav.Link as={Link} to="/logout"><FontAwesomeIcon icon={faSignOutAlt} /> Logout</Nav.Link>
+          </Nav>
+        </Navbar.Collapse>
+      </Navbar>
+
+      {/* Content */}
+      <div className={`content ${isSidebarOpen ? 'open' : ''}`}>
+        {/* Diğer sayfa içeriği buraya eklenebilir */}
       </div>
     </div>
   );
 }
 
 export default Sidebar;
+

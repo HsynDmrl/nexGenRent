@@ -16,7 +16,7 @@ import Card from 'react-bootstrap/Card';
 import Table from 'react-bootstrap/Table';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import App from '../App';
-function Home() {
+function Dashboard() {
   
   const [toggle, setToggle] = useState(true);
 
@@ -119,7 +119,7 @@ function Home() {
 
   return (
     <Container className='px-3'>
-      <Nav Toggle={handleToggle} />
+      {/* <Nav Toggle={handleToggle} /> */}
       <Container fluid>
         <Row className='g-3 my-2'>
           <Col md={3} className='p-1'>
@@ -192,9 +192,9 @@ function Home() {
     <br />
     <br />
     <br />
-    <App />
+
     </Container>
   );
 }
 
-export default Home;
+export default Dashboard;

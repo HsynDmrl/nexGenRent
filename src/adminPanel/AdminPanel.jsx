@@ -20,10 +20,8 @@ function App() {
     setSidebarOpen(!isSidebarOpen);
     setCount(isSidebarOpen ? 12 : 10);
   };
-
-
+  
   return (
-
     <div className='container-fluid bg-secondary min-vh-100 '>
       <div className='row'>
         { isSidebarOpen &&(     

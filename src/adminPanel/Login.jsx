@@ -3,7 +3,10 @@ import { Formik, Form, useField } from 'formik';
 import * as Yup from 'yup';
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
+
 const API_URL = "http://localhost:8080/api/auth/";
+var isMNG;
+
 
 const MyTextInput = ({ label, ...props }) => {
   const [field, meta] = useField(props);
@@ -33,21 +36,45 @@ const MyCheckbox = ({ children, ...props }) => {
   );
 };
 
-const login2 = (email, password) => {
-  return axios
-    .post(API_URL + "login", {
-      email,
-      password,
-    })
-    .then((response) => { 
-        console.log(response)
-        localStorage.setItem("email", JSON.stringify(response.data));
+const parseJwt = (token) => {
+  if (!token) {
+    console.error("Token is undefined.");
+    return null;
+  }
 
-      return response.data;
-    });
+  const [header, payload, signature] = token.split('.');
+  const decodedPayload = JSON.parse(atob(payload));
+
+  return decodedPayload;
 };
 
-const Login = () => {
+const login2 = (email, password) => {
+  return new Promise((resolve, reject) => {
+    axios
+      .post(API_URL + "login", {
+        email,
+        password,
+      })
+      .then((response) => { 
+        const token = response.data;  // Token'ı buradan alın
+        const decodedToken = parseJwt(token);  // Token'ı parse et
+        isMNG=decodedToken;
+        console.log("Token Payload: ", decodedToken);  // Payload'ı consola yazdır
+        localStorage.setItem("email", JSON.stringify(response.data));
+
+        // 1 saniye bekleyip sonra resolve ile devam et
+        setTimeout(() => {
+          resolve(response.data);
+        }, 1000);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+};
+
+
+const Login = ({onChange}) => {
   const navigate = useNavigate(); 
   return (
     <>
@@ -64,8 +91,12 @@ const Login = () => {
           try {
             const response = await login2(values.email, values.password);
             console.log(response);
-            navigate("/adminhome");
-            window.location.reload();
+            console.log(isMNG.roles,"data burası")
+            if(isMNG.roles[0]=="ADMIN" || isMNG.roles[0]=="MANAGER"){
+              navigate("/adminhome");
+              window.location.reload();}
+            // navigate("/adminhome");
+            // window.location.reload();
           } catch (error) {
             console.error("Login failed", error);
           } finally {

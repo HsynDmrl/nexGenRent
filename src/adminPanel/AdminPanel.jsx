@@ -38,7 +38,7 @@ function App() {
               <FontAwesomeIcon className='white' icon={isSidebarOpen ? faTimes : faBars} />
           </Navbar.Toggle>
             
-          {/* <Home Toggle={Toggle} /> */}
+          {}
           <Routes>
             <Route path='/admin' element={<Login/>}> </Route>
             <Route path="/adminhome" element={<Dashboard />}></Route>

@@ -1,50 +1,81 @@
-import React from 'react'
-import { Field, Form, Formik, FormikProps } from 'formik';
-import { Container } from 'react-bootstrap';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { Formik, Form, useField } from 'formik';
+import * as Yup from 'yup';
 
-export default function Login() {
+const MyTextInput = ({ label, ...props }) => {
+  const [field, meta] = useField(props);
+  return (
+    <>
+      <label htmlFor={props.id || props.name}>{label}</label>
+      <input className="text-input" {...field} {...props} />
+      {meta.touched && meta.error ? (
+        <div className="error">{meta.error}</div>
+      ) : null}
+    </>
+  );
+};
+
+const MyCheckbox = ({ children, ...props }) => {
+  const [field, meta] = useField(props);
   return (
     <div>
-        <Container>
-        <h1>Login</h1>
-    {/* Formik kullanarak form yönetimini başlatma */}
-    <Formik
-      initialValues={{
-        email: '',
-        password: '',
-      }}
-      // Form submit olduğunda çalışacak fonksiyon
-      onSubmit={async (values) => {
-        // Formu gönderdikten sonra bir süre bekleyip, form değerlerini alert ile gösterme
-        await new Promise((r) => setTimeout(r, 500));
-        alert(JSON.stringify(values, null, 2));
-      }}
-    >
-      {/* Formun içeriği */}
-      <Form>
-        {/* E-posta girişi için alan */}
-        <label htmlFor="email">Email</label>
-        <Field
-          type="email"
-          id="email"
-          name="email"
-          placeholder="jane@acme.com"
-        />
-
-        {/* Şifre girişi için alan */}
-        <label htmlFor="password">Password</label>
-        <Field
-          type="password"
-          id="password"
-          name="password"
-          placeholder="Your Password"
-        />
-
-        {/* Formu göndermek için buton */}
-        <button type="submit">Login</button>
-      </Form>
-    </Formik>
-        </Container>
+      <label className="checkbox-input">
+        <input type="checkbox" {...field} {...props} />
+        {children}
+      </label>
+      {meta.touched && meta.error ? (
+        <div className="error">{meta.error}</div>
+      ) : null}
     </div>
-  )
-}
+  );
+};
+
+// ... (yukarıdaki kısım değişmemiş)
+
+const Login = () => {
+  return (
+    <>
+      <Formik
+        initialValues={{
+          email: '',
+          password: '',
+          acceptedTerms: false
+        }}
+        validationSchema={Yup.object({
+          // ... (yukarıdaki kısım değişmemiş)
+        })}
+        onSubmit={(values, { setSubmitting }) => {
+          setTimeout(() => {
+            alert(JSON.stringify(values, null, 2));
+            setSubmitting(false);
+          }, 400);
+        }}
+      >
+        <Form>
+          <MyTextInput
+            label="Email Address"
+            name="email"
+            type="email"
+            placeholder="jane@formik.com"
+          />
+
+          <MyTextInput
+            label="Password"
+            name="password"  // Değiştirildi: email'den password'e
+            type="password"
+            placeholder="Your password"
+          />
+
+          <MyCheckbox name="acceptedTerms">
+            I accept the terms and conditions
+          </MyCheckbox>
+
+          <button type="submit">Submit</button>
+        </Form>
+      </Formik>
+    </>
+  );
+};
+
+export default Login;

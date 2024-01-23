@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import Nav from './Nav';
 import { useDispatch, useSelector } from 'react-redux';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCar, faBoxes, faPalette, faUsers } from '@fortawesome/free-solid-svg-icons';
 import {
+  fetchCars,
+  fetchModelsAndColors,
   selectCar,
   updateNewCarData,
   updateUpdateCarData,
-  fetchCars,
-  fetchModelsAndColors,
 } from '../store/slices/carSlice';
 import CarService from '../services/CarService';
 import Container from 'react-bootstrap/Container';
@@ -15,14 +17,14 @@ import Col from 'react-bootstrap/Col';
 import Card from 'react-bootstrap/Card';
 import Table from 'react-bootstrap/Table';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import App from '../App';
+
 function Dashboard() {
-  
   const [toggle, setToggle] = useState(true);
 
   const handleToggle = () => {
     setToggle(!toggle);
   };
+
   const dispatch = useDispatch();
 
   const carsData = useSelector((state) => state.cars.cars);
@@ -118,81 +120,89 @@ function Dashboard() {
   };
 
   return (
-    <Container className='px-3'>
-      {/* <Nav Toggle={handleToggle} /> */}
+    <Container className='px-3 bg-white'>
       <Container fluid>
         <Row className='g-3 my-2'>
           <Col md={3} className='p-1'>
-            <Card className='p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded'>
+            <Card className='p-3 bg-danger shadow-sm d-flex justify-content-around align-items-center rounded'>
               <div>
-                <h3 className='fs-2'>{carsData.length}</h3>
-                <p className='fs-5'>Cars</p>
+                <h1 className='fs-1 text-white text-center'>{carsData.length}</h1>
+                <p className='fs-4 text-white'>
+                  Cars <FontAwesomeIcon icon={faCar} className='text-white fs-3 text-left' />
+                </p>
               </div>
               <i className='bi bi-cart-plus p-3 fs-1'></i>
             </Card>
           </Col>
           <Col md={3} className='p-1'>
-            <Card className='p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded'>
+            <Card className='p-3 bg-info shadow-sm d-flex justify-content-around align-items-center rounded'>
               <div>
-                <h3 className='fs-2'>{models.length}</h3>
-                <p className='fs-5'>Model</p>
+                <h1 className='fs-1 text-white text-center'>{models.length}</h1>
+                <p className='fs-4 text-white'>
+                  Models <FontAwesomeIcon icon={faBoxes} className='text-white fs-3 text-left' />
+                </p>
               </div>
               <i className='bi bi-currency-dollar p-3 fs-1'></i>
             </Card>
           </Col>
           <Col md={3} className='p-1'>
-            <Card className='p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded'>
+            <Card className='p-3 bg-success shadow-sm d-flex justify-content-around align-items-center rounded'>
               <div>
-                <h3 className='fs-2'>{colors.length}</h3>
-                <p className='fs-5'>Colors</p>
+                <h1 className='fs-1 text-white text-center'>{colors.length}</h1>
+                <p className='fs-4 text-white'>
+                  Colors <FontAwesomeIcon icon={faPalette} className='text-white fs"-3 text-left' />
+                </p>
               </div>
               <i className='bi bi-truck p-3 fs-1'></i>
             </Card>
           </Col>
           <Col md={3} className='p-1'>
-            <Card className='p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded'>
+            <Card className='p-3 bg-warning shadow-sm d-flex justify-content-around align-items-center rounded'>
               <div>
-                <h3 className='fs-2'>2</h3>
-                <p className='fs-5'>Users</p>
+                <h1 className='fs-1 text-white text-center'>2</h1>
+                <p className='fs-4 text-white'>
+                  Users <FontAwesomeIcon icon={faUsers} className='text-white fs-3 text-left' />
+                </p>
               </div>
               <i className='bi bi-graph-up-arrow p-3 fs-1'></i>
             </Card>
           </Col>
         </Row>
       </Container>
-      <Table className='table caption-top bg-white rounded mt-2'>
-        <caption className='text-white fs-4'>Car List</caption>
-        <thead>
-          <tr>
-            <th scope='col'>#</th>
-            <th scope='col'>Model</th>
-            <th scope='col'>Plate</th>
-            <th scope='col'>Color</th>
-            <th scope='col'>Daily Price</th>
-            <th scope='col'>Year</th>
-            <th scope='col'>Kilometer</th>
-          </tr>
-        </thead>
-        <tbody>
-          {carsData.map((car, index) => (
-            <tr key={index}>
-              <th scope='row'>{index + 1}</th>
-              <td>{car.modelName}</td>
-              <td>{car.plate}</td>
-              <td>{car.colorName}</td>
-              <td>{car.dailyPrice} ₺</td>
-              <td>{car.year}</td>
-              <td>{car.kilometer}</td>
+      <Container className='p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded'>
+        <Table className='table caption-top bg-white rounded mt-2'>
+          <caption className='text-white fs-4 '>Car List</caption>
+          <thead className='rounded'>
+            <tr>
+              <th scope='col'>#</th>
+              <th scope='col'>Model</th>
+              <th scope='col'>Plate</th>
+              <th scope='col'>Color</th>
+              <th scope='col'>Daily Price</th>
+              <th scope='col'>Year</th>
+              <th scope='col'>Kilometer</th>
             </tr>
-          ))}
-        </tbody>
-      </Table>
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-
+          </thead>
+          <tbody>
+            {carsData.map((car, index) => (
+              <tr key={index} onClick={() => handleCarClick(car)}>
+                <th scope='row'>{index + 1}</th>
+                <td>{car.modelName}</td>
+                <td>{car.plate}</td>
+                <td>{car.colorName}</td>
+                <td>{car.dailyPrice} ₺</td>
+                <td>{car.year}</td>
+                <td>{car.kilometer}</td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+      </Container>
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
     </Container>
   );
 }

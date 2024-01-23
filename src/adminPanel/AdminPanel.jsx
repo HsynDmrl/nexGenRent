@@ -10,6 +10,8 @@ import Dashboard from './Dashboard';
 import { Container, Navbar,Toggle } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faTimes, faHome, faCar, faChartBar, faUsers, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import Login from './Login';
+
 
 function App() {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
@@ -25,7 +27,7 @@ function App() {
     <div className='container-fluid bg-secondary min-vh-100 '>
       <div className='row'>
         { isSidebarOpen &&(     
-          <div className='col-2 mg-100 bg-dark vh-100'>
+          <div className='col-2 mg-100 bg-dark vh-100%'>
             <Sidebar />
           </div>
         )}
@@ -38,7 +40,7 @@ function App() {
             
           {/* <Home Toggle={Toggle} /> */}
           <Routes>
-            <Route path=''></Route>
+            <Route path='/admin' element={<Login/>}> </Route>
             <Route path="/adminhome" element={<Dashboard />}></Route>
             <Route path="/cars" element={<Car />}></Route>
             <Route path='/reports' element={<Reports></Reports>}></Route>

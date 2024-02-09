@@ -5,7 +5,8 @@ import {GetAllUserResponse} from "../models/users/response/getAllUserResponse";
 import {GetByIdUserResponse} from "../models/users/response/getByIdUserResponse";
 import {UpdateUserResponse} from "../models/users/response/updateUserResponse";
 import {BaseService} from "./baseService";
-
+import {AxiosResponse} from "axios";
+import axiosInstance from "../core/utils/interceptors/axiosInterceptors";
 class UserService extends BaseService<
 	GetAllUserResponse,
 	GetByIdUserResponse,
@@ -17,6 +18,9 @@ class UserService extends BaseService<
 	constructor() {
 		super();
 		this.apiUrl = "users";
+	}
+	getByEmail(email: string): Promise<AxiosResponse<GetByIdUserResponse, any>> {
+		return axiosInstance.get(`${this.apiUrl}/getByEmail?email=${email}`);
 	}
 }
 

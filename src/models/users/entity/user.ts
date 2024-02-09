@@ -10,6 +10,7 @@ export interface User{
     email: string;
     nationalityId: string;
     password: string;
+    roleName: string;
     role: Role;
     gsm: string;
     customers?: Customer[];

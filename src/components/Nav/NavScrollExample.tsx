@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
@@ -11,12 +11,20 @@ import { useDispatch } from 'react-redux';
 import { logOut } from '../../store/auth/authSlice';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { RootState } from '../../store/configureStore';
+import { AppDispatch, RootState } from '../../store/configureStore';
+import { fetchUser } from '../../store/user/userSlice';
 
 function NavScrollExample() {
   const isUserLoggedIn = useSelector((state: RootState) => state.auth.isAuthenticated);
+  const user = useSelector((state: RootState) => state.user.data);
+  
+  const dispatch = useDispatch<AppDispatch>();
 
-  const dispatch = useDispatch();
+  
+  useEffect(() => {
+    dispatch(fetchUser());
+  }, [dispatch]);
+
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -47,17 +55,17 @@ function NavScrollExample() {
             />
             <Button variant="outline-success">Ara</Button>
           </Form>
-		  <NavDropdown title={isUserLoggedIn ? 'Profil' : 'Giriş Yap'} id="navbarScrollingDropdown" className="me-auto text-light my-2 my-lg-0">
-              {isUserLoggedIn ? (
-                <ProfileDropdown onLogout={handleLogout} />
-              ) : (
-                <>
-                  <Login />
-                  <NavDropdown.Divider />
-                  <NavDropdown.Item href="#action5" >Beni Hatırla</NavDropdown.Item>
-                </>
-              )}
-            </NavDropdown>
+<NavDropdown title={isUserLoggedIn ? (user && user.name) : 'Giriş Yap'} id="navbarScrollingDropdown" className="me-auto text-light my-2 my-lg-0">
+  {isUserLoggedIn ? (
+    <ProfileDropdown onLogout={handleLogout} />
+  ) : (
+    <>
+      <Login />
+      <NavDropdown.Divider />
+      <NavDropdown.Item href="#action5" >Beni Hatırla</NavDropdown.Item>
+    </>
+  )}
+</NavDropdown>
           
         </Navbar.Collapse>
       </Container>

@@ -13,6 +13,6 @@ export interface Car extends BaseEntity {
     fuelType: string;
     model: Model;
     color: Color;
-    rentals: Rental[];
+    rentals?: Rental[];
     logoPath: string;
 }

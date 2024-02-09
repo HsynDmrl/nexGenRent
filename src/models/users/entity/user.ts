@@ -12,7 +12,7 @@ export interface User{
     password: string;
     role: Role;
     gsm: string;
-    customers: Customer[];
-    employees: Employee[];
-    refreshTokens: RefreshToken[];
+    customers?: Customer[];
+    employees?: Employee[];
+    refreshTokens?: RefreshToken[];
 }

@@ -15,5 +15,5 @@ export interface Rental extends BaseEntity {
     car: Car;
     customer: Customer;
     employee: Employee;
-    invoices: Invoice[];
+    invoices?: Invoice[];
 }

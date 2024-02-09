@@ -4,5 +4,5 @@ import { User } from '../../users/entity/user';
 
 export interface Customer extends BaseEntity {
     user: User;
-    rentals: Rental[];
+    rentals?: Rental[];
 }

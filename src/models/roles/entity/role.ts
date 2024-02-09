@@ -3,5 +3,5 @@ import { User } from '../../users/entity/user';
 
 export interface Role extends BaseEntity {
     name: string;
-    users: User[];
+    users?: User[];
 }

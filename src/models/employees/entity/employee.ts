@@ -5,5 +5,5 @@ import { User } from '../../users/entity/user';
 export interface Employee extends BaseEntity{
     salary: number;
     user: User;
-    rentals: Rental[];
+    rentals?: Rental[];
 }

@@ -17,7 +17,7 @@ const AppRouters = () => {
 		  <Route path="/admin" element={<AdminPanel />} />
 		  <Route path="/dashboard" element={<UserDashboard />} />
 		  <Route path="/register" element={<Register />} />
-		  <Route path="/profile" element={<Profile />} /> {/* Profil sayfasını burada ekleyin */}
+		  <Route path="/profile" element={<Profile />} />
 		</Routes>
 	  </>
 	);

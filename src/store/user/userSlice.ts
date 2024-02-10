@@ -4,9 +4,11 @@ import userService from '../../services/userService';
 import { User } from '../../models/users/entity/user';
 import { BaseState } from '../base/baseSlice';
 import tokenService from '../../services/tokenService';
+import { GetAllCarResponse } from '../../models/cars/response/getAllCarResponse';
 
 const initialState: BaseState<User> = {
     data: null,
+    allData: [],
     loading: false,
     error: null,
 };
@@ -40,15 +42,30 @@ const userSlice = createSlice({
           state.loading = false;
           state.error = action.payload;
       },
+      getAllDataSuccess: (state, action) => {
+		state.loading = false;
+		state.allData = action.payload;
+	},
   },  
 });
 
-export const { getDataStart, getDataSuccess, getDataFailure } = userSlice.actions;
-
-export const getUser = (id: number) => fetchData<User>(userService, id);
+export const { getDataStart, getDataSuccess, getDataFailure, getAllDataSuccess } = userSlice.actions;
+export const getUser = (id: number) => fetchData<GetAllCarResponse>(userService, id);
 export const getAllUsers = () => fetchAllData<User>(userService);
 export const addUser = (data: User) => addData<User>(userService, data);
 export const updateUser = (id: number, data: User) => updateData<User>(userService, id, data);
 export const deleteUser = (id: number) => deleteData(userService, id);
 
 export default userSlice.reducer;
+
+
+// export const getAllUsers = () => async (dispatch: any) => {
+//   try {
+//     dispatch(getDataStart());
+//     const response = await userService.getAll();
+//     dispatch(getAllDataSuccess(response.data));
+//   } catch (error: any) {
+//     dispatch(getDataFailure(error.message));
+// 	console.log("error", error.message);
+//   }
+// };

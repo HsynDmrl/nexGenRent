@@ -3,12 +3,14 @@ import { AxiosResponse } from 'axios';
 
 export interface BaseState<T> {
   data: T | null;
+  allData: T[] | null;
   loading: boolean;
   error?: string | null;
 }
 
 const initialState: BaseState<any> = {
   data: null,
+  allData: [], 
   loading: false,
 };
 
@@ -24,6 +26,11 @@ const baseSlice = createSlice({
       state.loading = false;
       state.data = action.payload;
     },
+	getAllDataSuccess: (state, action) => {
+		state.loading = false;
+		state.allData = action.payload;
+		//console.log("alldata baseSlice reducers içindeki ", state.allData);
+	},
     getDataFailure(state, action: PayloadAction<string>) {
       state.loading = false;
       state.error = action.payload;
@@ -31,7 +38,7 @@ const baseSlice = createSlice({
   },
 });
 
-export const { getDataStart, getDataSuccess, getDataFailure } = baseSlice.actions;
+export const { getDataStart, getDataSuccess, getDataFailure, getAllDataSuccess } = baseSlice.actions;
 
 export const fetchData = <U>(service: any, id: number) => async (dispatch: any) => {
   dispatch(getDataStart());
@@ -47,7 +54,8 @@ export const fetchAllData = <T>(service: any) => async (dispatch: any) => {
   dispatch(getDataStart());
   try {
     const response: AxiosResponse<T[]> = await service.getAll();
-    dispatch(getDataSuccess(response.data));
+	//console.log("response burda", response.data);
+    dispatch(getAllDataSuccess(response.data));
   } catch (error: any) {
     dispatch(getDataFailure(error.message));
   }

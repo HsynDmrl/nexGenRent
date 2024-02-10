@@ -3,7 +3,7 @@ import { Employee } from '../../employees/entity/employee';
 import { RefreshToken } from '../../refreshTokens/entity/refreshToken';
 import { Role } from '../../roles/entity/role';
 
-export interface User{
+export interface User {
     id: number;
     name: string;
     surname: string;
@@ -16,4 +16,8 @@ export interface User{
     customers?: Customer[];
     employees?: Employee[];
     refreshTokens?: RefreshToken[];
+}
+
+export interface UsersResponse {
+    users: User[]; 
 }

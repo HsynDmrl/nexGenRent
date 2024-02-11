@@ -71,12 +71,14 @@ export const addData = <T>(service: any, data: T) => async (dispatch: any) => {
   }
 };
 
-export const updateData = <T>(service: any, id: number, data: T) => async (dispatch: any) => {
+export const updateData = <T>(service: any, data: T) => async (dispatch: any) => {
   dispatch(getDataStart());
   try {
-    const response: AxiosResponse<T> = await service.update(id, data);
+    console.log("response.data", data);
+    const response: AxiosResponse<T> = await service.update(data);
     dispatch(getDataSuccess(response.data));
   } catch (error: any) {
+    console.log("error.message", error.message);
     dispatch(getDataFailure(error.message));
   }
 };

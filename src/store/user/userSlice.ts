@@ -53,7 +53,7 @@ export const { getDataStart, getDataSuccess, getDataFailure, getAllDataSuccess }
 export const getUser = (id: number) => fetchData<GetAllCarResponse>(userService, id);
 export const getAllUsers = () => fetchAllData<User>(userService);
 export const addUser = (data: User) => addData<User>(userService, data);
-export const updateUser = (id: number, data: User) => updateData<User>(userService, id, data);
+export const updateUser = (data: User) => updateData<User>(userService, data);
 export const deleteUser = (id: number) => deleteData(userService, id);
 
 export default userSlice.reducer;

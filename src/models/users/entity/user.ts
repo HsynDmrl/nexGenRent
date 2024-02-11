@@ -11,11 +11,11 @@ export interface User {
     nationalityId: string;
     password: string;
     roleName: string;
-    role: Role;
+    //role: Role;
     gsm: string;
     customers?: Customer[];
     employees?: Employee[];
-    refreshTokens?: RefreshToken[];
+    refreshTokens?: RefreshToken;
 }
 
 export interface UsersResponse {

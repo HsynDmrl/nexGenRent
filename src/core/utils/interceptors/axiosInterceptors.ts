@@ -7,7 +7,7 @@ import {
 } from "../../../store/loading/loadingSlice";
 
 const axiosInstance = axios.create({
-	baseURL: "http://localhost:8080/api/",
+	baseURL: "https://nexgenrentacar.azurewebsites.net/api/",
 });
 
 axiosInstance.interceptors.request.use(config => {

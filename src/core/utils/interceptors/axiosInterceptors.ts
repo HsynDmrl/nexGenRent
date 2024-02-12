@@ -21,12 +21,16 @@ axiosInstance.interceptors.request.use(config => {
 
 axiosInstance.interceptors.response.use(
 	response => {
-		//store.dispatch(decreaseRequestCount());
-		return response;
+	  console.log("response", response);
+	  return response;
 	},
 	error => {
-		//store.dispatch(decreaseRequestCount());
-	},
-);
+	  if (error.response && error.response.status === 400) {
+		console.error("HTTP 400 Bad Request:", error.response.data.message);
+	  }
+	  return Promise.reject(error);
+	}
+  );
+  
 
 export default axiosInstance;

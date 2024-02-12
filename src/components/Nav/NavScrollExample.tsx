@@ -12,17 +12,17 @@ import { logOut } from '../../store/auth/authSlice';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../store/configureStore';
-import { fetchUser } from '../../store/user/userSlice';
+import { getByEmail } from '../../store/user/userSlice';
 
 function NavScrollExample() {
   const isUserLoggedIn = useSelector((state: RootState) => state.auth.isAuthenticated);
-  const user = useSelector((state: RootState) => state.user.data);
+  const user = useSelector((state: RootState) => state.user.dataFromByEmail);
   
   const dispatch = useDispatch<AppDispatch>();
 
   
   useEffect(() => {
-    dispatch(fetchUser());
+    dispatch(getByEmail());
   }, [dispatch]);
 
   const navigate = useNavigate();

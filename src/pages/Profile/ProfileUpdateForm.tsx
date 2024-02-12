@@ -1,92 +1,62 @@
 import React, { useState } from "react";
 import { User } from "../../models/users/entity/user";
-import { Role } from "../../models/roles/entity/role";
 
-const ProfileUpdateForm = ({ user, onUpdate }: { user: User, onUpdate: (userData: User) => void }) => {
-  const [id, setId] = useState(user.id);
-  const [name, setName] = useState(user.name);
-  const [surname, setSurname] = useState(user.surname);
-  const [email, setEmail] = useState(user.email);
-  const [nationalityId, setNationalityId] = useState(user.nationalityId);
-  const [gsm, setGsm] = useState(user.gsm);
-  const [roleName, setRoleName] = useState(user.roleName);
+interface ProfileUpdateFormProps {
+  user: User;
+  onUpdate: (updatedUserData: User) => void;
+}
 
-  const handleSubmit = (e: { preventDefault: () => void; }) => {
+const ProfileUpdateForm: React.FC<ProfileUpdateFormProps> = ({ user, onUpdate }) => {
+  const [updatedUser, setUpdatedUser] = useState<User>({ ...user });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setUpdatedUser((prevUser) => ({
+      ...prevUser,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-
-    const updatedUserData: User = {
-      id,
-      name,
-      surname,
-      email,
-      nationalityId,
-      gsm,
-      roleName,
-      password: "asdasd",
-      //role: user.role as Role,
-    };
-    onUpdate(updatedUserData);
+    onUpdate(updatedUser);
   };
 
   return (
     <form onSubmit={handleSubmit}>
-    <label>
-        id:
-        <input
-            type="text"
-            value={id}
-            onChange={(e) => setId(Number(e.target.value))}
-        />
-    </label>
       <label>
-        İsim:
-        <input
-          type="text"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
+        ID:
+        <input type="text" name="id" value={updatedUser.id} onChange={handleChange}  />
       </label>
       <label>
-        Soyisim:
-        <input
-          type="text"
-          value={surname}
-          onChange={(e) => setSurname(e.target.value)}
-        />
+        Name:
+        <input type="text" name="name" value={updatedUser.name} onChange={handleChange} />
+      </label>
+      <label>
+        Surname:
+        <input type="text" name="surname" value={updatedUser.surname} onChange={handleChange} />
       </label>
       <label>
         Email:
-        <input
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
+        <input type="email" name="email" value={updatedUser.email} onChange={handleChange} />
       </label>
       <label>
-        TC Kimlik No:
-        <input
-          type="text"
-          value={nationalityId}
-          onChange={(e) => setNationalityId(e.target.value)}
-        />
+        Nationality ID:
+        <input type="text" name="nationalityId" value={updatedUser.nationalityId} onChange={handleChange} />
+      </label>
+      <label>
+        Password:
+        <input type="password" name="password" value={updatedUser.password} onChange={handleChange} />
+      </label>
+      <label>
+        Role:
+        <input type="text" name="roleName" value={updatedUser.roleName} onChange={handleChange} />
       </label>
       <label>
         GSM:
-        <input
-          type="text"
-          value={gsm}
-          onChange={(e) => setGsm(e.target.value)}
-        />
+        <input type="text" name="gsm" value={updatedUser.gsm} onChange={handleChange} />
       </label>
-      <label>
-        Rol:
-        <input
-          type="text"
-          value={roleName}
-          onChange={(e) => setRoleName(e.target.value)}
-        />
-      </label>
-      <button type="submit">Güncelle</button>
+      <button type="submit">Update Profile</button>
     </form>
   );
 };

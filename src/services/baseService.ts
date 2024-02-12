@@ -24,7 +24,7 @@ export class BaseService<
 	}	
 
 	add(request: AddRequestType): Promise<AxiosResponse<AddResponseType, any>> {
-		return axiosInstance.post<AddResponseType>(this.apiUrl, request);
+		return axiosInstance.post<AddResponseType>(`${this.apiUrl}/add`, request);
 	}
 
 	update(request: UpdateRequestType): Promise<AxiosResponse<UpdateResponseType, any>> {
@@ -32,6 +32,6 @@ export class BaseService<
 	}
 
 	delete(id: number) {
-		return axiosInstance.delete(this.apiUrl + "/" + id);
+		return axiosInstance.delete(`${this.apiUrl}/${id}?id=${id}`);
 	}
 }

@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../store/configureStore";
-import { getByEmail, getAll, getById, updateUser, setSelectedIdAction } from "../../store/user/userSlice"; // Burada setSelectedIdAction eklenmiş
+import { getByEmail, getAll, getById, updateUser, setSelectedIdAction } from "../../store/user/userSlice";
 import ProfileUpdateForm from "./ProfileUpdateForm";
 import { User } from "../../models/users/entity/user";
 import { all } from "axios";

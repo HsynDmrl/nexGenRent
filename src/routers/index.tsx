@@ -6,6 +6,8 @@ import OverlayLoader from "../components/OverlayLoader/OverlayLoader";
 import NavScrollExample from "../components/Nav/NavScrollExample";
 import Register from "../pages/Register/Register";
 import Profile from "../pages/Profile/Profile";
+import Car from "../pages/CarPage/Car";
+import Brand from "../pages/BrandPage/Brand";
 
 const AppRouters = () => {
 	return (
@@ -18,6 +20,10 @@ const AppRouters = () => {
 		  <Route path="/dashboard" element={<UserDashboard />} />
 		  <Route path="/register" element={<Register />} />
 		  <Route path="/profile" element={<Profile />} />
+		  <Route path="*" element={<h1>Not Found</h1>} />
+		  <Route path="/admin/*" element={<h1>Admin Not Found</h1>} />
+		  <Route path="/cars" element={<Car/>} />
+		  <Route path="/brands" element={<Brand/>} />
 		</Routes>
 	  </>
 	);

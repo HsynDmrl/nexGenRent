@@ -5,6 +5,7 @@ import Register from "../Register/Register";
 const Homepage = () => {
   return (
     <div>
+		Anasayfa
     </div>
   );
 };

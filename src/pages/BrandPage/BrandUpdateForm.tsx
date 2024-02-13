@@ -12,8 +12,8 @@ const BrandUpdateForm: React.FC<BrandUpdateFormProps> = ({ brand, onUpdate }) =>
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 	const { name, value } = e.target;
-	if (name === "id") { // Eğer değişiklik ID alanında yapılmışsa
-	  onUpdate({ ...updatedBrand, id: Number(value) }); // ID'yi güncelle
+	if (name === "id") {
+	  onUpdate({ ...updatedBrand, id: Number(value) });
 	} else {
 	  setUpdatedBrand((prevBrand) => ({
 		...prevBrand,

@@ -1,9 +1,7 @@
-import React, { useState, ChangeEvent, FormEvent } from 'react';
-import { useDispatch } from 'react-redux';
+import { useState, ChangeEvent, FormEvent } from 'react';
 import { addUser } from '../../store/user/userSlice';
-import { User } from '../../models/users/entity/user';
 import { AddUserRequest } from '../../models/users/requests/addUserRequest';
-import { AppDispatch } from '../../store/configureStore';
+import { useAppDispatch } from '../../store/configStore/useAppDispatch';
 
 const AddUserForm = () => {
   const [userData, setUserData] = useState<AddUserRequest>({
@@ -14,7 +12,7 @@ const AddUserForm = () => {
     gsm: '',
   });
 
-  const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useAppDispatch();
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;

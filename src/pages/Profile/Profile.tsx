@@ -1,15 +1,16 @@
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../../store/configureStore";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store/configStore/configureStore";
 import { getByEmail, getAll, getById, updateUser, setSelectedIdAction } from "../../store/user/userSlice";
 import ProfileUpdateForm from "./ProfileUpdateForm";
 import { User } from "../../models/users/entity/user";
-import { all } from "axios";
 import ProfileAddForm from "./ProfileAddForm";
 import { deleteUser } from "../../store/user/userSlice";
+import { useAppDispatch } from '../../store/configStore/useAppDispatch';
 
 const Profile: React.FC = () => {
-	const dispatch = useDispatch<AppDispatch>();
+
+	const dispatch = useAppDispatch();
 
 	const dataUser = useSelector((state: RootState) => state.user.dataFromByEmail);
 	const allData = useSelector((state: RootState) => state.user.allData);
@@ -27,7 +28,7 @@ const Profile: React.FC = () => {
 
 	const handleUserSelect = (id: number) => {
 		dispatch(setSelectedIdAction(id));
-		console.log(id);
+		//console.log(id);
 	};
 
 	const handleDeleteUser = (id: number) => {

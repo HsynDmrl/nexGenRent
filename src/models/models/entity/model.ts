@@ -1,7 +1,7 @@
-import { BaseEntity } from '../../base/entity/baseEntity';
-import { Brand } from '../../brands/entity/brand';
+import { Brand } from "../../brands/entity/brand";
 
-export interface Model extends BaseEntity {
+export interface Model {
+	id: number;
     name: string;
-    brands?: Brand[];
+	brand: Brand;
 }

@@ -1,2 +1,5 @@
-import { Model } from "../entity/model";
-export interface AddModelRequest extends Model {}
+export interface AddModelRequest {
+	id: number;
+    name: string;
+    brandId: number;
+}

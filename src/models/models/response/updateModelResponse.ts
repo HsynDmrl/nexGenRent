@@ -1,5 +1,7 @@
-import { BaseAddResponse } from "../../base/response/BaseResponse";
+import { Brand } from "../../brands/entity/brand";
 
 export interface UpdateModelResponse {
-    baseAddResponse: BaseAddResponse;
+	id: number;
+    name: string;
+    brandId: number;
 }

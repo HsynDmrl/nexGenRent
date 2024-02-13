@@ -1,6 +1,6 @@
 import axios from "axios";
 import tokenService from "../../../services/tokenService";
-import {store} from "../../../store/configureStore";
+import {store} from "../../../store/configStore/configureStore";
 import {
 	decreaseRequestCount,
 	increaseRequestCount,

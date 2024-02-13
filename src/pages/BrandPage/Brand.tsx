@@ -1,14 +1,15 @@
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../../store/configureStore";
+import { useAppDispatch } from '../../store/configStore/useAppDispatch';
+import { useSelector } from "react-redux";
+import { RootState } from "../../store/configStore/configureStore";
 import { getAll, getById, updateBrand, setSelectedIdAction } from "../../store/brand/brandSlice";
 import BrandUpdateForm from "./BrandUpdateForm";
-import { Brand as BrandEntity } from "../../models/brands/entity/brand"; // Burada yeniden adlandırma
+import { Brand as BrandEntity } from "../../models/brands/entity/brand";
 import BrandAddForm from "./BrandAddForm";
 import { deleteBrand } from "../../store/brand/brandSlice";
 
 const Brand: React.FC = () => {
-    const dispatch = useDispatch<AppDispatch>();
+    const dispatch = useAppDispatch();
 
     const allData = useSelector((state: RootState) => state.brand.allData);
     const brand = useSelector((state: RootState) => state.brand.dataFromById);

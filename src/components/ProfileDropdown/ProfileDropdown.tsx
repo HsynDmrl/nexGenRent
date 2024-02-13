@@ -1,6 +1,6 @@
 import React from 'react';
 import NavDropdown from 'react-bootstrap/NavDropdown';
-import { Link } from 'react-router-dom'; // React Router'dan Link bileşenini import et
+import { Link } from 'react-router-dom';
 
 interface ProfileDropdownProps {
   onLogout: () => void;

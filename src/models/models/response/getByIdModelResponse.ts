@@ -1,5 +1,7 @@
-import { BaseAddResponse } from "../../base/response/BaseResponse";
+import { Brand } from "../../brands/entity/brand";
 
 export interface GetByIdModelResponse {
-    baseAddResponse: BaseAddResponse;
+	id: number;
+    name: string;
+    brand: Brand;
 }

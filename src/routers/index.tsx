@@ -8,6 +8,7 @@ import Register from "../pages/Register/Register";
 import Profile from "../pages/Profile/Profile";
 import Car from "../pages/CarPage/Car";
 import Brand from "../pages/BrandPage/Brand";
+import Model from "../pages/ModelPage/Model";
 
 const AppRouters = () => {
 	return (
@@ -24,6 +25,7 @@ const AppRouters = () => {
 		  <Route path="/admin/*" element={<h1>Admin Not Found</h1>} />
 		  <Route path="/cars" element={<Car/>} />
 		  <Route path="/brands" element={<Brand/>} />
+		  <Route path="/models" element={<Model/>} />
 		</Routes>
 	  </>
 	);

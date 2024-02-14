@@ -1,2 +1,7 @@
-import { Model } from "../entity/model";
-export interface UpdateModelRequest extends Model {}
+import { Brand } from "../../brands/entity/brand";
+
+export interface UpdateModelRequest {
+	id: number;
+    name: string;
+    brandId: number;
+}

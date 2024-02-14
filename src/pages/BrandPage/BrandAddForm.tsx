@@ -1,9 +1,7 @@
-import React, { useState, ChangeEvent, FormEvent } from 'react';
-import { useDispatch } from 'react-redux';
+import { useState, ChangeEvent, FormEvent } from 'react';
 import { addBrand } from '../../store/brand/brandSlice';
-import { Brand } from '../../models/brands/entity/brand';
 import { AddBrandRequest } from '../../models/brands/requests/addBrandRequest';
-import { AppDispatch } from '../../store/configureStore';
+import { useAppDispatch } from '../../store/configStore/useAppDispatch';
 
 const AddBrandForm = () => {
   const [brandData, setBrandData] = useState<AddBrandRequest>({
@@ -12,7 +10,7 @@ const AddBrandForm = () => {
 	logoPath: '',
   });
 
-  const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useAppDispatch();
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;

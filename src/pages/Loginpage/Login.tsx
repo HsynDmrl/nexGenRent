@@ -1,13 +1,11 @@
-import React from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { useDispatch } from "react-redux";
 import { loginUser } from "../../store/auth/authSlice";
 import { useNavigate } from "react-router-dom";
-import { AppDispatch } from "../../store/configureStore";
+import { useAppDispatch } from '../../store/configStore/useAppDispatch';
 
 const Login = () => {
-  const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const formik = useFormik({
@@ -24,7 +22,7 @@ const Login = () => {
         const resultAction = dispatch(loginUser(values));
 
         if (loginUser.fulfilled.match(resultAction)) {
-          console.log("Login successful!");
+          //console.log("Login successful!");
           //window.location.reload();
         } else if (loginUser.rejected.match(resultAction)) {
           console.error("Login error:", resultAction.error);

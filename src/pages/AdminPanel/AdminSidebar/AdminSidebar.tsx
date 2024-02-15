@@ -82,7 +82,6 @@ const AdminSidebar: React.FC = () => {
 				</Sidebar.Nav.Link>
 			</SidebarMenuFooter>
 		</Sidebar>
-		//asd
 	);
 };
 

@@ -40,6 +40,8 @@
   }
   
   .MainContent {
+	justify-content:center;
+	width: max-content;
 	border: 1px solid red;
 	transition: transform 0.3s ease;
 	transform: translateX(0);

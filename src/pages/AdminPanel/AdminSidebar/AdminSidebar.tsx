@@ -20,8 +20,8 @@ const AdminSidebar: React.FC = () => {
 				</Sidebar.Nav.Link>
 			</Sidebar.Nav>
 			<Sidebar.Sub>
-				<Sidebar.Sub.Toggle>
-					<Sidebar.Nav.Title><FcMenu />  Products</Sidebar.Nav.Title>
+				<Sidebar.Sub.Toggle className='border-0'>
+					<Sidebar.Nav.Title ><FcMenu />  Products</Sidebar.Nav.Title>
 				</Sidebar.Sub.Toggle>
 				<Sidebar.Sub.Collapse>
 					<Sidebar.Nav>

@@ -32,7 +32,7 @@ const AdminSidebar: React.FC = () => {
 					</Sidebar.Nav>
 					<Sidebar.Nav>
 						<Sidebar.Nav.Link>
-							<Sidebar.Nav.Title><Link to="/admin/models"><FcWorkflow />  Models</Link></Sidebar.Nav.Title>
+							<Sidebar.Nav.Title><Link to="/admin/modea"><FcWorkflow />  Models</Link></Sidebar.Nav.Title>
 						</Sidebar.Nav.Link>
 					</Sidebar.Nav>
 					<Sidebar.Nav>

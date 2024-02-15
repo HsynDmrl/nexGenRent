@@ -36,7 +36,7 @@ const AdminSidebar: React.FC = () => {
 					</Sidebar.Nav>
 					<Sidebar.Nav>
 						<Sidebar.Nav.Link>
-							<Sidebar.Nav.Title><Link to="/admin/models"><FcNews />  Brands</Link></Sidebar.Nav.Title>
+							<Sidebar.Nav.Title><Link to="/admin/brands"><FcNews />  Brands</Link></Sidebar.Nav.Title>
 						</Sidebar.Nav.Link>
 					</Sidebar.Nav>
 					<Sidebar.Nav>

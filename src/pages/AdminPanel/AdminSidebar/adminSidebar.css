@@ -1,0 +1,51 @@
+.adminSideBar {
+	height: 100vh;
+	background-color: #f2f2f2;
+	width: 200px;
+	transition: transform 0.3s ease-in-out;
+	transform: translateX(-200px);
+	position: fixed;
+  }
+  
+  .adminSideBar.open {
+	transform: translateX(0);
+  }
+  
+  .adminSideBar button {
+	display: block;
+	margin: 10px;
+  }
+  
+  .adminSideBar ul {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+  }
+  
+  .adminSideBar li {
+	margin-bottom: 10px;
+  }
+  
+  .adminSideBar a {
+	text-decoration: none;
+	color: #333;
+	display: block;
+	padding: 10px;
+	border-radius: 5px;
+  }
+  
+  .adminSideBar a:hover {
+	background-color: #ddd;
+  }
+  
+  .MainContent {
+	border: 1px solid red;
+	transition: transform 0.3s ease;
+	transform: translateX(0);
+	float: left;
+  }
+  
+  .adminSideBar.open + .MainContent {
+	transform: translateX(200px);
+  }
+  

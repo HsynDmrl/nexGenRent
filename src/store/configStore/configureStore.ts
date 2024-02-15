@@ -5,6 +5,7 @@ import userReducer from "../user/userSlice";
 import baseReducer from "../base/baseSlice";
 import brandReducer from "../brand/brandSlice";
 import modelReducer from "../model/modelSlice";
+import adminToggleReducer from "../adminToggle/adminToggleSlice";
 
 const rootReducer = combineReducers({
     auth: authReducer,
@@ -13,6 +14,7 @@ const rootReducer = combineReducers({
     user: userReducer,
 	brand: brandReducer,
 	model: modelReducer,
+	toggleAdminSidebar: adminToggleReducer,
 });
 
 export const store = configureStore({

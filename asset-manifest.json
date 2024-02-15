@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/nexGenRent/static/css/main.ba0a2455.css",
-    "main.js": "/nexGenRent/static/js/main.dcbcc814.js",
+    "main.js": "/nexGenRent/static/js/main.83b20532.js",
     "index.html": "/nexGenRent/index.html",
     "main.ba0a2455.css.map": "/nexGenRent/static/css/main.ba0a2455.css.map",
-    "main.dcbcc814.js.map": "/nexGenRent/static/js/main.dcbcc814.js.map"
+    "main.83b20532.js.map": "/nexGenRent/static/js/main.83b20532.js.map"
   },
   "entrypoints": [
     "static/css/main.ba0a2455.css",
-    "static/js/main.dcbcc814.js"
+    "static/js/main.83b20532.js"
   ]
 }

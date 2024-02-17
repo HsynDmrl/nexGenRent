@@ -1,2 +1,5 @@
-import { Brand } from "../entity/brand";
-export interface UpdateBrandRequest extends Brand {}
+export interface UpdateBrandRequest {
+	id: number;
+	name: string;
+	logoPath: string;
+}

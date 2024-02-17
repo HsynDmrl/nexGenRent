@@ -1,13 +1,13 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { RootState } from '../../../store/configStore/configureStore';
-import { toggleAdminSidebar } from '../../../store/adminToggle/adminToggleSlice';
-import { Link } from 'react-router-dom';
 import './adminSidebar.css';
 import Sidebar from 'react-bootstrap-sidebar-menu';
 import { SidebarMenuFooter } from 'react-bootstrap-sidebar-menu';
 import { FcPositiveDynamic } from "react-icons/fc";
-import { FcMenu, FcSupport, FcImport, FcParallelTasks, FcAreaChart, FcAutomotive, FcConferenceCall, FcWorkflow,
-	FcAssistant, FcNews, FcMultipleSmartphones, FcRules } from "react-icons/fc";
+import {
+	FcMenu, FcSupport, FcImport, FcParallelTasks, FcAreaChart, FcAutomotive, FcConferenceCall, FcWorkflow,
+	FcAssistant, FcNews, FcMultipleSmartphones, FcRules
+} from "react-icons/fc";
 
 const AdminSidebar: React.FC = () => {
 	const isOpen = useSelector((state: RootState) => state.toggleAdminSidebar.isOpen);
@@ -16,72 +16,54 @@ const AdminSidebar: React.FC = () => {
 	return (
 		<Sidebar className={`adminSideBar ${isOpen ? 'open' : ''}`}>
 			<Sidebar.Nav>
-				<Sidebar.Nav.Link>
-					<Sidebar.Nav.Title><Link to="/admin/dashboard"><FcAreaChart />  Dashboard</Link></Sidebar.Nav.Title>
+				<Sidebar.Nav.Link href="/admin/dashboard">
+					<Sidebar.Nav.Title><FcAreaChart /> Dashboard</Sidebar.Nav.Title>
 				</Sidebar.Nav.Link>
-			</Sidebar.Nav>
-			<Sidebar.Sub>
-				<Sidebar.Sub.Toggle className='border-0'>
-					<Sidebar.Nav.Title ><FcMenu />  Products</Sidebar.Nav.Title>
-				</Sidebar.Sub.Toggle>
-				<Sidebar.Sub.Collapse>
-					<Sidebar.Nav>
-						<Sidebar.Nav.Link>
-							<Sidebar.Nav.Title><Link to="/admin/cars"><FcAutomotive /> Cars</Link></Sidebar.Nav.Title>
+				<Sidebar.Sub>
+					<Sidebar.Sub.Toggle className='border-0'>
+						<Sidebar.Nav.Title ><FcMenu />  Products</Sidebar.Nav.Title>
+					</Sidebar.Sub.Toggle>
+					<Sidebar.Sub.Collapse>
+						<Sidebar.Nav.Link href="/admin/cars">
+							<Sidebar.Nav.Title><FcAutomotive /> Cars</Sidebar.Nav.Title>
 						</Sidebar.Nav.Link>
-					</Sidebar.Nav>
-					<Sidebar.Nav>
-						<Sidebar.Nav.Link>
-							<Sidebar.Nav.Title><Link to="/admin/modea"><FcWorkflow />  Models</Link></Sidebar.Nav.Title>
+						<Sidebar.Nav.Link href="/admin/modea">
+							<Sidebar.Nav.Title><FcWorkflow />  Models</Sidebar.Nav.Title>
 						</Sidebar.Nav.Link>
-					</Sidebar.Nav>
-					<Sidebar.Nav>
-						<Sidebar.Nav.Link>
-							<Sidebar.Nav.Title><Link to="/admin/brands"><FcNews />  Brands</Link></Sidebar.Nav.Title>
+						<Sidebar.Nav.Link href="/admin/brands">
+							<Sidebar.Nav.Title><FcNews />  Brands</Sidebar.Nav.Title>
 						</Sidebar.Nav.Link>
-					</Sidebar.Nav>
-					<Sidebar.Nav>
-						<Sidebar.Nav.Link>
-							<Sidebar.Nav.Title><Link to="/admin/colors"><FcMultipleSmartphones />  Colors</Link></Sidebar.Nav.Title>
+						<Sidebar.Nav.Link href="/admin/colors">
+							<Sidebar.Nav.Title><FcMultipleSmartphones />  Colors</Sidebar.Nav.Title>
 						</Sidebar.Nav.Link>
-					</Sidebar.Nav>
-				</Sidebar.Sub.Collapse>
-			</Sidebar.Sub>
-			<Sidebar.Nav>
-				<Sidebar.Nav.Link>
-					<Sidebar.Nav.Title><Link to="/admin/invoices"><FcRules />  Sigorta</Link></Sidebar.Nav.Title>
+					</Sidebar.Sub.Collapse>
+				</Sidebar.Sub>
+				<Sidebar.Nav.Link href="/admin/invoices">
+					<Sidebar.Nav.Title><FcRules />  Sigorta</Sidebar.Nav.Title>
 				</Sidebar.Nav.Link>
-			</Sidebar.Nav>
-			<Sidebar.Nav>
-				<Sidebar.Nav.Link>
-					<Sidebar.Nav.Title><Link to="/admin/rentals"><FcParallelTasks />  Siparişler</Link></Sidebar.Nav.Title>
+				<Sidebar.Nav.Link href="/admin/rentals">
+					<Sidebar.Nav.Title><FcParallelTasks />  Siparişler</Sidebar.Nav.Title>
 				</Sidebar.Nav.Link>
-			</Sidebar.Nav>
-			<Sidebar.Nav>
-				<Sidebar.Nav.Link>
-					<Sidebar.Nav.Title><Link to="/admin/employees"><FcAssistant />  Çalışanlar</Link></Sidebar.Nav.Title>
+				<Sidebar.Nav.Link href="/admin/employees">
+					<Sidebar.Nav.Title><FcAssistant />  Çalışanlar</Sidebar.Nav.Title>
 				</Sidebar.Nav.Link>
-			</Sidebar.Nav>
-			<Sidebar.Nav>
-				<Sidebar.Nav.Link>
-					<Sidebar.Nav.Title><Link to="/admin/users"><FcConferenceCall />  Kullanıcılar</Link></Sidebar.Nav.Title>
+				<Sidebar.Nav.Link href="/admin/users">
+					<Sidebar.Nav.Title><FcConferenceCall />  Kullanıcılar</Sidebar.Nav.Title>
 				</Sidebar.Nav.Link>
-			</Sidebar.Nav>
-			<Sidebar.Nav>
-				<Sidebar.Nav.Link>
-					<Sidebar.Nav.Title><Link to="/admin/reports"><FcPositiveDynamic />  Raporlar</Link></Sidebar.Nav.Title>
+				<Sidebar.Nav.Link href="/admin/reports">
+					<Sidebar.Nav.Title><FcPositiveDynamic />  Raporlar</Sidebar.Nav.Title>
 				</Sidebar.Nav.Link>
-			</Sidebar.Nav>
-			<Sidebar.Nav>
-				<Sidebar.Nav.Link><Link to="/admin/settings"><FcSupport /> Ayarlar</Link>
+				<Sidebar.Nav.Link href="/admin/settings">
+					<Sidebar.Nav.Title><FcSupport /> Ayarlar</Sidebar.Nav.Title>
 				</Sidebar.Nav.Link>
 			</Sidebar.Nav>
 			<SidebarMenuFooter>
-				<Sidebar.Nav.Link>
-						<Sidebar.Nav.Title><Link to="/admin/logout"><FcImport /> Çıkış</Link></Sidebar.Nav.Title>
+				<Sidebar.Nav.Link href="/admin/logout">
+					<Sidebar.Nav.Title><FcImport /> Çıkış</Sidebar.Nav.Title>
 				</Sidebar.Nav.Link>
 			</SidebarMenuFooter>
 		</Sidebar>
+
 	);
 };
 

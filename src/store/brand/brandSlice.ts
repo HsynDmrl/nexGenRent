@@ -9,7 +9,7 @@ interface BrandState {
     allData: Brand[];
     loading: boolean;
     error: string | null;
-    selectedId: string | null;
+    selectedId: number | null;
 }
 const initialState: BrandState = {
     dataFromById: null,
@@ -68,20 +68,25 @@ export const getById = createAsyncThunk(
   );
 
   export const deleteBrand = createAsyncThunk(
-	'brand/addBrand',
+	'brand/deleteBrand', // Burası düzeltilmeli
 	async (Id: number, { rejectWithValue }) => {
-	  try {
-		const response = await brandService.delete(Id);
-		return response.data;
-	  } catch (error:any) {
-		return rejectWithValue(error.message);
-	  }
+		try {
+			const response = await brandService.delete(Id);
+			return response.data;
+		} catch (error:any) {
+			return rejectWithValue(error.message);
+		}
 	}
-  );
+);
+
   
   export const setSelectedIdAction = (id: number) => (dispatch: any) => {
     dispatch(setSelectedId(id));
 };
+export const clearSelectedIdAction = () => (dispatch: any) => {
+    dispatch(clearSelectedId());
+};
+
   const brandSlice = createSlice({
 	  name: 'brand',
 	  initialState,
@@ -101,8 +106,11 @@ export const getById = createAsyncThunk(
 			  state.loading = false;
 			  state.allData = action.payload;
 		  },
-		setSelectedId: (state, action) => { 
-		  state.selectedId = action.payload;
+		setSelectedId: (state, action) => {
+			state.selectedId = action.payload;
+		},
+		clearSelectedId: (state) => {
+			state.selectedId = null; // Clear the selected ID
 		},
 	},
 	extraReducers: (builder) => {
@@ -132,5 +140,5 @@ export const getById = createAsyncThunk(
 	},
   });
 
-export const { getDataStart, getDataFromByIdSuccess, getDataFailure, getAllDataSuccess, setSelectedId } = brandSlice.actions;
+export const { getDataStart, getDataFromByIdSuccess, getDataFailure, getAllDataSuccess, setSelectedId, clearSelectedId } = brandSlice.actions;
 export default brandSlice.reducer;

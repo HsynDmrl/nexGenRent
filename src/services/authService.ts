@@ -25,6 +25,33 @@ class AuthService {
 		return axiosInstance.post("/auth/register", {name, surname, nationalityId, gsm, email, password, roleId });
 	}
 
+	async refreshAccessToken(): Promise<void> {
+        try {
+            const refreshToken = tokenService.getRefreshToken();
+            if (!refreshToken) throw new Error("No refresh token available.");
+
+            const response = await axiosInstance.post("/auth/refresh-token", { refreshToken });
+            const { accessToken, refreshToken: newRefreshToken } = response.data;
+			console.log("refreshAccessToken", accessToken, newRefreshToken);
+            tokenService.setAllTokens(accessToken, newRefreshToken || refreshToken);
+        } catch (error) {
+            console.error("Refresh token error:", error);
+            throw error;
+        }
+    }
+	// async refreshAccessToken(refreshToken: string): Promise<{ accessToken: string, refreshToken: string }> {
+	// 	try {
+	// 		const response = await axiosInstance.post("/auth/refresh", { refreshToken });
+	// 		const { accessToken, refreshToken: newRefreshToken } = response.data;
+	// 		tokenService.setToken(accessToken);
+	// 		tokenService.setRefreshToken(newRefreshToken);
+	// 		return { accessToken, newRefreshToken };
+	// 	} catch (error) {
+	// 		console.error("Refresh token error:", error);
+	// 		throw error;
+	// 	}
+	// }
+	
 	// async loginUserDirectly(email: string, password: string): Promise<void> {
 	// 	try {
 	// 	  const tokens = await this.login(email, password);

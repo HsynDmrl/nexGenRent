@@ -4,27 +4,26 @@ import * as Yup from 'yup';
 import { Button, Container } from 'react-bootstrap';
 import { UpdateBrandRequest } from '../../../models/brands/requests/updateBrandRequest';
 import { ObjectSchema } from 'yup';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { RootState } from '../../../store/configStore/configureStore';
-import { getById, updateBrand } from '../../../store/brand/brandSlice';
+import { updateBrand } from '../../../store/brand/brandSlice';
 import { useAppDispatch } from '../../../store/configStore/useAppDispatch';
 
-interface Props {
-  id: number | undefined;
-}
-
-const AdminBrandUpdateForm: React.FC<Props> = ({ id }) => {
+const AdminBrandUpdateForm: React.FC = () => {
   const dispatch = useAppDispatch();
-  const brandData = useSelector((state: RootState) => state.brand.dataFromById);
+  const selectedBrandId = useSelector((state: RootState) => state.brand.selectedId);
+  const allData = useSelector((state: RootState) => state.brand.allData);
+
+  const brandData = allData.find(brand => brand.id === selectedBrandId) || null;
 
   useEffect(() => {
-    if (id) {
-      dispatch(getById(id));
+    if (selectedBrandId) {
+      console.log('Selected ID:', selectedBrandId);
     }
-  }, [dispatch, id]);
+  }, [selectedBrandId]);
 
   const initialValues: UpdateBrandRequest = {
-    id: id ?? 0,
+    id: selectedBrandId ?? 0,
     name: brandData?.name ?? '',
     logoPath: brandData?.logoPath ?? '',
   };
@@ -47,7 +46,7 @@ const AdminBrandUpdateForm: React.FC<Props> = ({ id }) => {
     console.log('Form kapatıldı.');
   };
 
-  if (!id) {
+  if (!selectedBrandId) {
     return <div>Marka seçiniz!</div>;
   }
 

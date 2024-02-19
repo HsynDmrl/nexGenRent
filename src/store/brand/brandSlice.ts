@@ -36,12 +36,17 @@ export const getById = createAsyncThunk(
 	async (_, { rejectWithValue }) => {
 	  try {
 		const response = await brandService.getAll();
-		return response.data;
-	  } catch (error:any) {
+		const brands: GetAllBrandResponse[] = response.data.map((item: any) => ({
+		  ...item,
+		}));
+		console.log('getAll', brands);
+		return brands;
+	  } catch (error: any) {
 		return rejectWithValue(error.message);
 	  }
 	}
   );
+  
   
   export const updateBrand = createAsyncThunk(
 	'brand/updateBrand',
@@ -68,7 +73,7 @@ export const getById = createAsyncThunk(
   );
 
   export const deleteBrand = createAsyncThunk(
-	'brand/deleteBrand', // Burası düzeltilmeli
+	'brand/deleteBrand',
 	async (Id: number, { rejectWithValue }) => {
 		try {
 			const response = await brandService.delete(Id);

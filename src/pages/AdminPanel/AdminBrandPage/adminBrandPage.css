@@ -1,0 +1,73 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #333;
+}
+
+header {
+  background-color: #333;
+  color: #fff;
+  padding: 20px;
+}
+
+main {
+  margin: 20px;
+}
+
+.button-admin-brand {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none !important;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+form {
+  margin-bottom: 20px;
+}
+
+input[type="text"],
+input[type="email"],
+textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #333;
+}
+
+th,
+td {
+  padding: 10px;
+  border: 1px solid #ccc;
+  background-color: #333;
+}
+
+th {
+  background-color: #333;
+  font-weight: bold;
+}
+
+footer {
+  background-color: #333;
+  color: #fff;
+  padding: 20px;
+  text-align: center;
+}
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #fff !important;
+    font: 700 2.5rem/1.2 'Poppins', sans-serif;
+}

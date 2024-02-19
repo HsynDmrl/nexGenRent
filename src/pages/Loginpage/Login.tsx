@@ -11,7 +11,8 @@ const Login = () => {
   const formik = useFormik({
     initialValues: {
       email: "",
-      password: ""
+      password: "",
+      rememberMe: false 
     },
     validationSchema: Yup.object({
       email: Yup.string().email("Geçerli bir email giriniz").required("Email alanı boş bırakılamaz"),
@@ -23,7 +24,7 @@ const Login = () => {
 
         if (loginUser.fulfilled.match(resultAction)) {
           //console.log("Login successful!");
-          //window.location.reload();
+          window.location.reload();
         } else if (loginUser.rejected.match(resultAction)) {
           console.error("Login error:", resultAction.error);
         }
@@ -40,37 +41,49 @@ const Login = () => {
   return (
     <div>
       <form onSubmit={formik.handleSubmit}>
-        <label htmlFor="email">Email:</label>
-        <input
-          type="email"
-          id="email"
-          name="email"
-          value={formik.values.email}
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-        />
-        {formik.touched.email && formik.errors.email ? (
-          <div>{formik.errors.email}</div>
-        ) : null}
+    <label htmlFor="email">Email:</label>
+    <input
+        type="email"
+        id="email"
+        name="email"
+        value={formik.values.email}
+        onChange={formik.handleChange}
+        onBlur={formik.handleBlur}
+    />
+    {formik.touched.email && formik.errors.email ? (
+        <div>{formik.errors.email}</div>
+    ) : null}
 
-        <label htmlFor="password">Şifre:</label>
-        <input
-          type="password"
-          id="password"
-          name="password"
-          value={formik.values.password}
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-        />
-        {formik.touched.password && formik.errors.password ? (
-          <div>{formik.errors.password}</div>
-        ) : null}
+    <label htmlFor="password">Şifre:</label>
+    <input
+        type="password"
+        id="password"
+        name="password"
+        value={formik.values.password}
+        onChange={formik.handleChange}
+        onBlur={formik.handleBlur}
+    />
+    {formik.touched.password && formik.errors.password ? (
+        <div>{formik.errors.password}</div>
+    ) : null}
 
-        <button type="submit">Giriş Yap</button>
-        <button type="button" onClick={handleGoRegister}>
-          Kayıt Ol
-        </button>
-      </form>
+    <label>
+        <input
+            type="checkbox"
+            id="rememberMe"
+            name="rememberMe"
+            checked={formik.values.rememberMe}
+            onChange={formik.handleChange}
+        />
+        Beni Hatırla
+    </label>
+
+    <button type="submit">Giriş Yap</button>
+    <button type="button" onClick={handleGoRegister}>
+        Kayıt Ol
+    </button>
+</form>
+
     </div>
   );
 };

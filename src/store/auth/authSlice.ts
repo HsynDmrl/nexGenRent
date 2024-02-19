@@ -4,13 +4,12 @@ import tokenService from "../../services/tokenService";
 import { increaseRequestCount, decreaseRequestCount } from "../loading/loadingSlice";
 import { AuthState} from "../../models/auth/authState";
 import { LoginCredentials } from "../../models/auth/loginCredentials";
-import { LoginResponse } from "../../models/auth/loginResponse";
 
 export const loginUser = createAsyncThunk(
   "auth/loginUser",
-  async ({ email, password }: LoginCredentials) => {
+  async ({ email, password, rememberMe }: LoginCredentials & { rememberMe: boolean }) => {
     try {
-      const tokenResponse: LoginResponse = await authService.login(email, password);
+      const tokenResponse: { accessToken: string, refreshToken?: string } = await authService.login(email, password, rememberMe);
       return tokenResponse;
     } catch (error) {
       throw error;
@@ -54,8 +53,13 @@ export const authSlice = createSlice({
         decreaseRequestCount();
         state.isAuthenticated = true;
         state.token = action.payload.accessToken;
-        state.refreshToken = action.payload.refreshToken;
-        tokenService.setAllTokens(state.token, state.refreshToken);
+        if (action.payload.refreshToken) {
+          state.refreshToken = action.payload.refreshToken;
+          tokenService.setToken(state.token);
+          tokenService.setRefreshToken(state.refreshToken);
+        }else if(action.payload.accessToken && action.payload.accessToken){
+          tokenService.setToken(state.token);
+        }
         state.tokenDetails = {
           email: tokenService.getEmail() || "",
           tokenStart: tokenService.getTokenStart() || "",
@@ -65,7 +69,7 @@ export const authSlice = createSlice({
         //console.log("accessToken: ", state.token);
         //console.log("refreshToken: ", state.refreshToken);
         //console.log("isAuthenticated: ", state.isAuthenticated);
-      })
+      })      
       .addCase(loginUser.rejected, (state) => {
         decreaseRequestCount();
       });

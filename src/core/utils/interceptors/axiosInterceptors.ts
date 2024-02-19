@@ -1,11 +1,7 @@
 import axios from "axios";
 import tokenService from "../../../services/tokenService";
 import authService from "../../../services/authService";
-import { store } from "../../../store/configStore/configureStore";
-import {
-  decreaseRequestCount,
-  increaseRequestCount,
-} from "../../../store/loading/loadingSlice";
+import { useNavigate } from 'react-router-dom';
 
 const axiosInstance = axios.create({
   baseURL: "https://nexgenrentacar.azurewebsites.net/api/",
@@ -18,25 +14,27 @@ axiosInstance.interceptors.request.use((config) => {
 });
 
 axiosInstance.interceptors.response.use(
+  
   (response) => {
     return response;
   },
   async (error) => {
     const originalRequest = error.config;
-    if (error.response && error.response.status === 401 && !originalRequest._retry) {
-      originalRequest._retry = true;
-
+    
+    const refreshToken = tokenService.getRefreshToken();
+    if(!refreshToken && error.response && error.response.status === 401) {
+      const navigate = useNavigate();
+      navigate("/login");
+    }
+    else if (error.response && error.response.status === 403 && !originalRequest._retry) {
       try {
-        await authService.refreshAccessToken();
-
-        const accessToken = tokenService.getToken();
-        axiosInstance.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
-        originalRequest.headers['Authorization'] = `Bearer ${accessToken}`;
-
+        const tokenResponse = await authService.refreshAccessToken();
+        tokenService.setToken(tokenResponse.accessToken);
+        tokenService.setRefreshToken(tokenResponse.refreshToken);
         return axiosInstance(originalRequest);
-      } catch (refreshError) {
-        console.error("Unable to refresh token", refreshError);
-        return Promise.reject(refreshError);
+      } catch (error) {
+        const navigate = useNavigate();
+        navigate("/login");
       }
     }
 

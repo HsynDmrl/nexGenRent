@@ -31,7 +31,7 @@ function NavScrollExample() {
 
 	const handleLogout = () => {
 		dispatch(logOut());
-		navigate("/nexGenRent");
+		navigate("/");
 		//window.location.reload();
 	};
 

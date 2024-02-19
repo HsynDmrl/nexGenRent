@@ -3,16 +3,22 @@ import tokenService from "./tokenService";
 
 class AuthService {
 
-	login(email: string, password: string): Promise<{ accessToken: string, refreshToken: string }> {
+	login(email: string, password: string, rememberMe: boolean): Promise<{ accessToken: string, refreshToken?: string }> {
 		return axiosInstance.post("/auth/login", { email, password })
 			.then(response => {
-				const { accessToken, refreshToken } = response.data;
-				return { accessToken, refreshToken };
+				if (rememberMe) {
+					const { accessToken, refreshToken } = response.data;
+					return { accessToken, refreshToken };
+				} else {
+					const { accessToken } = response.data;
+					return { accessToken };
+				}
 			})
 			.catch(error => {
 				throw error;
 			});
 	}
+	
 
 	register(
 		name: string,
@@ -25,20 +31,22 @@ class AuthService {
 		return axiosInstance.post("/auth/register", {name, surname, nationalityId, gsm, email, password, roleId });
 	}
 
-	async refreshAccessToken(): Promise<void> {
-        try {
-            const refreshToken = tokenService.getRefreshToken();
-            if (!refreshToken) throw new Error("No refresh token available.");
-
-            const response = await axiosInstance.post("/auth/refresh-token", { refreshToken });
-            const { accessToken, refreshToken: newRefreshToken } = response.data;
-			console.log("refreshAccessToken", accessToken, newRefreshToken);
-            tokenService.setAllTokens(accessToken, newRefreshToken || refreshToken);
-        } catch (error) {
-            console.error("Refresh token error:", error);
-            throw error;
-        }
-    }
+	async refreshAccessToken(): Promise<{ accessToken: string, refreshToken: string }> {
+		try {
+			const refreshToken = tokenService.getRefreshToken();
+			if (!refreshToken) throw new Error("No refresh token available.");
+	
+			const response = await axiosInstance.post("/auth/refresh-token", { refreshToken });
+			const { accessToken, refreshToken: newRefreshToken } = response.data;
+	
+			tokenService.setAllTokens(accessToken, newRefreshToken || refreshToken);
+			return { accessToken, refreshToken: newRefreshToken || refreshToken };
+		} catch (error) {
+			console.error("Refresh token error:", error);
+			throw error;
+		}
+	}
+	
 	// async refreshAccessToken(refreshToken: string): Promise<{ accessToken: string, refreshToken: string }> {
 	// 	try {
 	// 		const response = await axiosInstance.post("/auth/refresh", { refreshToken });

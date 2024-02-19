@@ -2,6 +2,7 @@ import axios from "axios";
 import tokenService from "../../../services/tokenService";
 import authService from "../../../services/authService";
 import { useNavigate } from 'react-router-dom';
+import { updateTokenDetails } from "../../../store/auth/authSlice";
 
 const axiosInstance = axios.create({
   baseURL: "https://nexgenrentacar.azurewebsites.net/api/",
@@ -14,28 +15,32 @@ axiosInstance.interceptors.request.use((config) => {
 });
 
 axiosInstance.interceptors.response.use(
-  
   (response) => {
     return response;
   },
   async (error) => {
     const originalRequest = error.config;
     
-    const refreshToken = tokenService.getRefreshToken();
-    if(!refreshToken && error.response && error.response.status === 401) {
-      const navigate = useNavigate();
-      navigate("/login");
-    }
-    else if (error.response && error.response.status === 403 && !originalRequest._retry) {
+    // Eğer refreshToken mevcutsa ve 403 hatası alınırsa
+    if (error.response && error.response.status === 403 && tokenService.getRefreshToken()) {
       try {
         const tokenResponse = await authService.refreshAccessToken();
-        tokenService.setToken(tokenResponse.accessToken);
-        tokenService.setRefreshToken(tokenResponse.refreshToken);
+        const accessToken = tokenResponse.accessToken;
+        const refreshToken = tokenResponse.refreshToken;
+        
+        dispatch(updateTokenDetails({ accessToken, refreshToken }));
+        
         return axiosInstance(originalRequest);
       } catch (error) {
         const navigate = useNavigate();
         navigate("/login");
       }
+    }
+
+    if ((!tokenService.getRefreshToken() || error.response.status === 403) && !originalRequest._retry) {
+      tokenService.removeToken();
+      const navigate = useNavigate();
+      navigate("/login");
     }
 
     if (error.response) {
@@ -46,4 +51,10 @@ axiosInstance.interceptors.response.use(
   }
 );
 
+
+
 export default axiosInstance;
+function dispatch(arg0: { payload: any; type: "auth/updateTokenDetails"; }) {
+  throw new Error("Function not implemented.");
+}
+

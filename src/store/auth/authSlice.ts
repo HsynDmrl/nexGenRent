@@ -5,11 +5,27 @@ import { increaseRequestCount, decreaseRequestCount } from "../loading/loadingSl
 import { AuthState} from "../../models/auth/authState";
 import { LoginCredentials } from "../../models/auth/loginCredentials";
 
+// AccessToken'in süresi kontrol edilerek refreshToken ile yeniden oturum oluşturulur
+const refreshSession = async () => {
+  const tokenResponse = await authService.refreshAccessToken();
+  const accessToken = tokenResponse.accessToken;
+  const refreshToken = tokenResponse.refreshToken;
+  
+  return { accessToken, refreshToken };
+};
+
 export const loginUser = createAsyncThunk(
   "auth/loginUser",
   async ({ email, password, rememberMe }: LoginCredentials & { rememberMe: boolean }) => {
     try {
-      const tokenResponse: { accessToken: string, refreshToken?: string } = await authService.login(email, password, rememberMe);
+      let tokenResponse: { accessToken: string, refreshToken?: string } = await authService.login(email, password, rememberMe);
+      
+      // AccessToken süresi geçmişse oturumu yeniden güncelle
+      const currentTime = new Date().getTime() / 1000;
+      if (tokenService.getTokenExpire() && tokenService.getTokenExpire() < currentTime) {
+        tokenResponse = await refreshSession();
+      }
+
       return tokenResponse;
     } catch (error) {
       throw error;
@@ -38,11 +54,9 @@ export const authSlice = createSlice({
       tokenService.removeToken();
     },
     updateTokenDetails: (state, action) => {
-      const { email, tokenStart, tokenExpire } = action.payload;
-      state.tokenDetails.email = email;
-      state.tokenDetails.tokenStart = tokenStart;
-      state.tokenDetails.tokenExpire = tokenExpire;
+      state.token = action.payload.accessToken;
     },
+    
   },
   extraReducers: (builder) => {
     builder
@@ -57,7 +71,7 @@ export const authSlice = createSlice({
           state.refreshToken = action.payload.refreshToken;
           tokenService.setToken(state.token);
           tokenService.setRefreshToken(state.refreshToken);
-        }else if(action.payload.accessToken && action.payload.accessToken){
+        } else if (action.payload.accessToken && action.payload.accessToken){
           tokenService.setToken(state.token);
         }
         state.tokenDetails = {

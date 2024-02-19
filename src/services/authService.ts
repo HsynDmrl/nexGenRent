@@ -1,4 +1,6 @@
 import axiosInstance from "../core/utils/interceptors/axiosInterceptors";
+import { updateTokenDetails } from "../store/auth/authSlice";
+import { useAppDispatch } from "../store/configStore/useAppDispatch";
 import tokenService from "./tokenService";
 
 class AuthService {
@@ -33,6 +35,7 @@ class AuthService {
 
 	async refreshAccessToken(): Promise<{ accessToken: string, refreshToken: string }> {
 		try {
+			//const dispatch = useAppDispatch(); 
 			const refreshToken = tokenService.getRefreshToken();
 			if (!refreshToken) throw new Error("No refresh token available.");
 	
@@ -40,6 +43,7 @@ class AuthService {
 			const { accessToken, refreshToken: newRefreshToken } = response.data;
 	
 			tokenService.setAllTokens(accessToken, newRefreshToken || refreshToken);
+			//dispatch(updateTokenDetails({ accessToken, refreshToken: newRefreshToken || refreshToken }));
 			return { accessToken, refreshToken: newRefreshToken || refreshToken };
 		} catch (error) {
 			console.error("Refresh token error:", error);

@@ -25,17 +25,8 @@ const AdminBrandDeleteForm: React.FC = () => {
     }
   };
 
-  const handleClose = () => {
-    console.log('Form kapatıldı.');
-  };
-
-  if (!selectedBrandId) {
-    return <div>Marka seçiniz!</div>;
-  }
-
   return (
     <Container>
-      <div className='position-absolute top-0 end-0 mx-2' onClick={handleClose}></div>
       <Formik
         initialValues={{ confirmationText: '' }}
         validationSchema={Yup.object({
@@ -59,7 +50,7 @@ const AdminBrandDeleteForm: React.FC = () => {
               <ErrorMessage name="confirmationText" component="div" className="invalid-feedback" />
             </div>
             <Button className='bg-danger' variant="primary" type="submit" disabled={isSubmitting}>
-              Onay
+              Sil
             </Button>
           </Form>
         )}

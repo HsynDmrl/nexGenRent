@@ -41,18 +41,9 @@ const AdminBrandUpdateForm: React.FC = () => {
     dispatch(updateBrand(values));
     resetForm();
   };
-
-  const handleClose = () => {
-    console.log('Form kapatıldı.');
-  };
-
-  if (!selectedBrandId) {
-    return <div>Marka seçiniz!</div>;
-  }
-
+  
   return (
     <Container>
-      <div className='position-absolute top-0 end-0 mx-2' onClick={handleClose}></div>
       <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit}>
         {({ errors, touched }) => (
           <Form>

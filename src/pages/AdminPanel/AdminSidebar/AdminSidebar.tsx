@@ -2,7 +2,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../../store/configStore/configureStore';
 import './adminSidebar.css';
 import Sidebar from 'react-bootstrap-sidebar-menu';
-import { Link } from 'react-router-dom';
+import { NavLink  } from 'react-router-dom';
 import { SidebarMenuFooter } from 'react-bootstrap-sidebar-menu';
 import { FcPositiveDynamic } from "react-icons/fc";
 import {
@@ -16,50 +16,50 @@ const AdminSidebar: React.FC = () => {
 	return (
 		<Sidebar className={`adminSideBar ${isOpen ? 'open' : ''}`}>
 			<Sidebar.Nav>
-				<Sidebar.Nav.Item as={Link} to="/admin/dashboard">
-					<Sidebar.Nav.Title><FcAreaChart /> Dashboard</Sidebar.Nav.Title>
+				<Sidebar.Nav.Item className='sidebarNavItem' as={NavLink } to="/admin/dashboard">
+					<Sidebar.Nav.Title className='sidebarNavTitle' ><FcAreaChart size={'2em'} /> Dashboard</Sidebar.Nav.Title>
 				</Sidebar.Nav.Item>
 				<Sidebar.Sub>
-					<Sidebar.Sub.Toggle className='border-0'>
-						<Sidebar.Nav.Title><FcMenu />  Products</Sidebar.Nav.Title>
+					<Sidebar.Sub.Toggle className='sidebarNavItem menu-toggle border-0'>
+						<Sidebar.Nav.Title className='sidebarNavTitle' ><FcMenu size={'2em'}/>  Ürünler</Sidebar.Nav.Title>
 					</Sidebar.Sub.Toggle>
 					<Sidebar.Sub.Collapse>
-						<Sidebar.Nav.Item as={Link} to="/admin/cars">
-							<Sidebar.Nav.Title><FcAutomotive /> Cars</Sidebar.Nav.Title>
+						<Sidebar.Nav.Item className='sidebarNavItem' as={NavLink } to="/admin/cars">
+							<Sidebar.Nav.Title className='sidebarNavTitle' ><FcAutomotive size={'2em'}/> Cars</Sidebar.Nav.Title>
 						</Sidebar.Nav.Item>
-						<Sidebar.Nav.Item as={Link} to="/admin/models">
-							<Sidebar.Nav.Title><FcWorkflow />  Models</Sidebar.Nav.Title>
+						<Sidebar.Nav.Item className='sidebarNavItem' as={NavLink } to="/admin/models">
+							<Sidebar.Nav.Title className='sidebarNavTitle' ><FcWorkflow size={'2em'}/>  Models</Sidebar.Nav.Title>
 						</Sidebar.Nav.Item>
-						<Sidebar.Nav.Item as={Link} to="/admin/brands">
-							<Sidebar.Nav.Title><FcNews />  Brands</Sidebar.Nav.Title>
+						<Sidebar.Nav.Item className='sidebarNavItem' as={NavLink } to="/admin/brands">
+							<Sidebar.Nav.Title className='sidebarNavTitle' ><FcNews size={'2em'}/>  Brands</Sidebar.Nav.Title>
 						</Sidebar.Nav.Item>
-						<Sidebar.Nav.Item as={Link} to="/admin/colors">
-							<Sidebar.Nav.Title><FcMultipleSmartphones />  Colors</Sidebar.Nav.Title>
+						<Sidebar.Nav.Item className='sidebarNavItem' as={NavLink } to="/admin/colors">
+							<Sidebar.Nav.Title className='sidebarNavTitle' ><FcMultipleSmartphones size={'2em'}/>  Colors</Sidebar.Nav.Title>
 						</Sidebar.Nav.Item>
 					</Sidebar.Sub.Collapse>
 				</Sidebar.Sub>
-				<Sidebar.Nav.Item as={Link} to="/admin/invoices">
-					<Sidebar.Nav.Title><FcRules />  Sigorta</Sidebar.Nav.Title>
+				<Sidebar.Nav.Item className='sidebarNavItem' as={NavLink } to="/admin/invoices">
+					<Sidebar.Nav.Title className='sidebarNavTitle' ><FcRules size={'2em'}/>  Sigorta</Sidebar.Nav.Title>
 				</Sidebar.Nav.Item>
-				<Sidebar.Nav.Item as={Link} to="/admin/rentals">
-					<Sidebar.Nav.Title><FcParallelTasks />  Siparişler</Sidebar.Nav.Title>
+				<Sidebar.Nav.Item className='sidebarNavItem' as={NavLink } to="/admin/rentals">
+					<Sidebar.Nav.Title className='sidebarNavTitle' ><FcParallelTasks size={'2em'}/>  Siparişler</Sidebar.Nav.Title>
 				</Sidebar.Nav.Item>
-				<Sidebar.Nav.Item as={Link} to="/admin/employees">
-					<Sidebar.Nav.Title><FcAssistant />  Çalışanlar</Sidebar.Nav.Title>
+				<Sidebar.Nav.Item className='sidebarNavItem' as={NavLink } to="/admin/employees">
+					<Sidebar.Nav.Title className='sidebarNavTitle' ><FcAssistant size={'2em'}/>  Çalışanlar</Sidebar.Nav.Title>
 				</Sidebar.Nav.Item>
-				<Sidebar.Nav.Item as={Link} to="/admin/users">
-					<Sidebar.Nav.Title><FcConferenceCall />  Kullanıcılar</Sidebar.Nav.Title>
+				<Sidebar.Nav.Item className='sidebarNavItem' as={NavLink } to="/admin/users">
+					<Sidebar.Nav.Title className='sidebarNavTitle' ><FcConferenceCall size={'2em'}/>  Kullanıcılar</Sidebar.Nav.Title>
 				</Sidebar.Nav.Item>
-				<Sidebar.Nav.Item as={Link} to="/admin/reports">
-					<Sidebar.Nav.Title><FcPositiveDynamic />  Raporlar</Sidebar.Nav.Title>
+				<Sidebar.Nav.Item className='sidebarNavItem' as={NavLink } to="/admin/reports">
+					<Sidebar.Nav.Title className='sidebarNavTitle' ><FcPositiveDynamic size={'2em'}/>  Raporlar</Sidebar.Nav.Title>
 				</Sidebar.Nav.Item>
-				<Sidebar.Nav.Item as={Link} to="/admin/settings">
-					<Sidebar.Nav.Title><FcSupport /> Ayarlar</Sidebar.Nav.Title>
+				<Sidebar.Nav.Item className='sidebarNavItem' as={NavLink } to="/admin/settings">
+					<Sidebar.Nav.Title className='sidebarNavTitle' ><FcSupport size={'2em'}/> Ayarlar</Sidebar.Nav.Title>
 				</Sidebar.Nav.Item>
 			</Sidebar.Nav>
 			<SidebarMenuFooter>
-				<Sidebar.Nav.Item as={Link} to="/admin/logout">
-					<Sidebar.Nav.Title><FcImport /> Çıkış</Sidebar.Nav.Title>
+				<Sidebar.Nav.Item className='sidebarNavItem'  as={NavLink } to="/admin/logout">
+					<Sidebar.Nav.Title className='sidebarNavTitle' ><FcImport size={'2em'}/> Çıkış</Sidebar.Nav.Title>
 				</Sidebar.Nav.Item>
 			</SidebarMenuFooter>
 		</Sidebar>

@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react';
-import { Formik, Form, Field, ErrorMessage, FormikHelpers } from 'formik';
+import React from 'react';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import { Button, Container } from 'react-bootstrap';
+import { Button, Container, Alert } from 'react-bootstrap';
 import { UpdateBrandRequest } from '../../../models/brands/requests/updateBrandRequest';
 import { ObjectSchema } from 'yup';
 import { useSelector } from 'react-redux';
@@ -15,12 +15,6 @@ const AdminBrandUpdateForm: React.FC = () => {
   const allData = useSelector((state: RootState) => state.brand.allData);
 
   const brandData = allData.find(brand => brand.id === selectedBrandId) || null;
-
-  useEffect(() => {
-    if (selectedBrandId) {
-      console.log('Selected ID:', selectedBrandId);
-    }
-  }, [selectedBrandId]);
 
   const initialValues: UpdateBrandRequest = {
     id: selectedBrandId ?? 0,
@@ -37,15 +31,20 @@ const AdminBrandUpdateForm: React.FC = () => {
     logoPath: Yup.string().required('Logo path zorunludur.'),
   });
 
-  const onSubmit = (values: UpdateBrandRequest, { resetForm }: FormikHelpers<UpdateBrandRequest>) => {
-    dispatch(updateBrand(values));
-    resetForm();
+  const onSubmit = (values: UpdateBrandRequest, { setStatus }: any) => {
+    dispatch(updateBrand(values))
+      .then(() => {
+        setStatus({ success: true });
+      })
+      .catch(error => {
+        setStatus({ success: false });
+      });
   };
   
   return (
     <Container>
       <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit}>
-        {({ errors, touched }) => (
+        {({ errors, touched, status }) => (
           <Form>
             <div className="mb-3">
               <label htmlFor="name" className="form-label">
@@ -77,6 +76,8 @@ const AdminBrandUpdateForm: React.FC = () => {
             <Button className='p-2 mb-2 mx-3 bg-warning' variant="primary" type="reset">
               Temizle
             </Button>
+            {status && status.success && <Alert variant="success">Marka başarıyla güncellendi.</Alert>}
+            {status && !status.success && <Alert variant="danger">Marka güncellenirken bir hata oluştu.</Alert>}
           </Form>
         )}
       </Formik>

@@ -1,14 +1,10 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
-
-interface Brand {
-    id: number;
-    name: string;
-    logoPath: string;
-}
+import { Brand } from '../../../models/brands/entity/brand';
+import { GetAllBrandResponse } from '../../../models/brands/response/getAllBrandResponse';
 
 interface ExportToCSVButtonProps {
-    data: Brand[];
+    data: GetAllBrandResponse[];
     className?: string;
 }
 
@@ -20,15 +16,18 @@ const ExportToCSVButton: React.FC<ExportToCSVButtonProps> = ({ data, className }
         return `${year}-${month}-${day}`;
     };
 
-    const convertToCSV = (brands: Brand[]): string => {
-        const sortedBrands: Brand[] = [...brands].sort((a, b) => a.id - b.id);
-
-        const csvRows = ['id,name,logoPath'];
-        sortedBrands.forEach(({ id, name, logoPath }) => {
-            csvRows.push(`${id},${name.replace(',', ' ')},${logoPath.replace(',', ' ')}`);
-        });
-        return csvRows.join('\n');
-    };
+	const convertToCSV = (brands: GetAllBrandResponse[]): string => {
+		const sortedBrands: GetAllBrandResponse[] = [...brands].sort((a, b) => a.id - b.id);
+	
+		const csvRows = ['id,name,logoPath,createdDate,updatedDate'];
+		sortedBrands.forEach(({ id, name, logoPath, createdDate, updatedDate }) => {
+			const formattedCreatedDate = createdDate ? formatDate(new Date(createdDate)) : '';
+			const formattedUpdatedDate = updatedDate ? formatDate(new Date(updatedDate)) : '';
+			csvRows.push(`${id},${name.replace(',', ' ')},${logoPath.replace(',', ' ')},${formattedCreatedDate},${formattedUpdatedDate}`);
+		});
+		return csvRows.join('\n');
+	};
+	
 
     const downloadCSV = (csvString: string, filename: string): void => {
         const blob = new Blob([csvString], { type: 'text/csv;charset=utf-8;' });

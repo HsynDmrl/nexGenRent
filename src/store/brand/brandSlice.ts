@@ -3,6 +3,7 @@ import brandService from '../../services/brandService';
 import { Brand } from '../../models/brands/entity/brand';
 import { GetAllBrandResponse } from '../../models/brands/response/getAllBrandResponse';
 import { AddBrandRequest } from '../../models/brands/requests/addBrandRequest';
+import { UpdateBrandRequest } from '../../models/brands/requests/updateBrandRequest';
 
 interface BrandState {
     dataFromById: Brand | null;
@@ -36,12 +37,8 @@ export const getById = createAsyncThunk(
 	async (_, { rejectWithValue }) => {
 	  try {
 		const response = await brandService.getAll();
-		const brands: GetAllBrandResponse[] = response.data.map((item: any) => ({
-		  ...item,
-		}));
-		console.log('getAll', brands);
-		return brands;
-	  } catch (error: any) {
+		return response.data;
+	  } catch (error:any) {
 		return rejectWithValue(error.message);
 	  }
 	}
@@ -50,7 +47,7 @@ export const getById = createAsyncThunk(
   
   export const updateBrand = createAsyncThunk(
 	'brand/updateBrand',
-	async (brandData: Brand, { rejectWithValue }) => {
+	async (brandData: UpdateBrandRequest, { rejectWithValue }) => {
 	  try {
 		const response = await brandService.update(brandData);
 		return response.data;
@@ -115,7 +112,7 @@ export const clearSelectedIdAction = () => (dispatch: any) => {
 			state.selectedId = action.payload;
 		},
 		clearSelectedId: (state) => {
-			state.selectedId = null; // Clear the selected ID
+			state.selectedId = null;
 		},
 	},
 	extraReducers: (builder) => {
@@ -131,6 +128,8 @@ export const clearSelectedIdAction = () => (dispatch: any) => {
 					id: brandData.id,
 					name: brandData.name,
 					logoPath: brandData.logoPath,
+					createdDate: brandData.createdDate,
+					updatedDate: brandData.updatedDate,
 				}));
 				state.allData = brands;
 			} else {

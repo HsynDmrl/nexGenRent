@@ -1,6 +1,5 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
-import { Brand } from '../../../models/brands/entity/brand';
 import { GetAllBrandResponse } from '../../../models/brands/response/getAllBrandResponse';
 
 interface ExportToCSVButtonProps {
@@ -27,7 +26,6 @@ const ExportToCSVButton: React.FC<ExportToCSVButtonProps> = ({ data, className }
 		});
 		return csvRows.join('\n');
 	};
-	
 
     const downloadCSV = (csvString: string, filename: string): void => {
         const blob = new Blob([csvString], { type: 'text/csv;charset=utf-8;' });
@@ -41,16 +39,13 @@ const ExportToCSVButton: React.FC<ExportToCSVButtonProps> = ({ data, className }
     const handleExportClick = (): void => {
         const today = new Date();
         const formattedDate = formatDate(today);
-        const filename = `Modeller-${formattedDate}.csv`;
+        const filename = `Markalar-${formattedDate}.csv`;
         const csvString = convertToCSV(data);
         downloadCSV(csvString, filename);
     };
 
     return (
-        <Button className={`button-admin-brand mb-2 ms-1 bg-warning ${className}`} onClick={handleExportClick}>
-            Dışa Aktar
-        </Button>
-
+        <Button className={`button-admin-brand mb-2 ms-1 bg-warning ${className}`} onClick={handleExportClick}>Dışa Aktar</Button>
     );
 };
 

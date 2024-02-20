@@ -1,5 +1,6 @@
-import { BaseAddResponse } from "../../base/response/BaseResponse";
-
 export interface GetAllColorResponse {
-    baseAddResponse: BaseAddResponse;
+	id: number;
+    name: string;
+	createdDate: Date;
+	updatedDate: Date;
 }

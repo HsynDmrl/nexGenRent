@@ -1,30 +1,15 @@
 import React from 'react';
-import { Formik, Form, Field, ErrorMessage, FormikHelpers } from 'formik';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { Button, Container, Alert } from 'react-bootstrap';
-import { useSelector } from 'react-redux';
 import { RootState } from '../../../store/configStore/configureStore';
 import { deleteBrand, setSelectedId } from '../../../store/brand/brandSlice';
 import { useAppDispatch } from '../../../store/configStore/useAppDispatch';
+import { useAppSelector } from '../../../store/configStore/useAppSelector';
 
 const AdminBrandDeleteForm: React.FC = () => {
   const dispatch = useAppDispatch();
-  const selectedBrandId = useSelector((state: RootState) => state.brand.selectedId);
-
-  const handleSubmit = async (values: { confirmationText: string }, { setSubmitting, setStatus }: FormikHelpers<{ confirmationText: string }>) => {
-    if (values.confirmationText === 'sil') {
-      try {
-        await dispatch(deleteBrand(selectedBrandId as number));
-        dispatch(setSelectedId(null));
-        setStatus({ success: true });
-      } catch (error) {
-        console.error('Bir hata oluştu:', error);
-        setStatus({ success: false });
-      } finally {
-        setSubmitting(false);
-      }
-    }
-  };
+  const selectedBrandId = useAppSelector((state: RootState) => state.brand.selectedId);
 
   return (
     <Container>
@@ -34,14 +19,23 @@ const AdminBrandDeleteForm: React.FC = () => {
           confirmationText: Yup.string()
             .required('Onaylama zorunludur')
         })}
-        onSubmit={(values, { setSubmitting, setStatus }) => {
-          if (values.confirmationText !== 'sil') {
-            setStatus({ success: false, error: 'Lütfen "sil" yazarak silme işlemini onaylayın.' });
-            setSubmitting(false);
-            return;
-          }
-        }}
-      >
+		onSubmit={(values, { setSubmitting, setStatus }) => {
+			if (values.confirmationText === 'sil') {
+			  try {
+				dispatch(deleteBrand(selectedBrandId as number));
+				dispatch(setSelectedId(null));
+				setStatus({ success: true });
+			  } catch (error) {
+				console.error('Bir hata oluştu:', error);
+				setStatus({ success: false });
+			  } finally {
+				setSubmitting(false);
+			  }
+			} else {
+			  setStatus({ success: false, error: 'Lütfen "sil" yazarak silme işlemini onaylayın.' });
+			  setSubmitting(false);
+			}
+		  }}>
         {({ isSubmitting, status }) => (
           <Form>
             <div className="mb-3">
@@ -55,11 +49,9 @@ const AdminBrandDeleteForm: React.FC = () => {
               />
               <ErrorMessage name="confirmationText" component="div" className="invalid-feedback" />
             </div>
-            <Button className='bg-danger' variant="primary" type="submit" disabled={isSubmitting}>
-              Sil
-            </Button>
-            {status && status.success && <Alert variant="success">Marka başarıyla silindi.</Alert>}
-            {status && !status.success && <Alert variant="danger">{status.error}</Alert>}
+            <Button className='bg-danger mb-2' variant="primary" type="submit" disabled={isSubmitting}>Sil</Button>
+            {status && status.success && <Alert className='mb-2' variant="success">Marka başarıyla silindi.</Alert>}
+            {status && !status.success && <Alert className='mb-2' variant="danger">{status.error}</Alert>}
           </Form>
         )}
       </Formik>

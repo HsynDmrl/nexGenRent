@@ -50,7 +50,6 @@ export const updateModel = createAsyncThunk(
     'model/updateModel',
     async (modelData: UpdateModelRequest, { rejectWithValue }) => {
         try {
-            console.log("modelSlice içindeki ", modelData.brandId);
             const updateModelRequest: UpdateModelRequest = {
                 id: modelData.id,
                 name: modelData.name,
@@ -80,7 +79,6 @@ export const deleteModel = createAsyncThunk(
     'model/deleteModel',
     async (Id: number, { rejectWithValue }) => {
         try {
-			console.log("modelSlice içindeki ", Id);
             const response = await modelService.delete(Id);
             return response.data;
         } catch (error:any) {
@@ -125,6 +123,8 @@ const modelSlice = createSlice({
                     id: getByIdResponse.id,
                     name: getByIdResponse.name,
                     brand: getByIdResponse.brand,
+					createdDate: getByIdResponse.createdDate,
+					updatedDate: getByIdResponse.updatedDate,
                 };
             })
             .addCase(getAll.fulfilled, (state, action) => {
@@ -134,6 +134,8 @@ const modelSlice = createSlice({
                         id: modelData.id,
                         name: modelData.name,
                         brand: modelData.brand,
+						createdDate: modelData.createdDate,
+						updatedDate: modelData.updatedDate,
                     }));
                     state.allData = models;
                 } else {

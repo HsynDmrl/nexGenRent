@@ -6,7 +6,6 @@ import NavScrollExample from "../components/Nav/NavScrollExample";
 import Register from "../pages/Register/Register";
 import Profile from "../pages/Profile/Profile";
 import Car from "../pages/CarPage/Car";
-import Brand from "../pages/BrandPage/Brand";
 import AdminRouters from "./adminRouters";
 import AdminNav from "../pages/AdminPanel/AdminNav/AdminNav";
 import { useLocation } from "react-router-dom";
@@ -28,7 +27,6 @@ const AppRouters = () => {
         <Route path="/register" element={<Register />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/cars" element={<Car />} />
-        <Route path="/brands" element={<Brand />} />
         <Route path="/admin/*" element={<AdminRouters />} />
       </Routes>
     </>

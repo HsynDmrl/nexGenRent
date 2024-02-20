@@ -1,2 +1,4 @@
-import { Color } from "../entity/color";
-export interface UpdateColorRequest extends Color {}
+export interface UpdateColorRequest {
+	id: number;
+    name: string;
+}

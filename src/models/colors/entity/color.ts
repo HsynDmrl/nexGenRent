@@ -1,5 +1,6 @@
-import { BaseEntity } from '../../base/entity/baseEntity';
-
-export interface Color extends BaseEntity {
+export interface Color {
+	id: number;
     name: string;
+	createdDate: Date;
+	updatedDate: Date;
 }

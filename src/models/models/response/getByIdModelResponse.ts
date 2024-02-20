@@ -4,4 +4,6 @@ export interface GetByIdModelResponse {
 	id: number;
     name: string;
     brand: Brand;
+	createdDate: Date;
+	updatedDate: Date;
 }

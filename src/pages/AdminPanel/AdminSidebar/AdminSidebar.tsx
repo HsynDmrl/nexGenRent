@@ -25,16 +25,16 @@ const AdminSidebar: React.FC = () => {
 					</Sidebar.Sub.Toggle>
 					<Sidebar.Sub.Collapse>
 						<Sidebar.Nav.Item className='sidebarNavItem' as={NavLink } to="/admin/cars">
-							<Sidebar.Nav.Title className='sidebarNavTitle' ><FcAutomotive size={'2em'}/> Cars</Sidebar.Nav.Title>
+							<Sidebar.Nav.Title className='sidebarNavTitle' ><FcAutomotive size={'2em'}/> Arabalar</Sidebar.Nav.Title>
 						</Sidebar.Nav.Item>
 						<Sidebar.Nav.Item className='sidebarNavItem' as={NavLink } to="/admin/models">
-							<Sidebar.Nav.Title className='sidebarNavTitle' ><FcWorkflow size={'2em'}/>  Models</Sidebar.Nav.Title>
+							<Sidebar.Nav.Title className='sidebarNavTitle' ><FcWorkflow size={'2em'}/>  Modeller</Sidebar.Nav.Title>
 						</Sidebar.Nav.Item>
 						<Sidebar.Nav.Item className='sidebarNavItem' as={NavLink } to="/admin/brands">
-							<Sidebar.Nav.Title className='sidebarNavTitle' ><FcNews size={'2em'}/>  Brands</Sidebar.Nav.Title>
+							<Sidebar.Nav.Title className='sidebarNavTitle' ><FcNews size={'2em'}/>  Markalar</Sidebar.Nav.Title>
 						</Sidebar.Nav.Item>
 						<Sidebar.Nav.Item className='sidebarNavItem' as={NavLink } to="/admin/colors">
-							<Sidebar.Nav.Title className='sidebarNavTitle' ><FcMultipleSmartphones size={'2em'}/>  Colors</Sidebar.Nav.Title>
+							<Sidebar.Nav.Title className='sidebarNavTitle' ><FcMultipleSmartphones size={'2em'}/>  Renkler</Sidebar.Nav.Title>
 						</Sidebar.Nav.Item>
 					</Sidebar.Sub.Collapse>
 				</Sidebar.Sub>

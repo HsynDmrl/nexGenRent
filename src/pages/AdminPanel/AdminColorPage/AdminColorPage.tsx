@@ -2,24 +2,23 @@ import React, { useEffect, useState } from 'react';
 import Table from 'react-bootstrap/Table';
 import Form from 'react-bootstrap/Form';
 import { Badge, Button, Container, Modal } from 'react-bootstrap';
-import AdminBrandAddForm from './AdminBrandAddForm';
-import AdminBrandUpdateForm from './AdminBrandUpdateForm';
+import AdminColorAddForm from './AdminColorAddForm';
+import AdminColorUpdateForm from './AdminColorUpdateForm';
 import { useAppDispatch } from '../../../store/configStore/useAppDispatch';
 import { useAppSelector } from '../../../store/configStore/useAppSelector';
 import { RootState } from '../../../store/configStore/configureStore';
-import { getAll, setSelectedIdAction } from '../../../store/brand/brandSlice';
+import { getAll, setSelectedIdAction } from '../../../store/color/colorSlice';
 import Pagination from 'react-bootstrap/Pagination';
 import { FaSortNumericDown, FaSortNumericUp, FaSortAlphaDown, FaSortAlphaUp } from "react-icons/fa";
-import AdminBrandDeleteForm from './AdminBrandDeleteForm';
-import './adminBrandPage.css';
+import AdminColorDeleteForm from './AdminColorDeleteForm';
+import './adminColorPage.css';
 import ExportToCSVButton from './ExportToCSVButton';
 import { LiaSortAmountDownAltSolid, LiaSortAmountUpSolid, LiaImages } from "react-icons/lia";
-import { IoMdImages } from "react-icons/io";
 
-const AdminBrandPage: React.FC = () => {
+const AdminColorPage: React.FC = () => {
 	const dispatch = useAppDispatch();
-	const allBrands = useAppSelector((state: RootState) => state.brand.allData);
-	const selectedBrandId = useAppSelector((state: RootState) => state.brand.selectedId);
+	const allColors = useAppSelector((state: RootState) => state.color.allData);
+	const selectedColorId = useAppSelector((state: RootState) => state.color.selectedId);
 	const [currentPage, setCurrentPage] = useState(1);
 	const [itemsPerPage, setItemsPerPage] = useState(15);
 	const [showAddForm, setShowAddForm] = useState(false);
@@ -28,10 +27,9 @@ const AdminBrandPage: React.FC = () => {
 	const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc');
 	const [sortIconDirection, setSortIconDirection] = useState<'asc' | 'desc'>('asc');
 	const [showDeleteForm, setShowDeleteForm] = useState(false);
-	const [filteredBrands, setFilteredBrands] = useState(allBrands);
+	const [filteredColors, setFilteredColors] = useState(allColors);
 	const [searchId, setSearchId] = useState('');
 	const [searchName, setSearchName] = useState('');
-	const [searchLogoPath, setSearchLogoPath] = useState('');
 	const [searchCreatedDate, setSearchCreatedDate] = useState('');
 	const [searchUpdatedDate, setSearchUpdatedDate] = useState('');
 
@@ -41,15 +39,14 @@ const AdminBrandPage: React.FC = () => {
 	const handleCloseAddForm = () => { setShowAddForm(false); };
 	const handleCloseUpdateForm = () => { setShowUpdateForm(false); };
 	const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
-	const handleBrandSelect = (id: number): void => { dispatch(setSelectedIdAction(id)); };
+	const handleColorSelect = (id: number): void => { dispatch(setSelectedIdAction(id)); };
 
 	useEffect(() => {
-		let result = allBrands.filter(brand =>
-			(searchId ? brand.id.toString().includes(searchId) : true) &&
-			(searchName ? brand.name.toLowerCase().includes(searchName.toLowerCase()) : true) &&
-			(searchLogoPath ? brand.logoPath.toLowerCase().includes(searchLogoPath.toLowerCase()) : true) &&
-			(searchCreatedDate ? brand.createdDate?.toString().includes(searchCreatedDate) : true) &&
-			(searchUpdatedDate ? brand.updatedDate?.toString().includes(searchUpdatedDate) : true)
+		let result = allColors.filter(color =>
+			(searchId ? color.id.toString().includes(searchId) : true) &&
+			(searchName ? color.name.toLowerCase().includes(searchName.toLowerCase()) : true) &&
+			(searchCreatedDate ? color.createdDate?.toString().includes(searchCreatedDate) : true) &&
+			(searchUpdatedDate ? color.updatedDate?.toString().includes(searchUpdatedDate) : true)
 		);
 
 		const sorted = result.sort((a, b) => {
@@ -66,13 +63,13 @@ const AdminBrandPage: React.FC = () => {
 					return 0;
 			}
 		});
-		setFilteredBrands(sorted);
-	}, [searchId, searchName, searchLogoPath, searchCreatedDate, searchUpdatedDate, allBrands, sortBy, sortDirection]);
+		setFilteredColors(sorted);
+	}, [searchId, searchName, searchCreatedDate, searchUpdatedDate, allColors, sortBy, sortDirection]);
 	useEffect(() => {
 		dispatch(getAll());
-	}, [dispatch, selectedBrandId, showAddForm, showUpdateForm, showDeleteForm]);
+	}, [dispatch, selectedColorId, showAddForm, showUpdateForm, showDeleteForm]);
 
-	const sortedBrands = [...allBrands].sort((a, b) => {
+	const sortedColors = [...allColors].sort((a, b) => {
 		if (sortDirection === 'asc') {
 			return ((a && a[sortBy as keyof typeof a]) ?? '') > ((b && b[sortBy as keyof typeof b]) ?? '') ? 1 : -1;
 		} else {
@@ -80,7 +77,7 @@ const AdminBrandPage: React.FC = () => {
 		}
 	});
 
-	const pageCount = Math.ceil(sortedBrands.length / itemsPerPage);
+	const pageCount = Math.ceil(sortedColors.length / itemsPerPage);
 
 	const handleSort = (key: 'id' | 'name' | 'createdDate' | 'updatedDate', direction: 'asc' | 'desc') => {
 		setSortBy(key);
@@ -88,27 +85,22 @@ const AdminBrandPage: React.FC = () => {
 		handleSortIconDirection();
 	};
 
-	const handleBrandSelectAndUpdateForm = (id: number) => {
-		handleBrandSelect(id);
+	const handleColorSelectAndUpdateForm = (id: number) => {
+		handleColorSelect(id);
 		handleUpdateButtonClick();
 	};
 
 	return (
 		<Container>
-			<h1>Admin Marka Sayfası</h1>
+			<h1>Admin Renk Sayfası</h1>
 			<div className="container mb-5">
-				<Badge className='custom-badge mb-2 mt-5 mx-5' bg="danger">{allBrands.length}<LiaImages size={'2em'} />
-					<div>Toplam Marka</div>
-				</Badge>
-				<Badge className='custom-badge' bg="warning">
-					{allBrands.reduce((totalLogos, brand) => totalLogos + (brand.logoPath ? 1 : 0), 0)}
-					<IoMdImages size={'2em'} />
-					<div>Toplam Logo</div>
+				<Badge className='custom-badge mb-2 mt-5 mx-5' bg="danger">{allColors.length}<LiaImages size={'2em'} />
+					<div>Toplam Renk</div>
 				</Badge>
 			</div>
 			<div className="container">
-				<ExportToCSVButton className='button-admin-brand ms-4' data={allBrands} />
-				<Button className='button-admin-brand mb-2 ms-1 bg-success' onClick={handleAddButtonClick}>Yeni Marka Ekle</Button>
+				<ExportToCSVButton className='button-admin-color ms-4' data={allColors} />
+				<Button className='button-admin-color mb-2 ms-1 bg-success' onClick={handleAddButtonClick}>Yeni Renk Ekle</Button>
 			</div>
 			<Table>
 				<thead>
@@ -138,7 +130,6 @@ const AdminBrandPage: React.FC = () => {
 								<FaSortAlphaDown onClick={() => handleSort('name', 'asc')} />
 							)}
 						</th>
-						<th className='text-table'>Logo Path</th>
 						<th className='text-table'>
 							Oluşturulma Tarihi{' '}
 							{sortBy === 'createdDate' ? (
@@ -167,40 +158,38 @@ const AdminBrandPage: React.FC = () => {
 					<tr>
 						<th><Form.Control size="sm" type="text" placeholder="Id Ara" onChange={(e) => setSearchId(e.target.value)}/></th>
 						<th><Form.Control size="sm" type="text" placeholder="İsim Ara" onChange={(e) => setSearchName(e.target.value)}/></th>
-						<th><Form.Control size="sm" type="text" placeholder="Logo Path Ara" onChange={(e) => setSearchLogoPath(e.target.value)}/></th>
 						<th><Form.Control size="sm" type="text" placeholder="Oluşturulma Tarihi Ara" onChange={(e) => setSearchCreatedDate(e.target.value)}/></th>
 						<th><Form.Control size="sm" type="text" placeholder="Yenilenme Tarihi Ara" onChange={(e) => setSearchUpdatedDate(e.target.value)}/></th>
 					</tr>
 				</thead>
 				<tbody>
-					{filteredBrands.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage).map((brand, index) => (
-						<tr key={brand.id} onClick={() => handleBrandSelectAndUpdateForm(brand.id)}>
+					{filteredColors.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage).map((color, index) => (
+						<tr key={color.id} onClick={() => handleColorSelectAndUpdateForm(color.id)}>
 							<td style={{ cursor: 'pointer' }}>{(currentPage - 1) * itemsPerPage + index + 1}</td>
-							<td style={{ cursor: 'pointer' }}>{brand.id}</td>
-							<td style={{ cursor: 'pointer' }}>{brand.name}</td>
-							<td style={{ cursor: 'pointer' }}>{brand.logoPath}</td>
-							<td style={{ cursor: 'pointer' }}>{brand.createdDate?.toString()}</td>
-							<td style={{ cursor: 'pointer' }}>{brand.updatedDate?.toString()}</td>
+							<td style={{ cursor: 'pointer' }}>{color.id}</td>
+							<td style={{ cursor: 'pointer' }}>{color.name}</td>
+							<td style={{ cursor: 'pointer' }}>{color.createdDate?.toString()}</td>
+							<td style={{ cursor: 'pointer' }}>{color.updatedDate?.toString()}</td>
 						</tr>
 					))}
 				</tbody>
 			</Table>
 			<Modal show={showAddForm} onHide={handleCloseAddForm}>
 				<Modal.Header closeButton>
-					<Modal.Title className='form-title'>Marka Ekle</Modal.Title>
+					<Modal.Title className='form-title'>Renk Ekle</Modal.Title>
 				</Modal.Header>
 				<Modal.Body>
-					<AdminBrandAddForm />
+					<AdminColorAddForm />
 				</Modal.Body>
 			</Modal>
 			<Modal show={showUpdateForm} onHide={handleCloseUpdateForm}>
 				<Modal.Header closeButton>
-					<Modal.Title className='form-title'>Marka Güncelle veya Sil</Modal.Title>
+					<Modal.Title className='form-title'>Renk Güncelle veya Sil</Modal.Title>
 				</Modal.Header>
 				<Modal.Body>
-					<AdminBrandUpdateForm />
+					<AdminColorUpdateForm />
 					<hr />
-					<AdminBrandDeleteForm />
+					<AdminColorDeleteForm />
 				</Modal.Body>
 			</Modal>
 			<Pagination className="justify-content-center mb-5">
@@ -218,4 +207,4 @@ const AdminBrandPage: React.FC = () => {
 	);
 }
 
-export default AdminBrandPage;
+export default AdminColorPage;

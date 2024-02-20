@@ -2,24 +2,26 @@ import React, { useEffect, useState } from 'react';
 import Table from 'react-bootstrap/Table';
 import Form from 'react-bootstrap/Form';
 import { Badge, Button, Container, Modal } from 'react-bootstrap';
-import AdminBrandAddForm from './AdminBrandAddForm';
-import AdminBrandUpdateForm from './AdminBrandUpdateForm';
+import AdminModelAddForm from './AdminModelAddForm';
+import AdminModelUpdateForm from './AdminModelUpdateForm';
 import { useAppDispatch } from '../../../store/configStore/useAppDispatch';
 import { useAppSelector } from '../../../store/configStore/useAppSelector';
 import { RootState } from '../../../store/configStore/configureStore';
-import { getAll, setSelectedIdAction } from '../../../store/brand/brandSlice';
+import { getAll, setSelectedIdAction } from '../../../store/model/modelSlice';
 import Pagination from 'react-bootstrap/Pagination';
 import { FaSortNumericDown, FaSortNumericUp, FaSortAlphaDown, FaSortAlphaUp } from "react-icons/fa";
-import AdminBrandDeleteForm from './AdminBrandDeleteForm';
-import './adminBrandPage.css';
+import AdminModelDeleteForm from './AdminModelDeleteForm';
+import './adminModelPage.css';
 import ExportToCSVButton from './ExportToCSVButton';
 import { LiaSortAmountDownAltSolid, LiaSortAmountUpSolid, LiaImages } from "react-icons/lia";
-import { IoMdImages } from "react-icons/io";
+import { getAll as getAllBrands }  from '../../../store/brand/brandSlice';
+import { FcWorkflow} from "react-icons/fc";
 
-const AdminBrandPage: React.FC = () => {
+const AdminModelPage: React.FC = () => {
 	const dispatch = useAppDispatch();
+	const allModels = useAppSelector((state: RootState) => state.model.allData);
 	const allBrands = useAppSelector((state: RootState) => state.brand.allData);
-	const selectedBrandId = useAppSelector((state: RootState) => state.brand.selectedId);
+	const selectedModelId = useAppSelector((state: RootState) => state.model.selectedId);
 	const [currentPage, setCurrentPage] = useState(1);
 	const [itemsPerPage, setItemsPerPage] = useState(15);
 	const [showAddForm, setShowAddForm] = useState(false);
@@ -28,7 +30,7 @@ const AdminBrandPage: React.FC = () => {
 	const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc');
 	const [sortIconDirection, setSortIconDirection] = useState<'asc' | 'desc'>('asc');
 	const [showDeleteForm, setShowDeleteForm] = useState(false);
-	const [filteredBrands, setFilteredBrands] = useState(allBrands);
+	const [filteredModels, setFilteredModels] = useState(allModels);
 	const [searchId, setSearchId] = useState('');
 	const [searchName, setSearchName] = useState('');
 	const [searchLogoPath, setSearchLogoPath] = useState('');
@@ -41,15 +43,15 @@ const AdminBrandPage: React.FC = () => {
 	const handleCloseAddForm = () => { setShowAddForm(false); };
 	const handleCloseUpdateForm = () => { setShowUpdateForm(false); };
 	const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
-	const handleBrandSelect = (id: number): void => { dispatch(setSelectedIdAction(id)); };
+	const handleModelSelect = (id: number): void => { dispatch(setSelectedIdAction(id)); };
 
 	useEffect(() => {
-		let result = allBrands.filter(brand =>
-			(searchId ? brand.id.toString().includes(searchId) : true) &&
-			(searchName ? brand.name.toLowerCase().includes(searchName.toLowerCase()) : true) &&
-			(searchLogoPath ? brand.logoPath.toLowerCase().includes(searchLogoPath.toLowerCase()) : true) &&
-			(searchCreatedDate ? brand.createdDate?.toString().includes(searchCreatedDate) : true) &&
-			(searchUpdatedDate ? brand.updatedDate?.toString().includes(searchUpdatedDate) : true)
+		let result = allModels.filter(model =>
+			(searchId ? model.id.toString().includes(searchId) : true) &&
+			(searchName ? model.name.toLowerCase().includes(searchName.toLowerCase()) : true) &&
+			(searchLogoPath ? model.brand.toString().includes(searchId) : true) &&
+			(searchCreatedDate ? model.createdDate?.toString().includes(searchCreatedDate) : true) &&
+			(searchUpdatedDate ? model.updatedDate?.toString().includes(searchUpdatedDate) : true)
 		);
 
 		const sorted = result.sort((a, b) => {
@@ -66,13 +68,14 @@ const AdminBrandPage: React.FC = () => {
 					return 0;
 			}
 		});
-		setFilteredBrands(sorted);
-	}, [searchId, searchName, searchLogoPath, searchCreatedDate, searchUpdatedDate, allBrands, sortBy, sortDirection]);
+		setFilteredModels(sorted);
+	}, [searchId, searchName, searchLogoPath, searchCreatedDate, searchUpdatedDate, allModels, sortBy, sortDirection]);
 	useEffect(() => {
+		dispatch(getAllBrands());
 		dispatch(getAll());
-	}, [dispatch, selectedBrandId, showAddForm, showUpdateForm, showDeleteForm]);
+	}, [dispatch, selectedModelId, showAddForm, showUpdateForm, showDeleteForm]);
 
-	const sortedBrands = [...allBrands].sort((a, b) => {
+	const sortedModels = [...allModels].sort((a, b) => {
 		if (sortDirection === 'asc') {
 			return ((a && a[sortBy as keyof typeof a]) ?? '') > ((b && b[sortBy as keyof typeof b]) ?? '') ? 1 : -1;
 		} else {
@@ -80,35 +83,33 @@ const AdminBrandPage: React.FC = () => {
 		}
 	});
 
-	const pageCount = Math.ceil(sortedBrands.length / itemsPerPage);
+	const pageCount = Math.ceil(sortedModels.length / itemsPerPage);
 
-	const handleSort = (key: 'id' | 'name' | 'createdDate' | 'updatedDate', direction: 'asc' | 'desc') => {
+	const handleSort = (key: 'id' | 'name' | 'brandName' | 'createdDate' | 'updatedDate', direction: 'asc' | 'desc') => {
 		setSortBy(key);
 		setSortDirection(direction);
 		handleSortIconDirection();
 	};
 
-	const handleBrandSelectAndUpdateForm = (id: number) => {
-		handleBrandSelect(id);
+	const handleModelSelectAndUpdateForm = (id: number) => {
+		handleModelSelect(id);
 		handleUpdateButtonClick();
 	};
 
 	return (
 		<Container>
-			<h1>Admin Marka Sayfası</h1>
+			<h1>Admin Model Sayfası</h1>
 			<div className="container mb-5">
-				<Badge className='custom-badge mb-2 mt-5 mx-5' bg="danger">{allBrands.length}<LiaImages size={'2em'} />
-					<div>Toplam Marka</div>
+				<Badge className='custom-badge mb-2 mt-5 mx-5' bg="danger">{allModels.length}<FcWorkflow size={'2em'} />
+					<div>Toplam Model</div>
 				</Badge>
-				<Badge className='custom-badge' bg="warning">
-					{allBrands.reduce((totalLogos, brand) => totalLogos + (brand.logoPath ? 1 : 0), 0)}
-					<IoMdImages size={'2em'} />
-					<div>Toplam Logo</div>
+				<Badge className='custom-badge' bg="warning">{allBrands.length}<LiaImages size={'2em'} />
+					<div>Toplam Marka</div>
 				</Badge>
 			</div>
 			<div className="container">
-				<ExportToCSVButton className='button-admin-brand ms-4' data={allBrands} />
-				<Button className='button-admin-brand mb-2 ms-1 bg-success' onClick={handleAddButtonClick}>Yeni Marka Ekle</Button>
+				<ExportToCSVButton className='button-admin-model ms-4' data={allModels} />
+				<Button className='button-admin-model mb-2 ms-1 bg-success' onClick={handleAddButtonClick}>Yeni Model Ekle</Button>
 			</div>
 			<Table>
 				<thead>
@@ -173,34 +174,34 @@ const AdminBrandPage: React.FC = () => {
 					</tr>
 				</thead>
 				<tbody>
-					{filteredBrands.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage).map((brand, index) => (
-						<tr key={brand.id} onClick={() => handleBrandSelectAndUpdateForm(brand.id)}>
+					{filteredModels.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage).map((model, index) => (
+						<tr key={model.id} onClick={() => handleModelSelectAndUpdateForm(model.id)}>
 							<td style={{ cursor: 'pointer' }}>{(currentPage - 1) * itemsPerPage + index + 1}</td>
-							<td style={{ cursor: 'pointer' }}>{brand.id}</td>
-							<td style={{ cursor: 'pointer' }}>{brand.name}</td>
-							<td style={{ cursor: 'pointer' }}>{brand.logoPath}</td>
-							<td style={{ cursor: 'pointer' }}>{brand.createdDate?.toString()}</td>
-							<td style={{ cursor: 'pointer' }}>{brand.updatedDate?.toString()}</td>
+							<td style={{ cursor: 'pointer' }}>{model.id}</td>
+							<td style={{ cursor: 'pointer' }}>{model.name}</td>
+							<td style={{ cursor: 'pointer' }}>{model.brand.name}</td>
+							<td style={{ cursor: 'pointer' }}>{model.createdDate?.toString()}</td>
+							<td style={{ cursor: 'pointer' }}>{model.updatedDate?.toString()}</td>
 						</tr>
 					))}
 				</tbody>
 			</Table>
 			<Modal show={showAddForm} onHide={handleCloseAddForm}>
 				<Modal.Header closeButton>
-					<Modal.Title className='form-title'>Marka Ekle</Modal.Title>
+					<Modal.Title className='form-title'>Model Ekle</Modal.Title>
 				</Modal.Header>
 				<Modal.Body>
-					<AdminBrandAddForm />
+					<AdminModelAddForm />
 				</Modal.Body>
 			</Modal>
 			<Modal show={showUpdateForm} onHide={handleCloseUpdateForm}>
 				<Modal.Header closeButton>
-					<Modal.Title className='form-title'>Marka Güncelle veya Sil</Modal.Title>
+					<Modal.Title className='form-title'>Model Güncelle veya Sil</Modal.Title>
 				</Modal.Header>
 				<Modal.Body>
-					<AdminBrandUpdateForm />
+					<AdminModelUpdateForm/>
 					<hr />
-					<AdminBrandDeleteForm />
+					<AdminModelDeleteForm />
 				</Modal.Body>
 			</Modal>
 			<Pagination className="justify-content-center mb-5">
@@ -218,4 +219,4 @@ const AdminBrandPage: React.FC = () => {
 	);
 }
 
-export default AdminBrandPage;
+export default AdminModelPage;

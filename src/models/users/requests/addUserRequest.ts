@@ -1,8 +1,10 @@
-import { User } from "../entity/user";
 export interface AddUserRequest {
-		name: string;
-		surname: string;
-		email: string;
-		nationalityId: string;
-		gsm: string;
+	id: number;
+	email: string;
+	gsm: string;
+	name: string;
+	nationalityId: string;
+	password: string;
+	surname: string;
+	roleId: number;
 }

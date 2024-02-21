@@ -4,7 +4,6 @@ import Homepage from "../pages/Homepage/Homepage";
 import OverlayLoader from "../components/OverlayLoader/OverlayLoader";
 import NavScrollExample from "../components/Nav/NavScrollExample";
 import Register from "../pages/Register/Register";
-import Profile from "../pages/Profile/Profile";
 import Car from "../pages/CarPage/Car";
 import AdminRouters from "./adminRouters";
 import AdminNav from "../pages/AdminPanel/AdminNav/AdminNav";
@@ -25,7 +24,6 @@ const AppRouters = () => {
       <Routes>
         <Route path="/" element={<Homepage />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/profile" element={<Profile />} />
         <Route path="/cars" element={<Car />} />
         <Route path="/admin/*" element={<AdminRouters />} />
       </Routes>

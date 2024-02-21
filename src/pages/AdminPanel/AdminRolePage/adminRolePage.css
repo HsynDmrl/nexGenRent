@@ -1,0 +1,75 @@
+.text-table {
+	text-align: center;
+	vertical-align: middle;
+}
+
+.table {
+	background-color: #fff;
+	border-radius: 8px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.table thead th {
+	background-color: #007bff;
+	color: #fff;
+	font-weight: bold;
+}
+
+.table tbody td {
+	background-color: #f8f9fa;
+	color: #333;
+}
+
+.table td,
+.table th {
+	padding: 15px;
+	border: 1px solid #dee2e6;
+}
+
+.table {
+	margin-bottom: 20px;
+}
+
+body,
+header,
+footer {
+	background-color: #333;
+	color: #fff;
+}
+
+h1 {
+	text-align: center;
+	margin-bottom: 20px;
+	color: #fff !important;
+	font: 700 2.5rem/1.2 'Poppins', sans-serif;
+}
+
+.button-admin-role {
+	padding: 10px 20px;
+	background-color: #007bff;
+	color: #fff;
+	border: none !important;
+	border-radius: 5px;
+	cursor: pointer;
+}
+
+
+.header-admin-role {
+	color: #333;
+}
+
+.box-container {
+	display: flex;
+	justify-content: space-evenly;
+	align-items: center;
+	flex-wrap: wrap;
+	gap: 50px;
+}
+
+.custom-badge {
+	font-size: 3rem !important;
+}
+
+.form-title {
+	color: black !important;
+}

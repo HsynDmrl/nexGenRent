@@ -1,13 +1,14 @@
-import { BaseAddResponse } from "../../base/response/BaseResponse";
-import { User } from "../entity/user";
+import { Role } from "../../roles/entity/role";
 
 export interface GetByIdUserResponse  {
 	id: number;
-    name: string;
-    surname: string;
-    email: string;
-    nationalityId: string;
-    password: string;
-    gsm: string;
-    roleName: string;
+	email: string;
+	gsm: string;
+	name: string;
+	nationalityId: string;
+	password: string;
+	surname: string;
+    role: Role;
+	createdDate: Date;
+	updatedDate: Date;
 }

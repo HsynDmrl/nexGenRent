@@ -1,2 +1,8 @@
-import { Invoice } from "../entity/invoice";
-export interface AddInvoiceRequest extends Invoice {}
+export interface AddInvoiceRequest {
+	id: number;
+    invoiceNo: string;
+    totalPrice: number;
+    discountRate: number;
+    taxRate: number;
+    rentalId: number;
+}

@@ -1,7 +1,6 @@
-import { BaseEntity } from '../../base/entity/baseEntity';
-import { User } from '../../users/entity/user';
-
-export interface Role extends BaseEntity {
-    name: string;
-    users?: User[];
+export interface Role{
+	id: number;
+	name: string;
+	createdDate: Date;
+	updatedDate: Date;
 }

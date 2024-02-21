@@ -7,9 +7,8 @@ import { SidebarMenuFooter } from 'react-bootstrap-sidebar-menu';
 import { FcPositiveDynamic } from "react-icons/fc";
 import {
 	FcMenu, FcSupport, FcImport, FcParallelTasks, FcAreaChart, FcAutomotive, FcConferenceCall, FcWorkflow,
-	FcAssistant, FcNews, FcMultipleSmartphones, FcRules
+	FcAssistant, FcNews, FcMultipleSmartphones, FcRules, FcNeutralDecision
 } from "react-icons/fc";
-
 const AdminSidebar: React.FC = () => {
 	const isOpen = useSelector((state: RootState) => state.toggleAdminSidebar.isOpen);
 
@@ -35,6 +34,9 @@ const AdminSidebar: React.FC = () => {
 						</Sidebar.Nav.Item>
 						<Sidebar.Nav.Item className='sidebarNavItem' as={NavLink } to="/admin/colors">
 							<Sidebar.Nav.Title className='sidebarNavTitle' ><FcMultipleSmartphones size={'2em'}/>  Renkler</Sidebar.Nav.Title>
+						</Sidebar.Nav.Item>
+						<Sidebar.Nav.Item className='sidebarNavItem' as={NavLink } to="/admin/roles">
+							<Sidebar.Nav.Title className='sidebarNavTitle' ><FcNeutralDecision size={'2em'}/>  Roller</Sidebar.Nav.Title>
 						</Sidebar.Nav.Item>
 					</Sidebar.Sub.Collapse>
 				</Sidebar.Sub>

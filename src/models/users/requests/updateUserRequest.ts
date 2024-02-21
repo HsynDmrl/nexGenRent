@@ -1,2 +1,10 @@
-import { User } from "../entity/user";
-export interface UpdateUserRequest extends User {}
+export interface UpdateUserRequest  {
+	id: number;
+	email: string;
+	gsm: string;
+	name: string;
+	nationalityId: string;
+	surname: string;
+	roleId: number;
+}
+

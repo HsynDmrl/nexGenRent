@@ -4,7 +4,8 @@ import { Customer } from '../../customers/entity/customer';
 import { Employee } from '../../employees/entity/employee';
 import { Invoice } from '../../invoices/entity/invoice';
 
-export interface Rental extends BaseEntity {
+export interface Rental  {
+	id: number;
     startDate: Date;
     endDate: Date;
     returnDate: Date;
@@ -15,5 +16,6 @@ export interface Rental extends BaseEntity {
     car: Car;
     customer: Customer;
     employee: Employee;
-    invoices?: Invoice[];
+	createdDate: Date;
+	updatedDate: Date;
 }

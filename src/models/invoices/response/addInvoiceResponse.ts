@@ -1,5 +1,12 @@
-import { BaseAddResponse } from "../../base/response/BaseResponse";
+import { Rental } from "../../rentals/entity/rental";
 
 export interface AddInvoiceResponse {
-    baseAddResponse: BaseAddResponse;
+	id: number;
+    invoiceNo: string;
+    totalPrice: number;
+    discountRate: number;
+    taxRate: number;
+    rental: Rental;
+	createdDate: Date;
+	updatedDate: Date;
 }

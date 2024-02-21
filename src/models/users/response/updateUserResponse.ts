@@ -1,5 +1,12 @@
-import { BaseAddResponse } from "../../base/response/BaseResponse";
-
 export interface UpdateUserResponse {
-    baseAddResponse: BaseAddResponse;
+	id: number;
+	email: string;
+	gsm: string;
+	name: string;
+	nationalityId: string;
+	password: string;
+	surname: string;
+    roleId: number;
+	createdDate: Date;
+	updatedDate: Date;
 }

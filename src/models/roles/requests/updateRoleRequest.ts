@@ -1,2 +1,4 @@
-import { Role } from "../entity/role";
-export interface UpdateRoleRequest extends Role {}
+export interface UpdateRoleRequest  {
+	id: number;
+	name: string;
+}

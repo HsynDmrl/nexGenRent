@@ -8,16 +8,20 @@ import modelReducer from "../model/modelSlice";
 import adminToggleReducer from "../adminToggle/adminToggleSlice";
 import colorReducer from "../color/colorSlice";
 import roleReducer from "../role/roleSlice";
+import employeeReducer from "../employee/employeeSlice";
+import carReducer from "../car/carSlice";
 
 const rootReducer = combineReducers({
     auth: authReducer,
     loading: loadingReducer,
 	base: baseReducer,
+	car: carReducer,
     user: userReducer,
 	brand: brandReducer,
 	role: roleReducer,
 	model: modelReducer,
 	color: colorReducer,
+	employee: employeeReducer,
 	toggleAdminSidebar: adminToggleReducer,
 });
 

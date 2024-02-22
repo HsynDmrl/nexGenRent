@@ -61,9 +61,7 @@ export const getById = createAsyncThunk(
 	'color/addColor',
 	async (colorData: AddColorRequest, { rejectWithValue }) => {
 	  try {
-		console.log(colorData);
 		const response = await colorService.add(colorData);
-		console.log(response.data);
 		return response.data;
 	  } catch (error:any) {
 		return rejectWithValue(error.message);

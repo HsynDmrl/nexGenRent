@@ -149,8 +149,8 @@ const AdminUserUpdateForm: React.FC = () => {
             <Button className='p-2 mb-2 mx-3 bg-warning' variant="primary" type="reset">
               Temizle
             </Button>
-            {status && status.success && <Alert variant="success">Rol başarıyla güncellendi.</Alert>}
-            {status && !status.success && <Alert variant="danger">Rol güncellenirken bir hata oluştu.</Alert>}
+            {status && status.success && <Alert variant="success">Kullanıcı başarıyla güncellendi.</Alert>}
+            {status && !status.success && <Alert variant="danger">Kullanıcı güncellenirken bir hata oluştu.</Alert>}
           </Form>
         )}
       </Formik>

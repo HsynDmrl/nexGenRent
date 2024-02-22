@@ -24,7 +24,6 @@ const AppRouters = () => {
       <Routes>
         <Route path="/" element={<Homepage />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/cars" element={<Car />} />
         <Route path="/admin/*" element={<AdminRouters />} />
       </Routes>
     </>

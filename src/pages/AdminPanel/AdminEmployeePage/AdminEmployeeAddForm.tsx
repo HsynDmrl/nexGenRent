@@ -3,57 +3,57 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../store/configStore/configureStore';
-import { getAll, addUser } from '../../../store/user/userSlice';
-import { Role } from '../../../models/roles/entity/role';
+import { getAll, addEmployee } from '../../../store/employee/employeeSlice';
+import { User } from '../../../models/users/entity/user';
 import { useAppDispatch } from '../../../store/configStore/useAppDispatch';
-import { getAll as getAllRoles } from '../../../store/role/roleSlice';
+import { getAll as getAllUsers } from '../../../store/user/userSlice';
 import { Button, Alert } from 'react-bootstrap';
 
-const AdminUserAddForm = () => {
-  const [roles, setRoles] = useState<Role[]>([]);
+const AdminEmployeeAddForm = () => {
+  const [users, setUsers] = useState<User[]>([]);
   const dispatch = useAppDispatch();
-  const allRoles = useSelector((state: RootState) => state.role.allData);
+  const allUsers = useSelector((state: RootState) => state.user.allData);
   const [isSuccess, setIsSuccess] = useState<boolean>(false);
 
   useEffect(() => {
-	dispatch(getAllRoles());
+	dispatch(getAllUsers());
     dispatch(getAll());
   }, [dispatch]);
 
   useEffect(() => {
-    if (allRoles.length > 0) {
-      setRoles(allRoles);
+    if (allUsers.length > 0) {
+      setUsers(allUsers);
     }
-  }, [allRoles]);
+  }, [allUsers]);
 
   const initialValues = {
-    name: '',
-    roleId: '',
+    salary: '',
+    userId: '',
   };
 
   const validationSchema = Yup.object({
-    name: Yup.string()
+    salary: Yup.number()
       .required('Name is required'),
-    roleId: Yup.string()
-      .required('Role is required'),
+    userId: Yup.string()
+      .required('User is required'),
   });
 
   const handleSubmit = async (values: any, { resetForm }: any) => {
     try {
-      await dispatch(addUser(values));
+      await dispatch(addEmployee(values));
       setIsSuccess(true);
       setTimeout(() => {
         setIsSuccess(false);
       }, 1000);
       resetForm();
     } catch (error: any) {
-      console.error('Error adding user:', error);
+      console.error('Error adding employee:', error);
     }
   };
 
   return (
     <div>
-      <h2>Add User</h2>
+      <h2>Add Employee</h2>
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
@@ -62,24 +62,24 @@ const AdminUserAddForm = () => {
 		 {({ errors, touched }) => (
         <Form>
           <div>
-            <label htmlFor="name" className="form-title">İsim</label> 
+            <label htmlFor="salary" className="form-title">İsim</label> 
 			<Field
                     type="text"
-                    name="name"
-                    className={`form-control ${errors.name && touched.name ? 'is-invalid' : ''}`}
-                    placeholder="Kullanıcı İsim Giriniz"
+                    name="salary"
+                    className={`form-control ${errors.salary && touched.salary ? 'is-invalid' : ''}`}
+                    placeholder="Maaş Giriniz"
                 />
-            <ErrorMessage name="name" component="div" />
+            <ErrorMessage name="salary" component="div" />
           </div>
           <div>
-            <label htmlFor="roleId">Role</label>
-            <Field as="select" name="roleId">
-              <option value="">Role Seçiniz</option>
-              {roles.map(role => (
-                <option key={role.id} value={role.id}>{role.name}</option>
+            <label htmlFor="userId">User</label>
+            <Field as="select" name="userId">
+              <option value="">Select a user</option>
+              {users.map(user => (
+                <option key={user.id} value={user.id}>{user.name}</option>
               ))}
             </Field>
-            <ErrorMessage name="roleId" component="div" />
+            <ErrorMessage name="userId" component="div" />
           </div>
           
 		  <Button className='p-2 mb-2 bg-success' variant="primary" type="submit">Kaydet</Button>
@@ -92,4 +92,4 @@ const AdminUserAddForm = () => {
   );
 };
 
-export default AdminUserAddForm;
+export default AdminEmployeeAddForm;

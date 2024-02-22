@@ -7,8 +7,10 @@ import { SidebarMenuFooter } from 'react-bootstrap-sidebar-menu';
 import { FcPositiveDynamic } from "react-icons/fc";
 import {
 	FcMenu, FcSupport, FcImport, FcParallelTasks, FcAreaChart, FcAutomotive, FcConferenceCall, FcWorkflow,
-	FcAssistant, FcNews, FcMultipleSmartphones, FcRules, FcNeutralDecision
+	FcAssistant, FcMultipleSmartphones, FcRules, FcNeutralDecision
 } from "react-icons/fc";
+import { LiaImages } from "react-icons/lia";
+
 const AdminSidebar: React.FC = () => {
 	const isOpen = useSelector((state: RootState) => state.toggleAdminSidebar.isOpen);
 
@@ -30,7 +32,7 @@ const AdminSidebar: React.FC = () => {
 							<Sidebar.Nav.Title className='sidebarNavTitle' ><FcWorkflow size={'2em'}/>  Modeller</Sidebar.Nav.Title>
 						</Sidebar.Nav.Item>
 						<Sidebar.Nav.Item className='sidebarNavItem' as={NavLink } to="/admin/brands">
-							<Sidebar.Nav.Title className='sidebarNavTitle' ><FcNews size={'2em'}/>  Markalar</Sidebar.Nav.Title>
+							<Sidebar.Nav.Title className='sidebarNavTitle' ><LiaImages size={'2em'}/>  Markalar</Sidebar.Nav.Title>
 						</Sidebar.Nav.Item>
 						<Sidebar.Nav.Item className='sidebarNavItem' as={NavLink } to="/admin/colors">
 							<Sidebar.Nav.Title className='sidebarNavTitle' ><FcMultipleSmartphones size={'2em'}/>  Renkler</Sidebar.Nav.Title>
@@ -41,7 +43,7 @@ const AdminSidebar: React.FC = () => {
 					</Sidebar.Sub.Collapse>
 				</Sidebar.Sub>
 				<Sidebar.Nav.Item className='sidebarNavItem' as={NavLink } to="/admin/invoices">
-					<Sidebar.Nav.Title className='sidebarNavTitle' ><FcRules size={'2em'}/>  Sigorta</Sidebar.Nav.Title>
+					<Sidebar.Nav.Title className='sidebarNavTitle' ><FcRules size={'2em'}/>  Faturalar</Sidebar.Nav.Title>
 				</Sidebar.Nav.Item>
 				<Sidebar.Nav.Item className='sidebarNavItem' as={NavLink } to="/admin/rentals">
 					<Sidebar.Nav.Title className='sidebarNavTitle' ><FcParallelTasks size={'2em'}/>  Siparişler</Sidebar.Nav.Title>

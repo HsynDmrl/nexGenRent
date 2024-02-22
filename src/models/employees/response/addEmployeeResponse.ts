@@ -1,5 +1,9 @@
-import { BaseAddResponse } from "../../base/response/BaseResponse";
+import { User }  from "../../users/entity/user";
 
 export interface AddEmployeeResponse {
-    baseAddResponse: BaseAddResponse;
+    id: number;
+    salary: number;
+    user: User;
+	createdDate: Date;
+	updatedDate: Date;
 }

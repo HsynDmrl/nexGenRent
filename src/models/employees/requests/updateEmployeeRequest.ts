@@ -1,2 +1,5 @@
-import { Employee } from "../entity/employee";
-export interface UpdateEmployeeRequest extends Employee {}
+export interface UpdateEmployeeRequest {
+    id: number;
+    salary: number;
+	userId: number;
+}

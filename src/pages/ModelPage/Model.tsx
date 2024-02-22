@@ -19,7 +19,6 @@ const Model: React.FC = () => {
     }, [dispatch]);
 
     const handleUpdateModel = (updatedModelData: UpdateModelRequest) => {
-		console.log("model.tsx içindeki ", updatedModelData.brandId);
        dispatch(updateModel(updatedModelData));
     };
 
@@ -29,7 +28,6 @@ const Model: React.FC = () => {
 	};
 	
     const handleDeleteModel = (id: number) => {
-		console.log("model.tsx içindeki ", id);
         dispatch(deleteModel(id));
     };
 

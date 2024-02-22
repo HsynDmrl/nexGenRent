@@ -7,4 +7,3 @@ export interface UpdateUserRequest  {
 	surname: string;
 	roleId: number;
 }
-

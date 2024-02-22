@@ -1,5 +1,7 @@
-import { BaseAddResponse } from "../../base/response/BaseResponse";
-
 export interface UpdateEmployeeResponse {
-    baseAddResponse: BaseAddResponse;
+    id: number;
+    salary: number;
+    userId: number;
+	createdDate: Date;
+	updatedDate: Date;
 }

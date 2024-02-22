@@ -174,8 +174,8 @@ const userSlice = createSlice({
                     }));
                     state.allData = users;
                 } else {
-                    // handle case if payload is not an array
-                }
+					state.allData = [];
+				}
             })
             .addCase(updateUser.fulfilled, (state, action) => {
                 state.loading = false;

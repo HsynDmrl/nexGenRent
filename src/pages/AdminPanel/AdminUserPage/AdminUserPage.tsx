@@ -15,7 +15,7 @@ import './adminUserPage.css';
 import ExportToCSVButton from './ExportToCSVButton';
 import { LiaSortAmountDownAltSolid, LiaSortAmountUpSolid, LiaImages } from "react-icons/lia";
 import { getAll as getAllRoles }  from '../../../store/role/roleSlice';
-import { FcWorkflow} from "react-icons/fc";
+import { FcConferenceCall, FcNeutralDecision } from "react-icons/fc";
 
 const AdminUserPage: React.FC = () => {
 	const dispatch = useAppDispatch();
@@ -73,7 +73,6 @@ const AdminUserPage: React.FC = () => {
 	useEffect(() => {
 		dispatch(getAllRoles());
 		dispatch(getAll());
-		console.log('AdminUserPage: useEffect', allRoles);
 	}, [dispatch, selectedUserId, showAddForm, showUpdateForm, showDeleteForm]);
 
 	const sortedUsers = [...allUsers].sort((a, b) => {
@@ -101,10 +100,10 @@ const AdminUserPage: React.FC = () => {
 		<Container>
 			<h1>Admin User Sayfası</h1>
 			<div className="container mb-5">
-				<Badge className='custom-badge mb-2 mt-5 mx-5' bg="danger">{allUsers.length}<FcWorkflow size={'2em'} />
+				<Badge className='custom-badge mb-2 mt-5 mx-5' bg="danger">{allUsers.length}<FcConferenceCall size={'2em'} />
 					<div>Toplam Kullanıcı</div>
 				</Badge>
-				<Badge className='custom-badge' bg="warning">{allRoles.length}<LiaImages size={'2em'} />
+				<Badge className='custom-badge' bg="warning">{allRoles.length}<FcNeutralDecision size={'2em'} />
 					<div>Toplam Roller</div>
 				</Badge>
 			</div>

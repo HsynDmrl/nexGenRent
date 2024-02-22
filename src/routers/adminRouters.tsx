@@ -7,6 +7,8 @@ import AdminColorPage from '../pages/AdminPanel/AdminColorPage/AdminColorPage';
 import AdminModelPage from '../pages/AdminPanel/AdminModelPage/AdminModelPage';
 import AdminRolePage from '../pages/AdminPanel/AdminRolePage/AdminRolePage';
 import AdminUserPage from '../pages/AdminPanel/AdminUserPage/AdminUserPage';
+import AdminEmployeePage from '../pages/AdminPanel/AdminEmployeePage/AdminEmployeePage';
+import AdminCarPage from '../pages/AdminPanel/AdminCarPage/AdminCarPage';
 
 const AdminRouters = () => {
   return (
@@ -16,11 +18,13 @@ const AdminRouters = () => {
         <Routes>
 		  <Route path="/" element={<AdminDashboard/>} />
 		  <Route path="/dashboard" element={<AdminDashboard/>} />
+          <Route path="/cars" element={<AdminCarPage />} />
           <Route path="/users" element={<AdminUserPage />} />
 		  <Route path="/brands" element={<AdminBrandPage />} />
 		  <Route path="/colors" element={<AdminColorPage />} />
 		  <Route path="/models" element={<AdminModelPage />} />
 		  <Route path="/roles" element={<AdminRolePage />} />
+		  <Route path="/employees" element={<AdminEmployeePage />} />
         </Routes>
       </div>
       </>

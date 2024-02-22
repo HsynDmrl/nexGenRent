@@ -2,24 +2,26 @@ import React, { useEffect, useState } from 'react';
 import Table from 'react-bootstrap/Table';
 import Form from 'react-bootstrap/Form';
 import { Badge, Button, Container, Modal } from 'react-bootstrap';
-import AdminRoleAddForm from './AdminRoleAddForm';
-import AdminRoleUpdateForm from './AdminRoleUpdateForm';
+import AdminEmployeeAddForm from './AdminEmployeeAddForm';
+import AdminEmployeeDeleteForm from './AdminEmployeeDeleteForm';
 import { useAppDispatch } from '../../../store/configStore/useAppDispatch';
 import { useAppSelector } from '../../../store/configStore/useAppSelector';
 import { RootState } from '../../../store/configStore/configureStore';
-import { getAll, setSelectedIdAction } from '../../../store/role/roleSlice';
+import { getAll, setSelectedIdAction } from '../../../store/employee/employeeSlice';
 import Pagination from 'react-bootstrap/Pagination';
 import { FaSortNumericDown, FaSortNumericUp, FaSortAlphaDown, FaSortAlphaUp } from "react-icons/fa";
-import AdminRoleDeleteForm from './AdminRoleDeleteForm';
-import './adminRolePage.css';
+import './adminEmployeePage.css';
 import ExportToCSVButton from './ExportToCSVButton';
-import { LiaSortAmountDownAltSolid, LiaSortAmountUpSolid } from "react-icons/lia";
-import {FcNeutralDecision} from "react-icons/fc";
+import { LiaSortAmountDownAltSolid, LiaSortAmountUpSolid, LiaImages } from "react-icons/lia";
+import { getAll as getAllUsers }  from '../../../store/role/roleSlice';
+import { FcAssistant, FcConferenceCall } from "react-icons/fc";
+import AdminEmployeeUpdateForm from './AdminEmployeeUpdateForm';
 
-const AdminRolePage: React.FC = () => {
+const AdminEmployeePage: React.FC = () => {
 	const dispatch = useAppDispatch();
-	const allRoles = useAppSelector((state: RootState) => state.role.allData);
-	const selectedRoleId = useAppSelector((state: RootState) => state.role.selectedId);
+	const allEmployees = useAppSelector((state: RootState) => state.employee.allData);
+	const allUsers = useAppSelector((state: RootState) => state.role.allData);
+	const selectedEmployeeId = useAppSelector((state: RootState) => state.employee.selectedId);
 	const [currentPage, setCurrentPage] = useState(1);
 	const [itemsPerPage, setItemsPerPage] = useState(15);
 	const [showAddForm, setShowAddForm] = useState(false);
@@ -28,9 +30,10 @@ const AdminRolePage: React.FC = () => {
 	const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc');
 	const [sortIconDirection, setSortIconDirection] = useState<'asc' | 'desc'>('asc');
 	const [showDeleteForm, setShowDeleteForm] = useState(false);
-	const [filteredRoles, setFilteredRoles] = useState(allRoles);
+	const [filteredEmployees, setFilteredEmployees] = useState(allEmployees);
 	const [searchId, setSearchId] = useState('');
 	const [searchName, setSearchName] = useState('');
+	const [searchUser, setSearchUser] = useState('');
 	const [searchCreatedDate, setSearchCreatedDate] = useState('');
 	const [searchUpdatedDate, setSearchUpdatedDate] = useState('');
 
@@ -40,23 +43,24 @@ const AdminRolePage: React.FC = () => {
 	const handleCloseAddForm = () => { setShowAddForm(false); };
 	const handleCloseUpdateForm = () => { setShowUpdateForm(false); };
 	const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
-	const handleRoleSelect = (id: number): void => { dispatch(setSelectedIdAction(id)); };
+	const handleEmployeeSelect = (id: number): void => { dispatch(setSelectedIdAction(id)); };
 
 	useEffect(() => {
-		let result = allRoles.filter(role =>
-			(searchId ? role.id.toString().includes(searchId) : true) &&
-			(searchName ? role.name.toLowerCase().includes(searchName.toLowerCase()) : true) &&
-			(searchCreatedDate ? role.createdDate?.toString().includes(searchCreatedDate) : true) &&
-			(searchUpdatedDate ? role.updatedDate?.toString().includes(searchUpdatedDate) : true)
+		let result = allEmployees.filter(employee =>
+			(searchId ? employee.id.toString().includes(searchId) : true) &&
+			(searchName ? employee.salary.toString().includes(searchId) : true) &&
+			(searchUser ? employee.user.toString().includes(searchId) : true) &&
+			(searchCreatedDate ? employee.createdDate?.toString().includes(searchCreatedDate) : true) &&
+			(searchUpdatedDate ? employee.updatedDate?.toString().includes(searchUpdatedDate) : true)
 		);
 
 		const sorted = result.sort((a, b) => {
 			switch (sortBy) {
 				case 'id':
 					return sortDirection === 'asc' ? a.id - b.id : b.id - a.id;
-				case 'name':
-					return sortDirection === 'asc' ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name);
-				case 'createdDate':
+				case 'salary':
+					return sortDirection === 'asc' ? a.salary - b.salary : b.salary - a.salary;
+       			case 'createdDate':
 					return sortDirection === 'asc' ? new Date(a.createdDate).getTime() - new Date(b.createdDate).getTime() : new Date(b.createdDate).getTime() - new Date(a.createdDate).getTime();
 				case 'updatedDate':
 					return sortDirection === 'asc' ? new Date(a.updatedDate).getTime() - new Date(b.updatedDate).getTime() : new Date(b.updatedDate).getTime() - new Date(a.updatedDate).getTime();
@@ -64,13 +68,14 @@ const AdminRolePage: React.FC = () => {
 					return 0;
 			}
 		});
-		setFilteredRoles(sorted);
-	}, [searchId, searchName, searchCreatedDate, searchUpdatedDate, allRoles, sortBy, sortDirection]);
+		setFilteredEmployees(sorted);
+	}, [searchId, searchName, searchUser, searchCreatedDate, searchUpdatedDate, allEmployees, sortBy, sortDirection]);
 	useEffect(() => {
+		dispatch(getAllUsers());
 		dispatch(getAll());
-	}, [dispatch, selectedRoleId, showAddForm, showUpdateForm, showDeleteForm]);
+	}, [dispatch, selectedEmployeeId, showAddForm, showUpdateForm, showDeleteForm]);
 
-	const sortedRoles = [...allRoles].sort((a, b) => {
+	const sortedEmployees = [...allEmployees].sort((a, b) => {
 		if (sortDirection === 'asc') {
 			return ((a && a[sortBy as keyof typeof a]) ?? '') > ((b && b[sortBy as keyof typeof b]) ?? '') ? 1 : -1;
 		} else {
@@ -78,30 +83,33 @@ const AdminRolePage: React.FC = () => {
 		}
 	});
 
-	const pageCount = Math.ceil(sortedRoles.length / itemsPerPage);
+	const pageCount = Math.ceil(sortedEmployees.length / itemsPerPage);
 
-	const handleSort = (key: 'id' | 'name' | 'createdDate' | 'updatedDate', direction: 'asc' | 'desc') => {
+	const handleSort = (key: 'id' | 'salary' | 'userName' | 'createdDate' | 'updatedDate', direction: 'asc' | 'desc') => {
 		setSortBy(key);
 		setSortDirection(direction);
 		handleSortIconDirection();
 	};
 
-	const handleRoleSelectAndUpdateForm = (id: number) => {
-		handleRoleSelect(id);
+	const handleEmployeeSelectAndUpdateForm = (id: number) => {
+		handleEmployeeSelect(id);
 		handleUpdateButtonClick();
 	};
 
 	return (
 		<Container>
-			<h1>Admin Rol Sayfası</h1>
+			<h1>Admin Employee Sayfası</h1>
 			<div className="container mb-5">
-				<Badge className='custom-badge mb-2 mt-5 mx-5' bg="danger">{allRoles.length}<FcNeutralDecision size={'2em'} />
-					<div>Toplam Rol</div>
+				<Badge className='custom-badge mb-2 mt-5 mx-5' bg="danger">{allEmployees.length}<FcAssistant size={'2em'} />
+					<div>Toplam Çalışan</div>
+				</Badge>
+				<Badge className='custom-badge' bg="warning">{allUsers.length}<FcConferenceCall size={'2em'} />
+					<div>Toplam Kullanıcı</div>
 				</Badge>
 			</div>
 			<div className="container">
-				<ExportToCSVButton className='button-admin-role ms-4' data={allRoles} />
-				<Button className='button-admin-role mb-2 ms-1 bg-success' onClick={handleAddButtonClick}>Yeni Rol Ekle</Button>
+				<ExportToCSVButton className='button-admin-employee ms-4' data={allEmployees} />
+				<Button className='button-admin-employee mb-2 ms-1 bg-success' onClick={handleAddButtonClick}>Yeni Employee Ekle</Button>
 			</div>
 			<Table>
 				<thead>
@@ -120,15 +128,27 @@ const AdminRolePage: React.FC = () => {
 							)}
 						</th>
 						<th className='text-table' >
-							İsim{' '}
-							{sortBy === 'name' ? (
+							Salary{' '}
+							{sortBy === 'salary' ? (
 								sortDirection === 'asc' ? (
-									<FaSortAlphaDown onClick={() => handleSort('name', 'desc')} />
+									<FaSortAlphaDown onClick={() => handleSort('salary', 'desc')} />
 								) : (
-									<FaSortAlphaUp onClick={() => handleSort('name', 'asc')} />
+									<FaSortAlphaUp onClick={() => handleSort('salary', 'asc')} />
 								)
 							) : (
-								<FaSortAlphaDown onClick={() => handleSort('name', 'asc')} />
+								<FaSortAlphaDown onClick={() => handleSort('salary', 'asc')} />
+							)}
+						</th>
+						<th className='text-table'>
+							Çalışan{' '}
+							{sortBy === 'userName' ? (
+								sortDirection === 'asc' ? (
+									<FaSortAlphaDown onClick={() => handleSort('userName', 'desc')} />
+								) : (
+									<FaSortAlphaUp onClick={() => handleSort('userName', 'asc')} />
+								)
+							) : (
+								<FaSortAlphaDown onClick={() => handleSort('userName', 'asc')} />
 							)}
 						</th>
 						<th className='text-table'>
@@ -157,40 +177,43 @@ const AdminRolePage: React.FC = () => {
 						</th>
 					</tr>
 					<tr>
-						<th><Form.Control size="sm" type="text" placeholder="Id Ara" onChange={(e) => setSearchId(e.target.value)}/></th>
-						<th><Form.Control size="sm" type="text" placeholder="İsim Ara" onChange={(e) => setSearchName(e.target.value)}/></th>
-						<th><Form.Control size="sm" type="text" placeholder="Oluşturulma Tarihi Ara" onChange={(e) => setSearchCreatedDate(e.target.value)}/></th>
-						<th><Form.Control size="sm" type="text" placeholder="Yenilenme Tarihi Ara" onChange={(e) => setSearchUpdatedDate(e.target.value)}/></th>
-					</tr>
-				</thead>
-				<tbody>
-					{filteredRoles.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage).map((role, index) => (
-						<tr key={role.id} onClick={() => handleRoleSelectAndUpdateForm(role.id)}>
-							<td style={{ cursor: 'pointer' }}>{(currentPage - 1) * itemsPerPage + index + 1}</td>
-							<td style={{ cursor: 'pointer' }}>{role.id}</td>
-							<td style={{ cursor: 'pointer' }}>{role.name}</td>
-							<td style={{ cursor: 'pointer' }}>{role.createdDate?.toString()}</td>
-							<td style={{ cursor: 'pointer' }}>{role.updatedDate?.toString()}</td>
-						</tr>
-					))}
-				</tbody>
+                        <th><Form.Control size="sm" type="text" placeholder="Id Ara" onChange={(e) => setSearchId(e.target.value)}/></th>
+						<th><Form.Control size="sm" type="text" placeholder="Salary Ara" onChange={(e) => setSearchName(e.target.value)}/></th>
+                        <th><Form.Control size="sm" type="text" placeholder="Kullanıcı Ara" onChange={(e) => setSearchUser(e.target.value)}/></th>
+                        <th><Form.Control size="sm" type="text" placeholder="Oluşturulma Tarihi Ara" onChange={(e) => setSearchCreatedDate(e.target.value)}/></th>
+                        <th><Form.Control size="sm" type="text" placeholder="Yenilenme Tarihi Ara" onChange={(e) => setSearchUpdatedDate(e.target.value)}/></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {filteredEmployees.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage).map((employee, index) => (
+                        <tr key={employee.id} onClick={() => handleEmployeeSelectAndUpdateForm(employee.id)}>
+                            <td style={{ cursor: 'pointer' }}>{(currentPage - 1) * itemsPerPage + index + 1}</td>
+                            <td style={{ cursor: 'pointer' }}>{employee.id}</td>
+							<td style={{ cursor: 'pointer' }}>{employee.salary}</td>
+							<td style={{ cursor: 'pointer' }}>{employee.user && employee.user.name}</td>
+							{/* <td style={{ cursor: 'pointer' }}>{employee.role.name}</td> */}
+                            <td style={{ cursor: 'pointer' }}>{employee.createdDate?.toString()}</td>
+                            <td style={{ cursor: 'pointer' }}>{employee.updatedDate?.toString()}</td>
+                        </tr>
+                    ))}
+                </tbody>
 			</Table>
 			<Modal show={showAddForm} onHide={handleCloseAddForm}>
 				<Modal.Header closeButton>
-					<Modal.Title className='form-title'>Rol Ekle</Modal.Title>
+					<Modal.Title className='form-title'>Employee Ekle</Modal.Title>
 				</Modal.Header>
 				<Modal.Body>
-					<AdminRoleAddForm />
+					<AdminEmployeeAddForm />
 				</Modal.Body>
 			</Modal>
 			<Modal show={showUpdateForm} onHide={handleCloseUpdateForm}>
 				<Modal.Header closeButton>
-					<Modal.Title className='form-title'>Rol Güncelle veya Sil</Modal.Title>
+					<Modal.Title className='form-title'>Employee Güncelle veya Sil</Modal.Title>
 				</Modal.Header>
 				<Modal.Body>
-					<AdminRoleUpdateForm />
+					<AdminEmployeeUpdateForm />
 					<hr />
-					<AdminRoleDeleteForm />
+					<AdminEmployeeDeleteForm />
 				</Modal.Body>
 			</Modal>
 			<Pagination className="justify-content-center mb-5">
@@ -208,4 +231,4 @@ const AdminRolePage: React.FC = () => {
 	);
 }
 
-export default AdminRolePage;
+export default AdminEmployeePage;

@@ -1,18 +1,18 @@
 import React from 'react';
+import { useField, FieldHookConfig } from 'formik';
 
-interface BooleanSelectProps {
-  value: boolean | undefined;
-  onChange: (value: boolean) => void;
-}
+type BooleanSelectProps = FieldHookConfig<boolean>;
 
-const BooleanSelect: React.FC<BooleanSelectProps> = ({ value, onChange }) => {
-  const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const selectedValue = e.target.value === 'true';
-    onChange(selectedValue);
-  };
+const BooleanSelect: React.FC<BooleanSelectProps> = (props) => {
+  const [field, , helpers] = useField(props);
 
   return (
-    <select value={value ? value.toString() : 'false'} onChange={handleChange}>
+    <select
+      {...field}
+      className={props.className}
+      onChange={(e) => helpers.setValue(e.target.value === 'true' ? true : false)}
+      value={field.value ? 'true' : 'false'}
+    >
       <option value="true">Aktif</option>
       <option value="false">Pasif</option>
     </select>

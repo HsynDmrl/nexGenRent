@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { Formik, Form, Field, ErrorMessage, FieldProps, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
 import { Button, Container, Alert } from 'react-bootstrap';
 import { UpdateCarRequest } from '../../../models/cars/requests/updateCarRequest';
@@ -11,7 +11,12 @@ import { Model } from '../../../models/models/entity/model';
 import { Color } from '../../../models/colors/entity/color';
 import { getAll as getAllColors } from '../../../store/color/colorSlice';
 import { getAll as getAllModels } from '../../../store/model/modelSlice';
+import { FuelType, getFuelTypeLabel } from '../../../models/cars/entity/fuelType';
+import { GearType, getGearTypeLabel } from '../../../models/cars/entity/gearType';
+import { CustomInputComponent } from '../../../core/formatPlate/CustomInputComponent';
 import BooleanSelect from './BooleanSelect';
+import { formatPlate } from '../../../core/formatPlate/formatPlate';
+
 
 const AdminCarUpdateForm: React.FC = () => {
 	const dispatch = useAppDispatch();
@@ -22,6 +27,8 @@ const AdminCarUpdateForm: React.FC = () => {
 	const [colors, setColors] = useState<Color[]>([]);
 	const allModels = useSelector((state: RootState) => state.model.allData);
 	const allColors = useSelector((state: RootState) => state.color.allData);
+	const currentYear = new Date().getFullYear();
+	const years = Array.from(new Array(20), (val, index) => currentYear - index);
 
 	useEffect(() => {
 		dispatch(getAllModels());
@@ -51,29 +58,53 @@ const AdminCarUpdateForm: React.FC = () => {
 		colorId: carData?.color.id || 0
 	};
 
-	const validationSchema: Yup.ObjectSchema<UpdateCarRequest> = Yup.object().shape({
-		id: Yup.number().required(),
-		kilometer: Yup.number().required('Kilometre alanı zorunludur.'),
-		year: Yup.number().required('Yıl alanı zorunludur.'),
-		dailyPrice: Yup.number().required('Günlük Fiyat alanı zorunludur.'),
-		plate: Yup.string().required('Plaka alanı zorunludur'),
-		imagePath: Yup.string().required('Resim alanı zorunludur'),
-		status: Yup.boolean().required('Durum alanı zorunludur'),
-		gearType: Yup.string().required('Vites türü alanı zorunludur'),
-		fuelType: Yup.string().required('Yakıt türü alanı zorunludur'),
-		modelId: Yup.number().required('Model alanı zorunludur'),
-		colorId: Yup.number().required('Renk alanı zorunludur')
+	const validationSchema = Yup.object({
+		kilometer: Yup.number()
+			.min(0, 'Kilometre negatif olamaz.')
+			.required('Kilometre alanı zorunludur.'),
+		year: Yup.number()
+			.min(2005, 'Yıl 2005\'den büyük olmalıdır.')
+			.max(new Date().getFullYear(), `Yıl ${new Date().getFullYear()} veya daha küçük olmalıdır.`)
+			.required('Yıl alanı zorunludur.'),
+		dailyPrice: Yup.number()
+			.min(0, 'Günlük fiyat negatif olamaz.')
+			.required('Günlük Fiyat alanı zorunludur.'),
+		plate: Yup.string()
+			.required('Plaka alanı zorunludur.'),
+		imagePath: Yup.string()
+			.required('Resim alanı zorunludur.'),
+		status: Yup.boolean()
+			.required('Durum alanı zorunludur.'),
+		gearType: Yup.string()
+			.oneOf(Object.values(GearType), 'Geçersiz vites türü.')
+			.required('Vites türü alanı zorunludur.'),
+		fuelType: Yup.string()
+			.oneOf(Object.values(FuelType), 'Geçersiz yakıt türü.')
+			.required('Yakıt türü alanı zorunludur.'),
+		modelId: Yup.string()
+			.required('Model seçmek zorunludur.'),
+		colorId: Yup.string()
+			.required('Renk seçmek zorunludur.'),
 	});
 
-	const onSubmit = (values: UpdateCarRequest, { setStatus }: any) => {
-		dispatch(updateCar(values))
-			.then(() => {
-				setStatus({ success: true });
-			})
-			.catch(error => {
-				setStatus({ success: false });
-			});
-	};
+	const onSubmit = (values: UpdateCarRequest, { setStatus, setSubmitting, setFieldValue }: FormikHelpers<UpdateCarRequest>) => {
+		// Plaka değerini formatla
+		const formattedPlate = formatPlate(values.plate);
+		// Formik state'ini güncellenmiş plaka değeri ile güncelle
+		setFieldValue('plate', formattedPlate);
+	
+		// Güncellenmiş değerlerle araba güncelleme işlemini başlat
+		const updatedValues = { ...values, plate: formattedPlate };
+		dispatch(updateCar(updatedValues))
+		  .then(() => {
+			setStatus({ success: true });
+			setSubmitting(false);
+		  })
+		  .catch(error => {
+			setStatus({ success: false, message: error.message });
+			setSubmitting(false);
+		  });
+	  };
 
 	return (
 		<Container>
@@ -92,16 +123,14 @@ const AdminCarUpdateForm: React.FC = () => {
 							/>
 							<ErrorMessage name="kilometer" component="div" className="invalid-feedback" />
 						</div>
-						<div className="mb-3">
-							<label htmlFor="year" className="form-title">
-								Yıl
-							</label>
-							<Field
-								type="text"
-								name="year"
-								className={`form-control ${errors.year && touched.year ? 'is-invalid' : ''}`}
-								placeholder="Yıl Giriniz"
-							/>
+						<div>
+							<label htmlFor="year" className="form-title mb-2">Yıl</label>
+							<Field as="select" name="year" className={`form-control ${errors.year && touched.year ? 'is-invalid' : ''}`}>
+								<option value="">Yıl Seçiniz</option>
+								{years.map(year => (
+									<option key={year} value={year}>{year}</option>
+								))}
+							</Field>
 							<ErrorMessage name="year" component="div" className="invalid-feedback" />
 						</div>
 						<div className="mb-3">
@@ -120,12 +149,8 @@ const AdminCarUpdateForm: React.FC = () => {
 							<label htmlFor="plate" className="form-title">
 								Plaka
 							</label>
-							<Field
-								type="text"
-								name="plate"
-								className={`form-control ${errors.plate && touched.plate ? 'is-invalid' : ''}`}
-								placeholder="Plaka Giriniz"
-							/>
+							<Field name="plate" component={CustomInputComponent} className={`form-control ${errors.plate && touched.plate ? 'is-invalid' : ''}`} placeholder="Plaka Giriniz" />
+
 							<ErrorMessage name="plate" component="div" className="invalid-feedback" />
 						</div>
 						<div className="mb-3">
@@ -140,40 +165,36 @@ const AdminCarUpdateForm: React.FC = () => {
 							/>
 							<ErrorMessage name="imagePath" component="div" className="invalid-feedback" />
 						</div>
-						<div>
-							<label htmlFor="status" className="form-title">Status</label>
-							<BooleanSelect
-								value={values.status}
-								onChange={(value) => setFieldValue('status', value)}
-							/>
-							<ErrorMessage name="status" component="div" />
+						<div className="mb-3">
+							<label htmlFor="status" className="form-title">Durum</label>
+							<BooleanSelect name="status" className={`form-select ${errors.status && touched.status ? 'is-invalid' : ''}`} />
+
+							<ErrorMessage name="status" component="div" className="invalid-feedback" />
 						</div>
 						<div className="mb-3">
-							<label htmlFor="gearType" className="form-title">
-								Gear Type
-							</label>
-							<Field
-								type="text"
-								name="gearType"
-								className={`form-control ${errors.gearType && touched.gearType ? 'is-invalid' : ''}`}
-								placeholder="Gear Type Giriniz"
-							/>
-							<ErrorMessage name="gearType" component="div" className="invalid-feedback" />
+							<label htmlFor="gearType" className="form-label">Vites Türü</label>
+							<Field as="select" name="gearType" className="form-control">
+								<option value="">Vites Türü Seçiniz</option>
+								{Object.entries(GearType).map(([key, value]) => (
+									<option key={key} value={value}>
+										{getGearTypeLabel(value)}
+									</option>
+								))}
+							</Field>
 						</div>
 						<div className="mb-3">
-							<label htmlFor="fuelType" className="form-title">
-								Fuel Type
-							</label>
-							<Field
-								type="text"
-								name="fuelType"
-								className={`form-control ${errors.fuelType && touched.fuelType ? 'is-invalid' : ''}`}
-								placeholder="Fuel Type Giriniz"
-							/>
-							<ErrorMessage name="fuelType" component="div" className="invalid-feedback" />
+							<label htmlFor="fuelType" className="form-label">Yakıt Türü</label>
+							<Field as="select" name="fuelType" className="form-control">
+								<option value="">Yakıt Türü Seçiniz</option>
+								{Object.entries(FuelType).map(([key, value]) => (
+									<option key={key} value={value}>
+										{getFuelTypeLabel(value)}
+									</option>
+								))}
+							</Field>
 						</div>
 						<div className="mb-3">
-							<label htmlFor="modelId" className="form-title mb-4">Model</label>
+							<label htmlFor="modelId" className="form-title mb-1">Model</label>
 							<Field as="select" name="modelId" className={`form-control ${errors.modelId && touched.modelId ? 'is-invalid' : ''}`}>
 								<option value="">Model Seçiniz</option>
 								{models.map(model => (
@@ -183,7 +204,7 @@ const AdminCarUpdateForm: React.FC = () => {
 							<ErrorMessage name="modelId" component="div" className="invalid-feedback" />
 						</div>
 						<div className="mb-3">
-							<label htmlFor="colorId" className="form-title mb-4">Renk</label>
+							<label htmlFor="colorId" className="form-title mb-1">Renk</label>
 							<Field as="select" name="colorId" className={`form-control ${errors.colorId && touched.colorId ? 'is-invalid' : ''}`}>
 								<option value="">Renk Seçiniz</option>
 								{colors.map(color => (

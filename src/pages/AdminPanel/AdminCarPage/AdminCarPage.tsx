@@ -17,6 +17,8 @@ import { LiaSortAmountDownAltSolid, LiaSortAmountUpSolid } from "react-icons/lia
 import { getAll as getAllModels } from '../../../store/model/modelSlice';
 import { getAll as getAllColors } from '../../../store/color/colorSlice';
 import { FcAutomotive, FcWorkflow, FcMultipleSmartphones } from "react-icons/fc";
+import { GearType } from '../../../models/cars/entity/gearType';
+import { FuelType } from '../../../models/cars/entity/fuelType';
 
 const AdminCarPage: React.FC = () => {
 	const dispatch = useAppDispatch();
@@ -34,7 +36,15 @@ const AdminCarPage: React.FC = () => {
 	const [showDeleteForm, setShowDeleteForm] = useState(false);
 	const [filteredCars, setFilteredCars] = useState(allCars);
 	const [searchId, setSearchId] = useState('');
-	const [searchName, setSearchName] = useState('');
+	const [searchKilometer, setSearchKilometer] = useState('');
+	const [searchYear, setSearchYear] = useState('');
+	const [searchDailyPrice, setSearchDailyPrice] = useState('');
+
+	const [searchPlate, setSearchPlate] = useState('');
+	const [searchImagePath, setSearchImagePath] = useState('');
+	const [searchStatus, setSearchStatus] = useState('');
+	const [searchGearType, setSearchGearType] = useState('');
+	const [searchFuelType, setSearchFuelType] = useState('');
 	const [searchModel, setSearchModel] = useState('');
 	const [searchColor, setSearchColor] = useState('');
 	const [searchCreatedDate, setSearchCreatedDate] = useState('');
@@ -51,16 +61,16 @@ const AdminCarPage: React.FC = () => {
 	useEffect(() => {
 		let result = allCars.filter(car =>
 			(searchId ? car.id.toString().includes(searchId) : true) &&
-			(searchName ? car.kilometer.toString().includes(searchId) : true) &&
-			(searchName ? car.year.toString().includes(searchId) : true) &&
-			(searchName ? car.dailyPrice.toString().includes(searchId) : true) &&
-			(searchName ? car.plate.toLowerCase().includes(searchName.toLowerCase()) : true) &&
-			(searchName ? car.imagePath.toLowerCase().includes(searchName.toLowerCase()) : true) &&
-			(searchName ? car.status.toString().includes(searchId) : true) &&
-			(searchName ? car.gearType.toLowerCase().includes(searchName.toLowerCase()) : true) &&
-			(searchName ? car.fuelType.toLowerCase().includes(searchName.toLowerCase()) : true) &&
-			(searchName ? car.model.toString().includes(searchId) : true) &&
-			(searchName ? car.color.toString().includes(searchId) : true) &&
+			(searchKilometer ? car.kilometer.toString().includes(searchKilometer) : true) &&
+			(searchYear ? car.year.toString().includes(searchYear) : true) &&
+			(searchDailyPrice ? car.dailyPrice.toString().includes(searchDailyPrice) : true) &&
+			(searchPlate ? car.plate.toLowerCase().includes(searchPlate.toLowerCase()) : true) &&
+			(searchImagePath ? car.imagePath.toLowerCase().includes(searchImagePath.toLowerCase()) : true) &&
+			(searchStatus ? car.status.toString().includes(searchStatus) : true) &&
+			(searchGearType ? car.gearType.toLowerCase().includes(searchGearType.toLowerCase()) : true) &&
+			(searchFuelType ? car.fuelType.toLowerCase().includes(searchFuelType.toLowerCase()) : true) &&
+			(searchModel ? car.model.name.toString().toLowerCase().includes(searchModel.toLowerCase()) : true) &&
+			(searchColor ? car.color.name.toString().toLowerCase().includes(searchColor.toLowerCase()) : true) &&
 			(searchCreatedDate ? car.createdDate?.toString().includes(searchCreatedDate) : true) &&
 			(searchUpdatedDate ? car.updatedDate?.toString().includes(searchUpdatedDate) : true)
 		);
@@ -85,10 +95,10 @@ const AdminCarPage: React.FC = () => {
 					return sortDirection === 'asc' ? a.gearType.localeCompare(b.gearType) : b.gearType.localeCompare(a.gearType);
 				case 'fuelType':
 					return sortDirection === 'asc' ? a.fuelType.localeCompare(b.fuelType) : b.fuelType.localeCompare(a.fuelType);
-				// case 'modelId':
-				// 	return sortDirection === 'asc' ? a.modelId - b.modelId : b.modelId - a.modelId;
-				// case 'brandId':
-				// 	return sortDirection === 'asc' ? a.brandId - b.brandId : b.brandId - a.brandId;
+				case 'modelName':
+					return sortDirection === 'asc' ? a.model.name.localeCompare(b.model.name) : b.model.name.localeCompare(a.model.name);
+				case 'colorName':
+					return sortDirection === 'asc' ? a.color.name.localeCompare(b.color.name) : b.color.name.localeCompare(a.color.name);
 				case 'createdDate':
 					return sortDirection === 'asc' ? new Date(a.createdDate ?? "").getTime() - new Date(b.createdDate ?? "").getTime() : new Date(b.createdDate ?? "").getTime() - new Date(a.createdDate ?? "").getTime();
 				case 'updatedDate':
@@ -99,7 +109,7 @@ const AdminCarPage: React.FC = () => {
 		});
 
 		setFilteredCars(sorted);
-	}, [searchId, searchName, searchModel, searchColor, searchCreatedDate, searchUpdatedDate, allCars, sortBy, sortDirection]);
+	}, [searchId, searchKilometer, searchYear, searchDailyPrice, searchPlate, searchImagePath, searchStatus, searchGearType, searchFuelType, searchModel, searchColor, searchCreatedDate, searchUpdatedDate, allCars, sortBy, sortDirection]);
 	useEffect(() => {
 		dispatch(getAllColors());
 		dispatch(getAllModels());
@@ -312,16 +322,50 @@ const AdminCarPage: React.FC = () => {
 					</tr>
 					<tr>
 						<th><Form.Control size="sm" type="text" placeholder="Id Ara" onChange={(e) => setSearchId(e.target.value)} /></th>
-						<th><Form.Control size="sm" type="text" placeholder="Kilometre Ara"  /></th>
-						<th><Form.Control size="sm" type="text" placeholder="Yıl Ara"  /></th>
-						<th><Form.Control size="sm" type="text" placeholder="Günlük Fiyat Ara"  /></th>
-						<th><Form.Control size="sm" type="text" placeholder="Plaka Ara" /></th>
-						<th><Form.Control size="sm" type="text" placeholder="ImagePath Ara" /></th>
-						<th><Form.Control size="sm" type="text" placeholder="Status Ara" /></th>
-						<th><Form.Control size="sm" type="text" placeholder="Vites Türü Ara" /></th>
-						<th><Form.Control size="sm" type="text" placeholder="Yakıt Türü Ara" /></th>
-						<th><Form.Control size="sm" type="text" placeholder="Model Ara" onChange={(e) => setSearchModel(e.target.value)} /></th>
-						<th><Form.Control size="sm" type="text" placeholder="Renk Ara" onChange={(e) => setSearchColor(e.target.value)} /></th>
+						<th><Form.Control size="sm" type="text" placeholder="Kilometre Ara" onChange={(e) => setSearchKilometer(e.target.value)} /></th>
+						<th><Form.Control size="sm" type="text" placeholder="Yıl Ara" onChange={(e) => setSearchYear(e.target.value)} /></th>
+						<th><Form.Control size="sm" type="text" placeholder="Günlük Fiyat Ara" onChange={(e) => setSearchDailyPrice(e.target.value)} /></th>
+						<th><Form.Control size="sm" type="text" placeholder="Plaka Ara" onChange={(e) => setSearchPlate(e.target.value)}/></th>
+						<th><Form.Control size="sm" type="text" placeholder="ImagePath Ara" onChange={(e) => setSearchImagePath(e.target.value)}/></th>
+						<th>
+							<Form.Control size="sm" as="select" onChange={(e) => setSearchStatus(e.target.value)}>
+								<option value="">Tümü</option>
+								<option value="true">Aktif</option>
+								<option value="false">Pasif</option>
+							</Form.Control>
+						</th>
+						<th>
+							<Form.Control size="sm" as="select" onChange={(e) => setSearchGearType(e.target.value)}>
+								<option value="">Tümü</option>
+								<option value={GearType.MANUEL}>Manuel</option>
+								<option value={GearType.AUTO}>Otomatik</option>
+							</Form.Control>
+						</th>
+						<th>
+							<Form.Control size="sm" as="select" onChange={(e) => setSearchFuelType(e.target.value)}>
+								<option value="">Tümü</option>
+								<option value={FuelType.DIESEL}>Dizel</option>
+								<option value={FuelType.ELECTRIC}>Elektrikli</option>
+								<option value={FuelType.HYBRID}>Hibrit</option>
+								<option value={FuelType.GASOLINE}>Benzinli</option>
+							</Form.Control>
+						</th>
+						<th>
+							<Form.Control size="sm" as="select" onChange={(e) => setSearchModel(e.target.value)}>
+								<option value="">Tümü</option>
+								{allModels.map((model) => (
+									<option key={model.id} value={model.name}>{model.name}</option>
+								))}
+							</Form.Control>
+						</th>
+						<th>
+							<Form.Control size="sm" as="select" onChange={(e) => setSearchColor(e.target.value)}>
+								<option value="">Tümü</option>
+								{allColors.map((color) => (
+									<option key={color.id} value={color.name}>{color.name}</option>
+								))}
+							</Form.Control>
+						</th>
 						<th><Form.Control size="sm" type="text" placeholder="Oluşturulma Tarihi Ara" onChange={(e) => setSearchCreatedDate(e.target.value)} /></th>
 						<th><Form.Control size="sm" type="text" placeholder="Yenilenme Tarihi Ara" onChange={(e) => setSearchUpdatedDate(e.target.value)} /></th>
 					</tr>
@@ -357,7 +401,8 @@ const AdminCarPage: React.FC = () => {
 			</Modal>
 			<Modal show={showUpdateForm} onHide={handleCloseUpdateForm}>
 				<Modal.Header closeButton>
-					<Modal.Title className='form-title'>Araba Güncelle veya Sil</Modal.Title>
+					<Modal.Title className='form-title'>
+			<h2>Araba Güncelle veya Sil</h2></Modal.Title>
 				</Modal.Header>
 				<Modal.Body>
 					<AdminCarUpdateForm />

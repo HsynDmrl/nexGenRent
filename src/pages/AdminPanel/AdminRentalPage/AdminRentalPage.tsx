@@ -5,7 +5,7 @@ import Pagination from 'react-bootstrap/Pagination';
 import { Badge, Button, Container, Modal } from 'react-bootstrap';
 import { FaSortNumericDown, FaSortNumericUp, FaSortAlphaDown, FaSortAlphaUp } from "react-icons/fa";
 import { LiaSortAmountDownAltSolid, LiaSortAmountUpSolid } from "react-icons/lia";
-import { FcAutomotive, FcWorkflow, FcMultipleSmartphones } from "react-icons/fc";
+import { FcAutomotive, FcParallelTasks, FcAssistant, FcBusinessman } from "react-icons/fc";
 import { useAppDispatch } from '../../../store/configStore/useAppDispatch';
 import { useAppSelector } from '../../../store/configStore/useAppSelector';
 import { RootState } from '../../../store/configStore/configureStore';
@@ -140,16 +140,16 @@ const AdminRentalPage: React.FC = () => {
 			<h1>Admin Rental Sayfası</h1>
 			<div className="container mb-5">
 				<div>
-				<Badge className='custom-badge mb-2 mt-5 mx-2' bg="danger">{allRentals.length}<FcAutomotive size={'2em'} />
+				<Badge className='custom-badge mb-2 mt-5 mx-2' bg="danger">{allRentals.length}<FcParallelTasks size={'2em'} />
+					<div>Toplam Sipariş</div>
+				</Badge>
+				<Badge className='custom-badge mx-2' bg="warning">{allCars.length}<FcAutomotive size={'2em'} />
 					<div>Toplam Araba</div>
 				</Badge>
-				<Badge className='custom-badge mx-2' bg="warning">{allCars.length}<FcWorkflow size={'2em'} />
-					<div>Toplam Araba</div>
-				</Badge>
-				<Badge className='custom-badge mx-2' bg="primary">{allCustomers.length}<FcMultipleSmartphones size={'2em'} />
+				<Badge className='custom-badge mx-2' bg="primary">{allCustomers.length}<FcBusinessman size={'2em'} />
 					<div>Toplam Müşteri</div>
 				</Badge>
-				<Badge className='custom-badge mx-2' bg="primary">{allEmployees.length}<FcMultipleSmartphones size={'2em'} />
+				<Badge className='custom-badge mx-2' bg="primary">{allEmployees.length}<FcAssistant size={'2em'} />
 					<div>Toplam Çalışan</div>
 				</Badge>
 				</div>

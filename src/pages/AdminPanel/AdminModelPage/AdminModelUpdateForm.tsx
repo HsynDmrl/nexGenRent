@@ -20,7 +20,7 @@ const AdminModelUpdateForm: React.FC = () => {
   const modelData = allData.find(model => model.id === selectedModelId) || null;
 
   useEffect(() => {
-	dispatch(getAllBrands());
+    dispatch(getAllBrands());
   }, [dispatch]);
 
   useEffect(() => {
@@ -32,7 +32,7 @@ const AdminModelUpdateForm: React.FC = () => {
   const initialValues: UpdateModelRequest = {
     id: selectedModelId ?? 0,
     name: modelData?.name ?? '',
-	brandId: modelData?.brand.id ?? 0,
+    brandId: modelData?.brand.id ?? 0,
   };
 
   const validationSchema: ObjectSchema<UpdateModelRequest> = Yup.object().shape({
@@ -41,7 +41,7 @@ const AdminModelUpdateForm: React.FC = () => {
       .required('Model adı zorunludur.')
       .min(2, 'Model adı en az 2 karakter olmalıdır.')
       .max(50, 'Model adı en fazla 50 karakter olmalıdır.'),
-	brandId: Yup.number().required('Marka seçmeniz gerekiyor.'),
+    brandId: Yup.number().required('Marka seçmeniz gerekiyor.'),
   });
 
   const onSubmit = (values: UpdateModelRequest, { setStatus }: any) => {
@@ -53,7 +53,7 @@ const AdminModelUpdateForm: React.FC = () => {
         setStatus({ success: false });
       });
   };
-  
+
   return (
     <Container>
       <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit}>
@@ -72,15 +72,15 @@ const AdminModelUpdateForm: React.FC = () => {
               <ErrorMessage name="name" component="div" className="invalid-feedback" />
             </div>
             <div>
-            <label htmlFor="brandId" className="form-title mb-4">Marka {' '}</label>
-            <Field as="select" name="brandId">
-              <option value="">Marka Seçiniz </option>
-              {brands.map(brand => (
-                <option key={brand.id} value={brand.id}>{brand.name}</option>
-              ))}
-            </Field>
-            <ErrorMessage name="brandId" component="div" />
-          </div>
+              <label htmlFor="brandId" className="form-title mb-4">Marka {' '}</label>
+              <Field as="select" name="brandId">
+                <option value="">Marka Seçiniz </option>
+                {brands.map(brand => (
+                  <option key={brand.id} value={brand.id}>{brand.name}</option>
+                ))}
+              </Field>
+              <ErrorMessage name="brandId" component="div" />
+            </div>
             <Button className='p-2 mb-2 mx-3 bg-success' variant="primary" type="submit">
               Güncelle
             </Button>

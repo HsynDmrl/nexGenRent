@@ -10,6 +10,7 @@ import AdminEmployeePage from '../pages/AdminPanel/AdminEmployeePage/AdminEmploy
 import AdminCarPage from '../pages/AdminPanel/AdminCarPage/AdminCarPage';
 import AdminCustomerPage from '../pages/AdminPanel/AdminCustomerPage/AdminCustomerPage';
 import AdminRentalPage from '../pages/AdminPanel/AdminRentalPage/AdminRentalPage';
+import AdminInvoicePage from '../pages/AdminPanel/AdminInvoicePage/AdminInvoicePage';
 
 const AdminRouters = () => {
   return (
@@ -28,6 +29,7 @@ const AdminRouters = () => {
 		  <Route path="/employees" element={<AdminEmployeePage />} />
 		  <Route path="/customers" element={<AdminCustomerPage />} />
 		  <Route path='/rentals' element={<AdminRentalPage/>} />
+		  <Route path='/invoices' element={<AdminInvoicePage/>} />
         </Routes>
       </div>
       </>

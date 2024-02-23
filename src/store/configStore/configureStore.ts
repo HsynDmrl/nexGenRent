@@ -12,6 +12,7 @@ import employeeReducer from "../employee/employeeSlice";
 import carReducer from "../car/carSlice";
 import customerReducer from "../customer/customerSlice";
 import rentalReducer from "../rental/rentalSlice";
+import invoiceReducer from "../invoice/invoiceSlice";
 
 const rootReducer = combineReducers({
     auth: authReducer,
@@ -22,6 +23,7 @@ const rootReducer = combineReducers({
 	brand: brandReducer,
 	role: roleReducer,
 	rental: rentalReducer,
+	invoice: invoiceReducer,
 	model: modelReducer,
 	color: colorReducer,
 	employee: employeeReducer,

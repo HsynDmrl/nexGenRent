@@ -1,62 +1,52 @@
 import React from 'react';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
-import * as Yup from 'yup';
-import { Button, Container, Alert } from 'react-bootstrap';
-import { RootState } from '../../../store/configStore/configureStore';
-import { deleteBrand, setSelectedId } from '../../../store/brand/brandSlice';
-import { useAppDispatch } from '../../../store/configStore/useAppDispatch';
-import { useAppSelector } from '../../../store/configStore/useAppSelector';
+import { Button } from 'react-bootstrap';
+import { GetAllInvoiceResponse } from '../../../models/invoices/response/getAllInvoiceResponse';
 
-const AdminBrandDeleteForm: React.FC = () => {
-  const dispatch = useAppDispatch();
-  const selectedBrandId = useAppSelector((state: RootState) => state.brand.selectedId);
+interface ExportToCSVButtonProps {
+    data: GetAllInvoiceResponse[];
+    className?: string;
+}
 
-  return (
-    <Container>
-      <Formik
-        initialValues={{ confirmationText: '' }}
-        validationSchema={Yup.object({
-          confirmationText: Yup.string()
-            .required('Onaylama zorunludur')
-        })}
-		onSubmit={(values, { setSubmitting, setStatus }) => {
-			if (values.confirmationText === 'sil') {
-			  try {
-				dispatch(deleteBrand(selectedBrandId as number));
-				dispatch(setSelectedId(null));
-				setStatus({ success: true });
-			  } catch (error) {
-				console.error('Bir hata oluştu:', error);
-				setStatus({ success: false });
-			  } finally {
-				setSubmitting(false);
-			  }
-			} else {
-			  setStatus({ success: false, error: 'Lütfen "sil" yazarak silme işlemini onaylayın.' });
-			  setSubmitting(false);
-			}
-		  }}>
-        {({ isSubmitting, status }) => (
-          <Form>
-            <div className="mb-3">
-              <label htmlFor="confirmationText" className="form-label">
-                Silme işlemini onaylamak için "sil" yazın:
-              </label>
-              <Field
-                type="text"
-                name="confirmationText"
-                className={`form-control ${status && !status.success ? 'is-invalid' : ''}`}
-              />
-              <ErrorMessage name="confirmationText" component="div" className="invalid-feedback" />
-            </div>
-            <Button className='bg-danger mb-2' variant="primary" type="submit" disabled={isSubmitting}>Sil</Button>
-            {status && status.success && <Alert className='mb-2' variant="success">Marka başarıyla silindi.</Alert>}
-            {status && !status.success && <Alert className='mb-2' variant="danger">{status.error}</Alert>}
-          </Form>
-        )}
-      </Formik>
-    </Container>
-  );
+const ExportToCSVButton: React.FC<ExportToCSVButtonProps> = ({ data, className }) => {
+    const formatDate = (date: Date): string => {
+        const year = date.getFullYear();
+        const month = (`0${date.getMonth() + 1}`).slice(-2);
+        const day = (`0${date.getDate()}`).slice(-2);
+        return `${year}-${month}-${day}`;
+    };
+
+	const convertToCSV = (invoices: GetAllInvoiceResponse[]): string => {
+		const sortedInvoices: GetAllInvoiceResponse[] = [...invoices].sort((a, b) => a.id - b.id);
+	
+		const csvRows = ['id,invoiceNo,totalPrice,discountRate,taxRate,rental,createdDate,updatedDate'];
+		sortedInvoices.forEach(({ id, invoiceNo, totalPrice, discountRate, taxRate, rental, createdDate, updatedDate }) => {
+			const formattedCreatedDate = createdDate ? formatDate(new Date(createdDate)) : '';
+			const formattedUpdatedDate = updatedDate ? formatDate(new Date(updatedDate)) : '';
+			csvRows.push(`${id},${invoiceNo},${totalPrice},${discountRate},${taxRate},${rental.id},${formattedCreatedDate},${formattedUpdatedDate}`);
+		});
+		return csvRows.join('\n');
+	};
+
+    const downloadCSV = (csvString: string, filename: string): void => {
+        const blob = new Blob([csvString], { type: 'text/csv;charset=utf-8;' });
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = filename;
+        link.click();
+        URL.revokeObjectURL(link.href);
+    };
+
+    const handleExportClick = (): void => {
+        const today = new Date();
+        const formattedDate = formatDate(today);
+        const filename = `Faturalar-${formattedDate}.csv`;
+        const csvString = convertToCSV(data);
+        downloadCSV(csvString, filename);
+    };
+
+    return (
+        <Button className={`button-admin-invoice mb-2 ms-1 bg-warning ${className}`} onClick={handleExportClick}>Dışa Aktar</Button>
+    );
 };
 
-export default AdminBrandDeleteForm;
+export default ExportToCSVButton;

@@ -1,5 +1,8 @@
-import { BaseAddResponse } from "../../base/response/BaseResponse";
-import { Customer } from "../entity/customer";
+import { User } from "../../users/entity/user";
 
-export interface GetByIdCustomerResponse extends Customer{
+export interface GetByIdCustomerResponse {
+    id: number;
+    user: User;
+	createdDate: Date;
+	updatedDate: Date;
 }

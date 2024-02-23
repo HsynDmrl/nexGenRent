@@ -1,5 +1,8 @@
-import { BaseAddResponse } from "../../base/response/BaseResponse";
+import { User } from "../../users/entity/user";
 
 export interface GetAllCustomerResponse {
-    baseAddResponse: BaseAddResponse;
+    id: number;
+    user: User;
+	createdDate: Date;
+	updatedDate: Date;
 }

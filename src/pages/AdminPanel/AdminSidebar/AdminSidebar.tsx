@@ -4,7 +4,7 @@ import './adminSidebar.css';
 import Sidebar from 'react-bootstrap-sidebar-menu';
 import { NavLink  } from 'react-router-dom';
 import { SidebarMenuFooter } from 'react-bootstrap-sidebar-menu';
-import { FcPositiveDynamic } from "react-icons/fc";
+import { FcPositiveDynamic, FcBusinessman } from "react-icons/fc";
 import {
 	FcMenu, FcSupport, FcImport, FcParallelTasks, FcAreaChart, FcAutomotive, FcConferenceCall, FcWorkflow,
 	FcAssistant, FcMultipleSmartphones, FcRules, FcNeutralDecision
@@ -47,6 +47,9 @@ const AdminSidebar: React.FC = () => {
 				</Sidebar.Nav.Item>
 				<Sidebar.Nav.Item className='sidebarNavItem' as={NavLink } to="/admin/rentals">
 					<Sidebar.Nav.Title className='sidebarNavTitle' ><FcParallelTasks size={'2em'}/>  Siparişler</Sidebar.Nav.Title>
+				</Sidebar.Nav.Item>
+				<Sidebar.Nav.Item className='sidebarNavItem' as={NavLink } to="/admin/customers">
+					<Sidebar.Nav.Title className='sidebarNavTitle' ><FcBusinessman size={'2em'}/>  Müşteriler</Sidebar.Nav.Title>
 				</Sidebar.Nav.Item>
 				<Sidebar.Nav.Item className='sidebarNavItem' as={NavLink } to="/admin/employees">
 					<Sidebar.Nav.Title className='sidebarNavTitle' ><FcAssistant size={'2em'}/>  Çalışanlar</Sidebar.Nav.Title>

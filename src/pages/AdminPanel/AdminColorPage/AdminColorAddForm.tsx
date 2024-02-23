@@ -21,7 +21,7 @@ const AdminColorAddForm: React.FC = () => {
 	id: Yup.number().required(),
 	name: Yup.string()
 	  .required('Renk adı zorunludur.')
-	  .matches(/^[A-Z][a-zA-Z\s]*$/, 'Renk adının ilk harfi büyük olmalı ve sadece harf içermelidir.')
+	  .matches(/^[A-Za-zÇçĞğİıÖöŞşÜü][a-zA-ZÇçĞğİıÖöŞşÜü\s]*$/, 'Renk adının ilk harfi büyük olmalı ve sadece harf içermelidir.')
 	  .min(2, 'Renk adı en az 2 karakter olmalıdır.')
 	  .max(50, 'Renk adı en fazla 50 karakter olmalıdır.'),
   });

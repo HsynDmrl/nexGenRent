@@ -1,7 +1,3 @@
-import { Car } from "../../cars/entity/car";
-import { Customer } from "../../customers/entity/customer";
-import { Employee } from "../../employees/entity/employee";
-
 export interface UpdateRentalResponse {
 	id: number;
     startDate: Date;
@@ -12,9 +8,9 @@ export interface UpdateRentalResponse {
     totalPrice: number;
     discount: number;
     rentalId: number;
-    car: Car;
-    customer: Customer;
-    employee: Employee;
+	carId: number;
+	customerId: number;
+	employeeId: number;
 	createdDate: Date;
 	updatedDate: Date;
 }

@@ -10,6 +10,4 @@ export interface AddCarRequest {
     fuelType: string;
 	modelId: number;
 	colorId: number;
-	createdDate: Date;
-	updatedDate: Date;
 }

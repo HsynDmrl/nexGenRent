@@ -1,2 +1,4 @@
-import { Customer } from "../entity/customer";
-export interface UpdateCustomerRequest extends Customer {}
+export interface UpdateCustomerRequest  {
+    id: number;
+	userId: number;
+}

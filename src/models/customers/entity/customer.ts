@@ -1,8 +1,8 @@
-import { BaseEntity } from '../../base/entity/baseEntity';
-import { Rental } from '../../rentals/entity/rental';
 import { User } from '../../users/entity/user';
 
-export interface Customer extends BaseEntity {
+export interface Customer  {
+    id: number;
     user: User;
-    rentals?: Rental[];
+	createdDate: Date;
+	updatedDate: Date;
 }

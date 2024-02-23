@@ -1,5 +1,4 @@
 import { Routes, Route } from 'react-router-dom';
-import UserDashboard from '../pages/UserDashboard/UserDashboard';
 import AdminSidebar from '../pages/AdminPanel/AdminSidebar/AdminSidebar';
 import AdminDashboard from '../pages/AdminPanel/AdminDashboard/AdminDashboard';
 import AdminBrandPage from '../pages/AdminPanel/AdminBrandPage/AdminBrandPage';
@@ -9,6 +8,8 @@ import AdminRolePage from '../pages/AdminPanel/AdminRolePage/AdminRolePage';
 import AdminUserPage from '../pages/AdminPanel/AdminUserPage/AdminUserPage';
 import AdminEmployeePage from '../pages/AdminPanel/AdminEmployeePage/AdminEmployeePage';
 import AdminCarPage from '../pages/AdminPanel/AdminCarPage/AdminCarPage';
+import AdminCustomerPage from '../pages/AdminPanel/AdminCustomerPage/AdminCustomerPage';
+import AdminRentalPage from '../pages/AdminPanel/AdminRentalPage/AdminRentalPage';
 
 const AdminRouters = () => {
   return (
@@ -25,6 +26,8 @@ const AdminRouters = () => {
 		  <Route path="/models" element={<AdminModelPage />} />
 		  <Route path="/roles" element={<AdminRolePage />} />
 		  <Route path="/employees" element={<AdminEmployeePage />} />
+		  <Route path="/customers" element={<AdminCustomerPage />} />
+		  <Route path='/rentals' element={<AdminRentalPage/>} />
         </Routes>
       </div>
       </>

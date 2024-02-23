@@ -11,9 +11,9 @@ export interface AddRentalResponse {
     endKilometer: number;
     totalPrice: number;
     discount: number;
-    carId: number;
-    customerId: number;
-    employeeId: number;
+	car: Car;
+	customer: Customer;
+	employee: Employee;
 	createdDate: Date;
 	updatedDate: Date;
 }

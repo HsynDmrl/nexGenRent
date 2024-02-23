@@ -23,7 +23,7 @@ const initialState: InvoiceState = {
 };
 
 export const getById = createAsyncThunk(
-    'model/getById',
+    'invoice/getById',
     async (Id: number, { rejectWithValue }) => {
         try {
             const response = await invoiceService.getById(Id);
@@ -35,7 +35,7 @@ export const getById = createAsyncThunk(
 );
 
 export const getAll = createAsyncThunk(
-    'model/getAll',
+    'invoice/getAll',
     async (_, { rejectWithValue }) => {
         try {
             const response = await invoiceService.getAll();
@@ -47,16 +47,16 @@ export const getAll = createAsyncThunk(
 );
 
 export const updateInvoice = createAsyncThunk(
-    'model/updateInvoice',
-    async (modelData: UpdateInvoiceRequest, { rejectWithValue }) => {
+    'invoice/updateInvoice',
+    async (invoiceData: UpdateInvoiceRequest, { rejectWithValue }) => {
         try {
             const updateInvoiceRequest: UpdateInvoiceRequest = {
-                id: modelData.id,
-				invoiceNo: modelData.invoiceNo,
-				totalPrice: modelData.totalPrice,
-				discountRate: modelData.discountRate,
-				taxRate: modelData.taxRate,
-				rentalId: modelData.rentalId,
+                id: invoiceData.id,
+				invoiceNo: invoiceData.invoiceNo,
+				totalPrice: invoiceData.totalPrice,
+				discountRate: invoiceData.discountRate,
+				taxRate: invoiceData.taxRate,
+                rentalId: invoiceData.rentalId,
             };
             const response = await invoiceService.update(updateInvoiceRequest);
             return response.data;
@@ -67,10 +67,10 @@ export const updateInvoice = createAsyncThunk(
 );
 
 export const addInvoice = createAsyncThunk(
-    'model/addInvoice',
-    async (modelData: AddInvoiceRequest, { rejectWithValue }) => {
+    'invoice/addInvoice',
+    async (invoiceData: AddInvoiceRequest, { rejectWithValue }) => {
         try {
-            const response = await invoiceService.add(modelData);
+            const response = await invoiceService.add(invoiceData);
             return response.data;
         } catch (error:any) {
             return rejectWithValue(error.message);
@@ -79,7 +79,7 @@ export const addInvoice = createAsyncThunk(
 );
 
 export const deleteInvoice = createAsyncThunk(
-    'model/deleteInvoice',
+    'invoice/deleteInvoice',
     async (Id: number, { rejectWithValue }) => {
         try {
             const response = await invoiceService.delete(Id);
@@ -95,7 +95,7 @@ export const setSelectedIdAction = (id: number) => (dispatch: any) => {
 };
 
 const invoiceSlice = createSlice({
-    name: 'model',
+    name: 'invoice',
     initialState,
     reducers: {
         getDataStart: (state) => {

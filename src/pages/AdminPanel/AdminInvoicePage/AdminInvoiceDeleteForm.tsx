@@ -3,13 +3,13 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { Button, Container, Alert } from 'react-bootstrap';
 import { RootState } from '../../../store/configStore/configureStore';
-import { deleteBrand, setSelectedId } from '../../../store/brand/brandSlice';
+import { deleteInvoice, setSelectedId } from '../../../store/invoice/invoiceSlice';
 import { useAppDispatch } from '../../../store/configStore/useAppDispatch';
 import { useAppSelector } from '../../../store/configStore/useAppSelector';
 
-const AdminBrandDeleteForm: React.FC = () => {
+const AdminInvoiceDeleteForm: React.FC = () => {
   const dispatch = useAppDispatch();
-  const selectedBrandId = useAppSelector((state: RootState) => state.brand.selectedId);
+  const selectedInvoiceId = useAppSelector((state: RootState) => state.invoice.selectedId);
 
   return (
     <Container>
@@ -22,7 +22,7 @@ const AdminBrandDeleteForm: React.FC = () => {
 		onSubmit={(values, { setSubmitting, setStatus }) => {
 			if (values.confirmationText === 'sil') {
 			  try {
-				dispatch(deleteBrand(selectedBrandId as number));
+				dispatch(deleteInvoice(selectedInvoiceId as number));
 				dispatch(setSelectedId(null));
 				setStatus({ success: true });
 			  } catch (error) {
@@ -39,7 +39,7 @@ const AdminBrandDeleteForm: React.FC = () => {
         {({ isSubmitting, status }) => (
           <Form>
             <div className="mb-3">
-              <label htmlFor="confirmationText" className="form-label">
+              <label htmlFor="confirmationText" className="form-title">
                 Silme işlemini onaylamak için "sil" yazın:
               </label>
               <Field
@@ -59,4 +59,4 @@ const AdminBrandDeleteForm: React.FC = () => {
   );
 };
 
-export default AdminBrandDeleteForm;
+export default AdminInvoiceDeleteForm;

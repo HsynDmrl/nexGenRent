@@ -4,92 +4,135 @@ import * as Yup from 'yup';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../store/configStore/configureStore';
 import { getAll, addInvoice } from '../../../store/invoice/invoiceSlice';
-import { Brand } from '../../../models/brands/entity/brand';
+import { Rental } from '../../../models/rentals/entity/rental';
 import { useAppDispatch } from '../../../store/configStore/useAppDispatch';
-import { getAll as getAllBrands } from '../../../store/brand/brandSlice';
+import { getAll as getAllRentals } from '../../../store/rental/rentalSlice';
 import { Button, Alert } from 'react-bootstrap';
 
 const AdminInvoiceAddForm = () => {
-  const [brands, setBrands] = useState<Brand[]>([]);
-  const dispatch = useAppDispatch();
-  const allBrands = useSelector((state: RootState) => state.brand.allData);
-  const [isSuccess, setIsSuccess] = useState<boolean>(false);
+	const [rentals, setRentals] = useState<Rental[]>([]);
+	const dispatch = useAppDispatch();
+	const allRentals = useSelector((state: RootState) => state.rental.allData);
+	const [isSuccess, setIsSuccess] = useState<boolean>(false);
 
-  useEffect(() => {
-	dispatch(getAllBrands());
-    dispatch(getAll());
-  }, [dispatch]);
+	useEffect(() => {
+		dispatch(getAllRentals());
+		dispatch(getAll());
+	}, [dispatch]);
 
-  useEffect(() => {
-    if (allBrands.length > 0) {
-      setBrands(allBrands);
-    }
-  }, [allBrands]);
+	useEffect(() => {
+		if (allRentals.length > 0) {
+			setRentals(allRentals);
+		}
+	}, [allRentals]);
 
-  const initialValues = {
-    name: '',
-    brandId: '',
-  };
+	const initialValues = {
+		invoiceNo: '',
+		totalPrice: 0,
+		discountRate: 0,
+		taxRate: 0,
+		rentalId: '',
+	};
 
-  const validationSchema = Yup.object({
-    name: Yup.string()
-      .required('Name is required'),
-    brandId: Yup.string()
-      .required('Brand is required'),
-  });
+	const validationSchema = Yup.object({
+		invoiceNo: Yup.string()
+			.required('Fatura No zorunludur'),
+		totalPrice: Yup.number()
+			.required('Toplam Fiyat zorunludur'),
+		discountRate: Yup.number()
+			.required('İndirim Oranı zorunludur'),
+		taxRate: Yup.number()
+			.required('Vergi Oranı zorunludur'),
+		rentalId: Yup.string()
+			.required('Rental zorunludur'),
+	});
 
-  const handleSubmit = async (values: any, { resetForm }: any) => {
-    try {
-      await dispatch(addInvoice(values));
-      setIsSuccess(true);
-      setTimeout(() => {
-        setIsSuccess(false);
-      }, 1000);
-      resetForm();
-    } catch (error: any) {
-      console.error('Error adding invoice:', error);
-    }
-  };
+	const handleSubmit = async (values: any, { resetForm }: any) => {
+		try {
+			await dispatch(addInvoice(values));
+			setIsSuccess(true);
+			setTimeout(() => {
+				setIsSuccess(false);
+			}, 1000);
+			resetForm();
+		} catch (error: any) {
+			console.error('Fatura Eklenirken hata oluştu:', error);
+		}
+	};
 
-  return (
-    <div>
-      <h2>Add Invoice</h2>
-      <Formik
-        initialValues={initialValues}
-        validationSchema={validationSchema}
-        onSubmit={handleSubmit}
-      >
-		 {({ errors, touched }) => (
-        <Form>
-          <div>
-            <label htmlFor="name" className="form-title">İsim</label> 
-			<Field
-                    type="text"
-                    name="name"
-                    className={`form-control ${errors.name && touched.name ? 'is-invalid' : ''}`}
-                    placeholder="Marka İsim Giriniz"
-                />
-            <ErrorMessage name="name" component="div" />
-          </div>
-          <div>
-            <label htmlFor="brandId">Brand</label>
-            <Field as="select" name="brandId">
-              <option value="">Select a brand</option>
-              {brands.map(brand => (
-                <option key={brand.id} value={brand.id}>{brand.name}</option>
-              ))}
-            </Field>
-            <ErrorMessage name="brandId" component="div" />
-          </div>
-          
-		  <Button className='p-2 mb-2 bg-success' variant="primary" type="submit">Kaydet</Button>
-            <Button className='p-2 mb-2 mx-4 bg-warning' variant="primary" type="reset">Temizle</Button>
-            {isSuccess && <Alert variant="success">Form başarıyla gönderildi!</Alert>}
-		</Form>
-    )}
-      </Formik>
-    </div>
-  );
+	return (
+		<div>
+			<h2>Add Invoice</h2>
+			<Formik
+				initialValues={initialValues}
+				validationSchema={validationSchema}
+				onSubmit={handleSubmit}
+			>
+				{({ errors, touched }) => (
+					<Form>
+						<div>
+							<label htmlFor="invoiceNo" className="form-title">Fatura No</label>
+							<Field
+								type="text"
+								name="invoiceNo"
+								id="invoiceNo"
+								className={`form-control ${errors.invoiceNo && touched.invoiceNo ? 'is-invalid' : ''}`}
+								placeholder="Fatura No Giriniz"
+							/>
+							<ErrorMessage name="invoiceNo" component="div" />
+						</div>
+						<div>
+							<label htmlFor="totalPrice" className="form-title">Toplam Fiyat</label>
+							<Field
+								type="number"
+								name="totalPrice"
+								id="totalPrice"
+								className={`form-control ${errors.totalPrice && touched.totalPrice ? 'is-invalid' : ''}`}
+								placeholder="Toplam Fiyat Giriniz"
+							/>
+							<ErrorMessage name="totalPrice" component="div" />
+						</div>
+						<div>
+							<label htmlFor="discountRate" className="form-title">İndirim Oranı</label>
+							<Field
+								type="number"
+								name="discountRate"
+								id="discountRate"
+								className={`form-control ${errors.discountRate && touched.discountRate ? 'is-invalid' : ''}`}
+								placeholder="İndirim Oranı Giriniz"
+							/>
+							<ErrorMessage name="discountRate" component="div" />
+						</div>
+						<div>
+							<label htmlFor="taxRate" className="form-title">Vergi Oranı</label>
+							<Field
+								type="number"
+								name="taxRate"
+								id="taxRate"
+								className={`form-control ${errors.taxRate && touched.taxRate ? 'is-invalid' : ''}`}
+								placeholder="Vergi Oranı Giriniz"
+							/>
+							<ErrorMessage name="taxRate" component="div" />
+						</div>
+						<div>
+							<label htmlFor="rentalId">Rental</label>
+							<Field
+								type="text"
+								id="rentalId"
+								name="rentalId"
+								className={`form-control mb-2 ${errors.rentalId && touched.rentalId ? 'is-invalid' : ''}`}
+								placeholder="Rental Seçiniz"
+							/>
+							<ErrorMessage name="rentalId" component="div" />
+						</div>
+						<Button className='p-2 mb-2 bg-success' variant="primary" type="submit">Kaydet</Button>
+						<Button className='p-2 mb-2 mx-4 bg-warning' variant="primary" type="reset">Temizle</Button>
+						{isSuccess && <Alert variant="success">Form başarıyla gönderildi!</Alert>}
+					</Form>
+				)}
+			</Formik>
+		</div>
+	);
 };
 
 export default AdminInvoiceAddForm;

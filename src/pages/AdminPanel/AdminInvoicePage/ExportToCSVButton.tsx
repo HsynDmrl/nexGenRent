@@ -18,11 +18,11 @@ const ExportToCSVButton: React.FC<ExportToCSVButtonProps> = ({ data, className }
 	const convertToCSV = (invoices: GetAllInvoiceResponse[]): string => {
 		const sortedInvoices: GetAllInvoiceResponse[] = [...invoices].sort((a, b) => a.id - b.id);
 	
-		const csvRows = ['id,invoiceNo,totalPrice,discountRate,taxRate,rental,createdDate,updatedDate'];
-		sortedInvoices.forEach(({ id, invoiceNo, totalPrice, discountRate, taxRate, rental, createdDate, updatedDate }) => {
+		const csvRows = ['id,invoiceNo,totalPrice,discountRate,taxRate,createdDate,updatedDate'];
+		sortedInvoices.forEach(({ id, invoiceNo, totalPrice, discountRate, taxRate, createdDate, updatedDate }) => {
 			const formattedCreatedDate = createdDate ? formatDate(new Date(createdDate)) : '';
 			const formattedUpdatedDate = updatedDate ? formatDate(new Date(updatedDate)) : '';
-			csvRows.push(`${id},${invoiceNo},${totalPrice},${discountRate},${taxRate},${rental.id},${formattedCreatedDate},${formattedUpdatedDate}`);
+			csvRows.push(`${id},${invoiceNo},${totalPrice},${discountRate},${taxRate},${formattedCreatedDate},${formattedUpdatedDate}`);
 		});
 		return csvRows.join('\n');
 	};

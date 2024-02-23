@@ -36,7 +36,6 @@ const AdminInvoicePage: React.FC = () => {
 	const [searchTotalPrice, setSearchTotalPrice] = useState('');
 	const [searchDiscountRate, setSearchDiscountRate] = useState('');
 	const [searchTaxRate, setSearchTaxRate] = useState('');
-	const [searchRentalId, setSearchRentalId] = useState('');
 	const [searchCreatedDate, setSearchCreatedDate] = useState('');
 	const [searchUpdatedDate, setSearchUpdatedDate] = useState('');
 
@@ -55,7 +54,6 @@ const AdminInvoicePage: React.FC = () => {
 			(searchTotalPrice ? invoice.totalPrice?.toString().includes(searchTotalPrice) : true) &&
 			(searchDiscountRate ? invoice.discountRate?.toString().includes(searchDiscountRate) : true) &&
 			(searchTaxRate ? invoice.taxRate?.toString().includes(searchTaxRate) : true) &&
-			(searchRentalId ? invoice.rental.id?.toString().includes(searchRentalId) : true) &&
 			(searchCreatedDate ? invoice.createdDate?.toString().includes(searchCreatedDate) : true) &&
 			(searchUpdatedDate ? invoice.updatedDate?.toString().includes(searchUpdatedDate) : true)
 		);
@@ -72,8 +70,6 @@ const AdminInvoicePage: React.FC = () => {
 					return sortDirection === 'asc' ? a.discountRate - b.discountRate : b.discountRate - a.discountRate;
 				case 'taxRate':
 					return sortDirection === 'asc' ? a.taxRate - b.taxRate : b.taxRate - a.taxRate;
-				case 'rentalId':
-					return sortDirection === 'asc' ? a.rental.id - b.rental.id : b.rental.id - a.rental.id;
 				case 'createdDate':
 					return sortDirection === 'asc' ? new Date(a.createdDate).getTime() - new Date(b.createdDate).getTime() : new Date(b.createdDate).getTime() - new Date(a.createdDate).getTime();
 				case 'updatedDate':
@@ -83,7 +79,7 @@ const AdminInvoicePage: React.FC = () => {
 			}
 		});
 		setFilteredInvoices(sorted);
-	}, [allInvoices, selectedInvoiceId, searchId, searchInvoiceNo, searchTotalPrice, searchDiscountRate, searchTaxRate, searchRentalId, searchCreatedDate, searchUpdatedDate, sortBy, sortDirection]);
+	}, [allInvoices, selectedInvoiceId, searchId, searchInvoiceNo, searchTotalPrice, searchDiscountRate, searchTaxRate, searchCreatedDate, searchUpdatedDate, sortBy, sortDirection]);
 
 	useEffect(() => {
 		dispatch(getAllRentals());
@@ -100,7 +96,7 @@ const AdminInvoicePage: React.FC = () => {
 
 	const pageCount = Math.ceil(sortedInvoices.length / itemsPerPage);
 
-	const handleSort = (key: 'id' | 'invoiceNo' | 'totalPrice' | 'discountRate' | 'taxRate' | 'rentalId' | 'createdDate' | 'updatedDate', direction: 'asc' | 'desc') => {
+	const handleSort = (key: 'id' | 'invoiceNo' | 'totalPrice' | 'discountRate' | 'taxRate' | 'createdDate' | 'updatedDate', direction: 'asc' | 'desc') => {
 		setSortBy(key);
 		setSortDirection(direction);
 		handleSortIconDirection();
@@ -110,7 +106,6 @@ const AdminInvoicePage: React.FC = () => {
 		handleInvoiceSelect(id);
 		handleUpdateButtonClick();
 	};
-
 	return (
 		<Container>
 			<h1>Admin Invoice Sayfası</h1>
@@ -124,7 +119,6 @@ const AdminInvoicePage: React.FC = () => {
 			</div>
 			<div className="container">
 				<ExportToCSVButton className='button-admin-invoice ms-4' data={allInvoices} />
-				<Button className='button-admin-invoice mb-2 ms-1 bg-success' onClick={handleAddButtonClick}>Yeni Fatura Ekle</Button>
 			</div>
 			<Table>
 				<thead>
@@ -191,18 +185,6 @@ const AdminInvoicePage: React.FC = () => {
 							)}
 						</th>
 						<th className='text-table'>
-							Rental{' '}
-							{sortBy === 'rentalId' ? (
-								sortDirection === 'asc' ? (
-									<FaSortNumericDown onClick={() => handleSort('rentalId', 'desc')} />
-								) : (
-									<FaSortNumericUp onClick={() => handleSort('rentalId', 'asc')} />
-								)
-							) : (
-								<FaSortNumericDown onClick={() => handleSort('rentalId', 'asc')} />
-							)}
-						</th>
-						<th className='text-table'>
 							Oluşturulma Tarihi{' '}
 							{sortBy === 'createdDate' ? (
 								sortDirection === 'asc' ? (
@@ -233,45 +215,25 @@ const AdminInvoicePage: React.FC = () => {
 						<th><Form.Control size="sm" type="text" placeholder="Toplam Fiyat Ara" onChange={(e) => setSearchTotalPrice(e.target.value)} /></th>
 						<th><Form.Control size="sm" type="text" placeholder="İndirim Oranı Ara" onChange={(e) => setSearchDiscountRate(e.target.value)} /></th>
 						<th><Form.Control size="sm" type="text" placeholder="Vergi Oranı Ara" onChange={(e) => setSearchTaxRate(e.target.value)} /></th>
-						<th><Form.Control size="sm" type="text" placeholder="Rental Id Ara" onChange={(e) => setSearchRentalId(e.target.value)} /></th>
 						<th><Form.Control size="sm" type="text" placeholder="Oluşturulma Tarihi Ara" onChange={(e) => setSearchCreatedDate(e.target.value)} /></th>
 						<th><Form.Control size="sm" type="text" placeholder="Yenilenme Tarihi Ara" onChange={(e) => setSearchUpdatedDate(e.target.value)} /></th>
 					</tr>
 				</thead>
 				<tbody>
 					{filteredInvoices.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage).map((invoice, index) => (
-						<tr key={invoice.id} onClick={() => handleInvoiceSelectAndUpdateForm(invoice.id)}>
-							<td style={{ cursor: 'pointer' }}>{(currentPage - 1) * itemsPerPage + index + 1}</td>
-							<td style={{ cursor: 'pointer' }}>{invoice.id}</td>
-							<td style={{ cursor: 'pointer' }}>{invoice.invoiceNo}</td>
-							<td style={{ cursor: 'pointer' }}>{invoice.totalPrice}</td>
-							<td style={{ cursor: 'pointer' }}>{invoice.discountRate}</td>
-							<td style={{ cursor: 'pointer' }}>{invoice.taxRate}</td>
-        					<td style={{ cursor: 'pointer' }}>{invoice.rental && invoice.rental.id}</td>
-							<td style={{ cursor: 'pointer' }}>{invoice.createdDate?.toString()}</td>
-							<td style={{ cursor: 'pointer' }}>{invoice.updatedDate?.toString()}</td>
+						<tr key={invoice.id}>
+							<td>{(currentPage - 1) * itemsPerPage + index + 1}</td>
+							<td>{invoice.id}</td>
+							<td>{invoice.invoiceNo}</td>
+							<td>{invoice.totalPrice}</td>
+							<td>{invoice.discountRate}</td>
+							<td>{invoice.taxRate}</td>
+							<td>{invoice.createdDate?.toString()}</td>
+							<td>{invoice.updatedDate?.toString()}</td>
 						</tr>
 					))}
 				</tbody>
 			</Table>
-			<Modal show={showAddForm} onHide={handleCloseAddForm}>
-				<Modal.Header closeButton>
-					<Modal.Title className='form-title'>Fatura Ekle</Modal.Title>
-				</Modal.Header>
-				<Modal.Body>
-					<AdminInvoiceAddForm />
-				</Modal.Body>
-			</Modal>
-			<Modal show={showUpdateForm} onHide={handleCloseUpdateForm}>
-				<Modal.Header closeButton>
-					<Modal.Title className='form-title'>Fatura Güncelle veya Sil</Modal.Title>
-				</Modal.Header>
-				<Modal.Body>
-					<AdminInvoiceUpdateForm />
-					<hr />
-					<AdminInvoiceDeleteForm />
-				</Modal.Body>
-			</Modal>
 			<Pagination className="justify-content-center mb-5">
 				<Pagination.First onClick={() => paginate(1)} />
 				<Pagination.Prev onClick={() => paginate(currentPage - 1 > 0 ? currentPage - 1 : 1)} />

@@ -7,13 +7,12 @@ import { Bar } from 'react-chartjs-2';
 import { ChartData } from 'chart.js/auto';
 import { Chart, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
 
-// Register the necessary components
 Chart.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
 const AdminDashboard: React.FC = () => {
     const dispatch = useAppDispatch();
     const allRentals = useAppSelector((state) => state.rental.allData);
-    const [dataLoaded, setDataLoaded] = useState(false); // Yükleme durumu
+    const [dataLoaded, setDataLoaded] = useState(false);
 
     useEffect(() => {
         dispatch(getAllRentals());
@@ -26,11 +25,11 @@ const AdminDashboard: React.FC = () => {
     }, [allRentals]);
 
     const calculateMonthlySales = () => {
-        const monthlySales = new Array(12).fill(0); // Ay bazında satışları saklamak için dizi oluştur
+        const monthlySales = new Array(12).fill(0);
         allRentals.forEach((rental: Rental) => {
             const rentalDate = new Date(rental.startDate);
-            const month = rentalDate.getMonth(); // Kiralama tarihinden ayı al
-            monthlySales[month] += rental.totalPrice; // İlgili ayın toplam satışını güncelle
+            const month = rentalDate.getMonth();
+            monthlySales[month] += rental.totalPrice;
         });
         return monthlySales;
     };
@@ -54,11 +53,13 @@ const AdminDashboard: React.FC = () => {
     };
 
     return (
+		<div className="container">
         <div style={{ width: '400px', height: '300px' }}>
             <div>
                 <Bar data={chartData} />
             </div>
         </div>
+		</div>
     );
 };
 

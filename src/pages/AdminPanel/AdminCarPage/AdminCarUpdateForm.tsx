@@ -123,7 +123,7 @@ const AdminCarUpdateForm: React.FC = () => {
 							/>
 							<ErrorMessage name="kilometer" component="div" className="invalid-feedback" />
 						</div>
-						<div>
+						<div className="mb-3">
 							<label htmlFor="year" className="form-title mb-2">Yıl</label>
 							<Field as="select" name="year" className={`form-control ${errors.year && touched.year ? 'is-invalid' : ''}`}>
 								<option value="">Yıl Seçiniz</option>
@@ -172,7 +172,7 @@ const AdminCarUpdateForm: React.FC = () => {
 							<ErrorMessage name="status" component="div" className="invalid-feedback" />
 						</div>
 						<div className="mb-3">
-							<label htmlFor="gearType" className="form-label">Vites Türü</label>
+							<label htmlFor="gearType" className="form-title">Vites Türü</label>
 							<Field as="select" name="gearType" className="form-control">
 								<option value="">Vites Türü Seçiniz</option>
 								{Object.entries(GearType).map(([key, value]) => (
@@ -183,7 +183,7 @@ const AdminCarUpdateForm: React.FC = () => {
 							</Field>
 						</div>
 						<div className="mb-3">
-							<label htmlFor="fuelType" className="form-label">Yakıt Türü</label>
+							<label htmlFor="fuelType" className="form-title">Yakıt Türü</label>
 							<Field as="select" name="fuelType" className="form-control">
 								<option value="">Yakıt Türü Seçiniz</option>
 								{Object.entries(FuelType).map(([key, value]) => (

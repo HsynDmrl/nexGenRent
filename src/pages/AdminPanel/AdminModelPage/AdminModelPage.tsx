@@ -70,6 +70,7 @@ const AdminModelPage: React.FC = () => {
 		});
 		setFilteredModels(sorted);
 	}, [searchId, searchName, searchLogoPath, searchCreatedDate, searchUpdatedDate, allModels, sortBy, sortDirection]);
+	
 	useEffect(() => {
 		dispatch(getAllBrands());
 		dispatch(getAll());
@@ -179,7 +180,7 @@ const AdminModelPage: React.FC = () => {
 							<td style={{ cursor: 'pointer' }}>{(currentPage - 1) * itemsPerPage + index + 1}</td>
 							<td style={{ cursor: 'pointer' }}>{model.id}</td>
 							<td style={{ cursor: 'pointer' }}>{model.name}</td>
-							<td style={{ cursor: 'pointer' }}>{model.brand.name}</td>
+							<td style={{ cursor: 'pointer' }}>{model.brand ? model.brand.name : 'Marka Yok'}</td>
 							<td style={{ cursor: 'pointer' }}>{model.createdDate?.toString()}</td>
 							<td style={{ cursor: 'pointer' }}>{model.updatedDate?.toString()}</td>
 						</tr>

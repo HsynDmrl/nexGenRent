@@ -9,6 +9,7 @@ const BooleanSelect: React.FC<BooleanSelectProps> = (props) => {
   return (
     <select
       {...field}
+	  id='.status'
       className={props.className}
       onChange={(e) => helpers.setValue(e.target.value === 'true' ? true : false)}
       value={field.value ? 'true' : 'false'}

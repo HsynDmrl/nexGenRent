@@ -5,6 +5,7 @@ import { GetAllCarResponse } from '../../models/cars/response/getAllCarResponse'
 import { AddCarRequest } from '../../models/cars/requests/addCarRequest';
 import { GetByIdCarResponse } from '../../models/cars/response/getByIdCarResponse';
 import { UpdateCarRequest } from '../../models/cars/requests/updateCarRequest';
+import { AddCarResponse } from '../../models/cars/response/addCarResponse';
 
 interface CarState {
     dataFromById: Car | null;
@@ -75,7 +76,12 @@ export const addCar = createAsyncThunk(
     'car/addCar',
     async (carData: AddCarRequest, { rejectWithValue }) => {
         try {
-            const response = await carService.add(carData);
+            const formData = new FormData();
+            Object.entries(carData).forEach(([key, value]) => {
+                formData.append(key, value);
+            });
+
+            const response = await carService.customAdd(formData);
             return response.data;
         } catch (error:any) {
             return rejectWithValue(error.message);

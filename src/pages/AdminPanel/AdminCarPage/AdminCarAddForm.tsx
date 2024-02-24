@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { RootState } from '../../../store/configStore/configureStore';
 import { getAll, addCar } from '../../../store/car/carSlice';
 import { Model } from '../../../models/models/entity/model';
@@ -9,14 +9,13 @@ import { useAppDispatch } from '../../../store/configStore/useAppDispatch';
 import { getAll as getAllModels } from '../../../store/model/modelSlice';
 import { getAll as getAllColors } from '../../../store/color/colorSlice';
 import { Button, Alert } from 'react-bootstrap';
-import BooleanSelect from './BooleanSelect';
 import { GearType } from '../../../models/cars/entity/gearType';
 import { FuelType } from '../../../models/cars/entity/fuelType';
 import { useAppSelector } from '../../../store/configStore/useAppSelector';
 import { CustomInputComponent } from '../../../core/formatPlate/CustomInputComponent';
-import axios from 'axios';
-import axiosInstance from '../../../core/utils/interceptors/axiosInterceptors';
-import { FormikHelpers } from 'formik';
+import { MdCancel } from "react-icons/md";
+import carService from '../../../services/carService';
+import BooleanSelect from './BooleanSelect';
 
 const AdminCarAddForm = () => {
 	const dispatch = useAppDispatch();
@@ -27,6 +26,8 @@ const AdminCarAddForm = () => {
 	const allColors = useAppSelector((state: RootState) => state.color.allData);
 	const currentYear = new Date().getFullYear();
 	const years = Array.from(new Array(20), (val, index) => currentYear - index);
+	const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
+	const [previewUrls, setPreviewUrls] = useState<string[]>([]);
 
 	useEffect(() => {
 		dispatch(getAllModels());
@@ -43,6 +44,12 @@ const AdminCarAddForm = () => {
 		}
 	}, [allModels, allColors]);
 
+	useEffect(() => {
+		const newFileUrls = selectedFiles.map(file => URL.createObjectURL(file));
+		setPreviewUrls(newFileUrls);
+		return () => newFileUrls.forEach(url => URL.revokeObjectURL(url));
+	}, [selectedFiles]);
+
 	interface MyFormValues {
 		kilometer: number;
 		year: number;
@@ -51,12 +58,12 @@ const AdminCarAddForm = () => {
 		imagePath: string;
 		gearType: string;
 		fuelType: string;
-		modelId: number; // Sayısal değer veya boş string
-		colorId: number; // Sayısal değer veya boş string
-		status: boolean;
-	  }
-	  
-	  const initialValues: MyFormValues = {
+		modelId: number;
+		colorId: number;
+		isStatus: boolean;
+	}
+
+	const initialValues: MyFormValues = {
 		kilometer: 0,
 		year: 0,
 		dailyPrice: 0,
@@ -64,55 +71,41 @@ const AdminCarAddForm = () => {
 		imagePath: '',
 		gearType: '',
 		fuelType: '',
-		modelId: 0, // Kullanıcıdan alınacak
-		colorId: 0, // Kullanıcıdan alınacak
-		status: false,
-	  };
+		modelId: 0,
+		colorId: 0,
+		isStatus: false,
+	};
 
 	const validationSchema = Yup.object({
-		kilometer: Yup.number()
-			.min(0, 'Kilometre negatif olamaz.')
-			.required('Kilometre alanı zorunludur.'),
-		year: Yup.number()
-			.min(2005, 'Yıl 2005\'den büyük olmalıdır.')
-			.max(new Date().getFullYear(), `Yıl ${new Date().getFullYear()} veya daha küçük olmalıdır.`)
-			.required('Yıl alanı zorunludur.'),
-		dailyPrice: Yup.number()
-			.min(0, 'Günlük fiyat negatif olamaz.')
-			.required('Günlük Fiyat alanı zorunludur.'),
-		plate: Yup.string()
-			.matches(/^[0-9]{2} [A-Z]{1,3} [0-9]{2,4}$/, 'Plaka formatı geçersiz. Örn: 34 ABC 123')
-			.required('Plaka alanı zorunludur.'),
-		status: Yup.boolean()
-			.required('Durum alanı zorunludur.'),
-		gearType: Yup.string()
-			.required('Vites türü alanı zorunludur.'),
-		fuelType: Yup.string()
-			.required('Yakıt türü alanı zorunludur.'),
-		modelId: Yup.string()
-			.required('Model seçmek zorunludur.'),
-		colorId: Yup.string()
-			.required('Renk seçmek zorunludur.'),
+		kilometer: Yup.number().min(0, 'Kilometre negatif olamaz.').required('Kilometre alanı zorunludur.'),
+		year: Yup.number().min(2005, 'Yıl 2005\'den büyük olmalıdır.').max(new Date().getFullYear(), `Yıl ${new Date().getFullYear()} veya daha küçük olmalıdır.`).required('Yıl alanı zorunludur.'),
+		dailyPrice: Yup.number().min(0, 'Günlük fiyat negatif olamaz.').required('Günlük Fiyat alanı zorunludur.'),
+		plate: Yup.string().matches(/^[0-9]{2} [A-Z]{1,3} [0-9]{2,4}$/, 'Plaka formatı geçersiz. Örn: 34 ABC 123').required('Plaka alanı zorunludur.'),
+		status: Yup.boolean().required('Durum alanı zorunludur.'),
+		gearType: Yup.string().required('Vites türü alanı zorunludur.'),
+		fuelType: Yup.string().required('Yakıt türü alanı zorunludur.'),
+		modelId: Yup.string().required('Model seçmek zorunludur.'),
+		colorId: Yup.string().required('Renk seçmek zorunludur.'),
 	});
 
-
-	const [selectedFile, setSelectedFile] = useState<File | null>(null);
-
 	const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-		const fileList = event.target.files;
-		if (fileList && fileList.length > 0) {
-		  setSelectedFile(fileList[0]);
+		if (event.target.files) {
+			const filesArray = Array.from(event.target.files);
+			setSelectedFiles(prevFiles => [...prevFiles, ...filesArray]);
 		}
-	  };
+	};
+	const removeSelectedFile = (index: number) => {
+		const newSelectedFiles = selectedFiles.filter((_, i) => i !== index);
+		const newPreviewUrls = previewUrls.filter((_, i) => i !== index);
 
-	  const handleSubmit = async (
-		values: MyFormValues,
-		{ resetForm }: FormikHelpers<MyFormValues>
-	  ) => {
-		try {
-		  const formData = new FormData();
-		  // 'cars' bilgisini JSON string olarak ekleyin
-		  const carInfo = JSON.stringify({
+		setSelectedFiles(newSelectedFiles);
+		setPreviewUrls(newPreviewUrls);
+		URL.revokeObjectURL(previewUrls[index]);
+	};
+
+	const handleSubmit = async (values: MyFormValues) => {
+		const formData = new FormData();
+		const carInfo = {
 			kilometer: values.kilometer,
 			year: values.year,
 			dailyPrice: values.dailyPrice,
@@ -122,35 +115,23 @@ const AdminCarAddForm = () => {
 			fuelType: values.fuelType,
 			modelId: values.modelId,
 			colorId: values.colorId,
-			status: values.status,
-		  });
-	  
-		  formData.append('cars', carInfo); // 'cars' anahtarı ile JSON string'i ekleyin
-	  
-		  if (selectedFile) {
-			formData.append('images', selectedFile); // 'images' anahtarı ile dosyayı ekleyin
-		  }
-	  
-		  // Axios ile isteği gönderin
-		  const response = await axiosInstance.post('/api/cars/add', formData, {
-			headers: {
-			  'Content-Type': 'multipart/form-data',
-			},
-		  });
-	  
-		  // Başarı durumunu işleyin
-		  console.log(response.data);
-		  setIsSuccess(true);
-		  setTimeout(() => {
-			setIsSuccess(false);
-		  }, 3000);
-		  resetForm();
+			isStatus: values.isStatus,
+		};
+
+		formData.append('car', JSON.stringify(carInfo));
+		selectedFiles.forEach((file, index) => {
+			formData.append(`images[${index}]`, file, file.name);
+		});
+
+		try {
+			const response = await carService.customAdd(formData);
+			console.log(response.data);
+			setIsSuccess(true); 
 		} catch (error) {
-		  console.error('Form gönderilirken hata oluştu:', error);
+			console.error("Form gönderilirken hata oluştu:", error);
+			setIsSuccess(false);
 		}
-	  };
-	  
-	
+	};
 
 	return (
 		<div>
@@ -200,9 +181,33 @@ const AdminCarAddForm = () => {
 						type="file"
 						onChange={handleFileChange}
 						className="form-control"
+						multiple
 					/>
-					<ErrorMessage name="imagePath" component="div" />
-
+					<div className="image-previews">
+						{previewUrls.map((url, index) => (
+							<div key={index} style={{ position: 'relative', display: 'inline-block', marginRight: '10px' }}>
+								<img src={url} alt="Preview" style={{ width: '100px', height: '100px' }} />
+								<button
+									type="button"
+									style={{
+										position: 'absolute',
+										top: '0',
+										right: '0',
+										cursor: 'pointer',
+										backgroundColor: 'transparent',
+										border: 'none',
+										padding: '0',
+										display: 'flex',
+										alignItems: 'center',
+										justifyContent: 'center'
+									}}
+									onClick={() => removeSelectedFile(index)}
+								>
+									<MdCancel style={{ color: 'red', fontSize: '24px' }} />
+								</button>
+							</div>
+						))}
+					</div>
 					<label htmlFor="status" className="form-title mb-2">Durum</label>
 					<BooleanSelect
 						id="status"
@@ -220,7 +225,7 @@ const AdminCarAddForm = () => {
 						placeholder="Resim Yolu Giriniz"
 					/>
 					<ErrorMessage name="imagePath" component="div" />
-					
+
 					<label htmlFor="gearType" className="form-title mb-2">Vites Tipi</label>
 					<Field as="select" id="gearType" name="gearType" className="form-select">
 						<option value="">Vites tipi seçiniz</option>

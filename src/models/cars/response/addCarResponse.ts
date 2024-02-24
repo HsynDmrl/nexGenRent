@@ -16,3 +16,4 @@ export interface AddCarResponse {
 	createdDate: Date;
 	updatedDate: Date;
 }
+

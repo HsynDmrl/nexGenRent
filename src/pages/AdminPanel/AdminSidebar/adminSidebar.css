@@ -74,16 +74,13 @@
   }
   
   .MainContent {
-	background-color: #333;
 	justify-content: center;
 	transition: transform 0.3s ease;
 	transform: translateX(0);
 	margin-top: 60px;
 	padding: 20px;
-	height: calc(100vh - 60px);
   }
   
-  /* Mobile responsiveness */
   @media (max-width: 768px) {
 	.adminSideBar {
 	  width: 100%;

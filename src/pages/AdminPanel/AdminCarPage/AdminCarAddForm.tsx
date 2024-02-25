@@ -55,7 +55,6 @@ const AdminCarAddForm = () => {
 		year: number;
 		dailyPrice: number;
 		plate: string;
-		imagePath: string;
 		gearType: string;
 		fuelType: string;
 		modelId: number;
@@ -68,7 +67,6 @@ const AdminCarAddForm = () => {
 		year: 0,
 		dailyPrice: 0,
 		plate: '',
-		imagePath: '',
 		gearType: '',
 		fuelType: '',
 		modelId: 0,
@@ -110,7 +108,6 @@ const AdminCarAddForm = () => {
 			year: values.year,
 			dailyPrice: values.dailyPrice,
 			plate: values.plate,
-			imagePath: values.imagePath,
 			gearType: values.gearType,
 			fuelType: values.fuelType,
 			modelId: values.modelId,
@@ -119,13 +116,13 @@ const AdminCarAddForm = () => {
 		};
 
 		formData.append('car', JSON.stringify(carInfo));
-		selectedFiles.forEach((file, index) => {
-			formData.append(`images[${index}]`, file, file.name);
+		selectedFiles.forEach((file) => {
+			formData.append(`images`, file, file.name);
 		});
 
 		try {
+			console.log("denemeler", formData.getAll("car"));
 			const response = await carService.customAdd(formData);
-			console.log(response.data);
 			setIsSuccess(true); 
 		} catch (error) {
 			console.error("Form gönderilirken hata oluştu:", error);
@@ -215,16 +212,6 @@ const AdminCarAddForm = () => {
 						className="form-select"
 					/>
 					<ErrorMessage name="status" component="div" />
-
-					<label htmlFor="imagePath" className="form-title mb-2">Resim Yolu</label>
-					<Field
-						id="imagePath"
-						name="imagePath"
-						type="text"
-						className="form-control"
-						placeholder="Resim Yolu Giriniz"
-					/>
-					<ErrorMessage name="imagePath" component="div" />
 
 					<label htmlFor="gearType" className="form-title mb-2">Vites Tipi</label>
 					<Field as="select" id="gearType" name="gearType" className="form-select">

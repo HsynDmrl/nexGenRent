@@ -6,15 +6,15 @@ import AdminModelAddForm from './AdminModelAddForm';
 import AdminModelUpdateForm from './AdminModelUpdateForm';
 import { useAppDispatch } from '../../../store/configStore/useAppDispatch';
 import { useAppSelector } from '../../../store/configStore/useAppSelector';
-import { RootState } from '../../../store/configStore/configureStore';
+import { getAll as getAllBrands }  from '../../../store/brand/brandSlice';
 import { getAll, setSelectedIdAction } from '../../../store/model/modelSlice';
+import { RootState } from '../../../store/configStore/configureStore';
 import Pagination from 'react-bootstrap/Pagination';
 import { FaSortNumericDown, FaSortNumericUp, FaSortAlphaDown, FaSortAlphaUp } from "react-icons/fa";
 import AdminModelDeleteForm from './AdminModelDeleteForm';
 import './adminModelPage.css';
 import ExportToCSVButton from './ExportToCSVButton';
 import { LiaSortAmountDownAltSolid, LiaSortAmountUpSolid, LiaImages } from "react-icons/lia";
-import { getAll as getAllBrands }  from '../../../store/brand/brandSlice';
 import { FcWorkflow} from "react-icons/fc";
 
 const AdminModelPage: React.FC = () => {
@@ -36,7 +36,6 @@ const AdminModelPage: React.FC = () => {
 	const [searchLogoPath, setSearchLogoPath] = useState('');
 	const [searchCreatedDate, setSearchCreatedDate] = useState('');
 	const [searchUpdatedDate, setSearchUpdatedDate] = useState('');
-
 	const handleSortIconDirection = () => { setSortIconDirection(sortIconDirection === 'asc' ? 'desc' : 'asc'); };
 	const handleAddButtonClick = () => { setShowAddForm(true); };
 	const handleUpdateButtonClick = () => { setShowUpdateForm(true); };

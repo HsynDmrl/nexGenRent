@@ -40,6 +40,7 @@ export const getAll = createAsyncThunk(
     async (_, { rejectWithValue }) => {
         try {
             const response = await carService.getAll();
+			console.log("merhaba", response.data);
             return response.data;
         } catch (error:any) {
             return rejectWithValue(error.message);
@@ -57,8 +58,7 @@ export const updateCar = createAsyncThunk(
 				year: carData.year,
 				dailyPrice: carData.dailyPrice,
 				plate: carData.plate,
-				imagePath: carData.imagePath,
-				status: carData.status,
+				isStatus: carData.isStatus,
 				gearType: carData.gearType,
 				fuelType: carData.fuelType,
 				modelId: carData.modelId,

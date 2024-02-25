@@ -178,7 +178,9 @@ const AdminBrandPage: React.FC = () => {
 							<td style={{ cursor: 'pointer' }}>{(currentPage - 1) * itemsPerPage + index + 1}</td>
 							<td style={{ cursor: 'pointer' }}>{brand.id}</td>
 							<td style={{ cursor: 'pointer' }}>{brand.name}</td>
-							<td style={{ cursor: 'pointer' }}>{brand.logoPath}</td>
+							<td style={{ cursor: 'pointer' }}>
+                {brand.logoPath && <img src={brand.logoPath} alt="Logo" style={{ width: '100px', height: '100px' }} />}
+            </td>
 							<td style={{ cursor: 'pointer' }}>{brand.createdDate?.toString()}</td>
 							<td style={{ cursor: 'pointer' }}>{brand.updatedDate?.toString()}</td>
 						</tr>

@@ -4,7 +4,6 @@ export interface AddCarRequest {
     year: number;
     dailyPrice: number;
     plate: string;
-    imagePath: string;
 	isStatus: boolean;
     gearType: string;
     fuelType: string;

@@ -24,6 +24,16 @@ class BrandService extends BaseService<
 	customAdd(formData: FormData): Promise<AxiosResponse<AddBrandResponse, any>> {
 		return axiosInstance.post<AddBrandResponse>(`${this.apiUrl}/add`, formData);
 	}
+	customUpdate(formData: FormData): Promise<AxiosResponse<UpdateBrandRequest, any>> {
+		return axiosInstance.put<UpdateBrandRequest>(`${this.apiUrl}/update`, formData, {
+		  headers: {
+			'Content-Type': 'multipart/form-data'
+		  }
+		}).then((response) => {
+		  console.log('response', response);
+		  return response;
+		});
+	  }
 }
 
 export default new BrandService();

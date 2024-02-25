@@ -1,25 +1,22 @@
 import React, { useState } from 'react';
-import { Formik, Form, Field, ErrorMessage, FormikHelpers } from 'formik';
-import * as Yup from 'yup';
-import { Button, Container, Alert } from 'react-bootstrap';
-import { useAppDispatch } from '../../../store/configStore/useAppDispatch';
-import { addBrand } from '../../../store/brand/brandSlice';
 import { AddBrandRequest } from '../../../models/brands/requests/addBrandRequest';
-import { ObjectSchema } from 'yup';
+import { Formik, Form, Field, ErrorMessage, FormikHelpers } from 'formik';
+import { Button, Container, Alert } from 'react-bootstrap';
 import brandService from '../../../services/brandService';
 import { MdCancel } from 'react-icons/md';
+import { ObjectSchema } from 'yup';
+import * as Yup from 'yup';
 
 const AdminBrandAddForm: React.FC = () => {
 
 	const [selectedFile, setSelectedFile] = useState<File | null>(null);
 	const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+	const [isSuccess, setIsSuccess] = useState<boolean>(false);
 
 	const initialValues: AddBrandRequest = {
 		id: 0,
 		name: '',
 	};
-
-	const [isSuccess, setIsSuccess] = useState<boolean>(false);
 
 	const validationSchema: ObjectSchema<AddBrandRequest> = Yup.object().shape({
 		id: Yup.number().required(),
@@ -57,10 +54,10 @@ const AdminBrandAddForm: React.FC = () => {
 		}
 
 		try {
-			const response = await brandService.customAdd(formData);
+			console.log('formDat2a2', formData);
+			await brandService.customAdd(formData);
 			setIsSuccess(true);
 		} catch (error) {
-			console.error("Form gönderilirken hata oluştu:", error);
 			setIsSuccess(false);
 		}
 	};
@@ -121,6 +118,7 @@ const AdminBrandAddForm: React.FC = () => {
 						<Button className='p-2 mb-2 bg-success' variant="primary" type="submit">Kaydet</Button>
 						<Button className='p-2 mb-2 mx-4 bg-warning' variant="primary" type="reset">Temizle</Button>
 						{isSuccess && <Alert variant="success">Form başarıyla gönderildi!</Alert>}
+						{!isSuccess && isSuccess !== null && <Alert variant="danger">Form gönderilirken hata oluştu!</Alert>}
 					</Form>
 				)}
 			</Formik>

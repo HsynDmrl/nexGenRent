@@ -3,7 +3,7 @@ import tokenService from "../../../services/tokenService";
 import authService from "../../../services/authService";
 
 const axiosInstance = axios.create({
-  baseURL: "https://nexgenrentacar.azurewebsites.net/api/",
+  baseURL: "https://nexgenrentacar.azurewebsites.net/api/v1",
 });
 
 axiosInstance.interceptors.request.use((config) => {

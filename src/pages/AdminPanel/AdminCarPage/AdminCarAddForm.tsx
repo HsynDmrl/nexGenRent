@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import * as Yup from 'yup';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { RootState } from '../../../store/configStore/configureStore';
-import { getAll, addCar } from '../../../store/car/carSlice';
+import { getAll } from '../../../store/car/carSlice';
 import { Model } from '../../../models/models/entity/model';
 import { Color } from '../../../models/colors/entity/color';
 import { useAppDispatch } from '../../../store/configStore/useAppDispatch';
@@ -121,7 +121,6 @@ const AdminCarAddForm = () => {
 		});
 
 		try {
-			console.log("denemeler", formData.getAll("car"));
 			const response = await carService.customAdd(formData);
 			setIsSuccess(true); 
 		} catch (error) {

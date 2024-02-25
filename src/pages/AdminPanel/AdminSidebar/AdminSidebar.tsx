@@ -22,7 +22,7 @@ const AdminSidebar: React.FC = () => {
 				</Sidebar.Nav.Item>
 				<Sidebar.Sub>
 					<Sidebar.Sub.Toggle className='sidebarNavItem menu-toggle border-0'>
-						<Sidebar.Nav.Title className='sidebarNavTitle' ><FcMenu size={'2em'}/>  Ürünler</Sidebar.Nav.Title>
+						<Sidebar.Nav.Title className='sidebarNavTitle' ><FcMenu size={'2em'}/>  Varlıklar</Sidebar.Nav.Title>
 					</Sidebar.Sub.Toggle>
 					<Sidebar.Sub.Collapse>
 						<Sidebar.Nav.Item className='sidebarNavItem' as={NavLink } to="/admin/cars">

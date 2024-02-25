@@ -134,7 +134,9 @@ const AdminCarTable: React.FC<AdminCarTableProps> = ({
 						<td style={{ cursor: 'pointer' }}>{car.year}</td>
 						<td style={{ cursor: 'pointer' }}>{car.dailyPrice}</td>
 						<td style={{ cursor: 'pointer' }}>{car.plate}</td>
-						<td style={{ cursor: 'pointer' }}>{car.imagePath}</td>
+						<td style={{ cursor: 'pointer' }}>
+							{car.imagePath && <img src={car.imagePath} alt="Logo" style={{ width: '100px', height: '100px' }} />}
+						</td>
 						<td style={{ cursor: 'pointer' }}>{car.status ? 'Aktif' : 'Pasif'}</td>
 						<td style={{ cursor: 'pointer' }}>{car.gearType}</td>
 						<td style={{ cursor: 'pointer' }}>{car.fuelType}</td>

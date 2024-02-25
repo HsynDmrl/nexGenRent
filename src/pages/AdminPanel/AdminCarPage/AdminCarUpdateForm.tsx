@@ -50,8 +50,7 @@ const AdminCarUpdateForm: React.FC = () => {
 		year: carData?.year || 0,
 		dailyPrice: carData?.dailyPrice || 0,
 		plate: carData?.plate || '',
-		imagePath: carData?.imagePath || '',
-		status: carData?.status || false,
+		isStatus: carData?.status || false,
 		gearType: carData?.gearType || '',
 		fuelType: carData?.fuelType || '',
 		modelId: carData?.model.id || 0,
@@ -73,7 +72,7 @@ const AdminCarUpdateForm: React.FC = () => {
 			.required('Plaka alanı zorunludur.'),
 		imagePath: Yup.string()
 			.required('Resim alanı zorunludur.'),
-		status: Yup.boolean()
+		isStatus: Yup.boolean()
 			.required('Durum alanı zorunludur.'),
 		gearType: Yup.string()
 			.oneOf(Object.values(GearType), 'Geçersiz vites türü.')
@@ -153,7 +152,7 @@ const AdminCarUpdateForm: React.FC = () => {
 
 							<ErrorMessage name="plate" component="div" className="invalid-feedback" />
 						</div>
-						<div className="mb-3">
+						{/* <div className="mb-3">
 							<label htmlFor="imagePath" className="form-title">
 								imagePath
 							</label>
@@ -170,7 +169,7 @@ const AdminCarUpdateForm: React.FC = () => {
 							<BooleanSelect name="status" className={`form-select ${errors.status && touched.status ? 'is-invalid' : ''}`} />
 
 							<ErrorMessage name="status" component="div" className="invalid-feedback" />
-						</div>
+						</div> */}
 						<div className="mb-3">
 							<label htmlFor="gearType" className="form-title">Vites Türü</label>
 							<Field as="select" name="gearType" className="form-control">

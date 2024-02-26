@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/nexGenRent/static/css/main.edcebea2.css",
-    "main.js": "/nexGenRent/static/js/main.68c0887f.js",
+    "main.js": "/nexGenRent/static/js/main.a51aa15b.js",
     "static/media/banner4.jpg": "/nexGenRent/static/media/banner4.583cafad95a812c9c546.jpg",
     "static/media/carg1.gif": "/nexGenRent/static/media/carg1.b988da4c7bb26008c179.gif",
     "index.html": "/nexGenRent/index.html",
     "main.edcebea2.css.map": "/nexGenRent/static/css/main.edcebea2.css.map",
-    "main.68c0887f.js.map": "/nexGenRent/static/js/main.68c0887f.js.map"
+    "main.a51aa15b.js.map": "/nexGenRent/static/js/main.a51aa15b.js.map"
   },
   "entrypoints": [
     "static/css/main.edcebea2.css",
-    "static/js/main.68c0887f.js"
+    "static/js/main.a51aa15b.js"
   ]
 }

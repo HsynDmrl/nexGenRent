@@ -14,8 +14,26 @@ import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store/configStore/configureStore';
 import { getByEmail } from '../../store/user/userSlice';
+import './NavScrollExample.css'
+import { useState } from 'react';
 
 function NavScrollExample() {
+
+	const [scroll, setScroll] = useState(false);
+
+  const handleScroll = () => {
+    const offset = window.scrollY;
+    if (offset > 50) {
+      setScroll(true);
+    } else {
+      setScroll(false);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+  }, []);
+
 	const isUserLoggedIn = useSelector((state: RootState) => state.auth.isAuthenticated);
 	const user = useSelector((state: RootState) => state.user.dataFromByEmail);
 
@@ -49,8 +67,8 @@ function NavScrollExample() {
 		navigate("/models");
 	};
 	return (
-		<Navbar expand="lg" className="bg-body-tertiary" data-bs-theme="dark">
-			<Container fluid className='col-8'>
+		<Navbar expand="lg" className={`bg-body-tertiary ${scroll ? 'scroll-active' : ''}`} data-bs-theme="dark">
+		<Container fluid className='col-8'>
 				<Navbar.Brand onClick={handleLogout}>Nex Gen Rental</Navbar.Brand>
 				<Navbar.Toggle aria-controls="navbarScroll" />
 				<Navbar.Collapse id="navbarScroll">

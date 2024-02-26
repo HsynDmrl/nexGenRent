@@ -17,11 +17,11 @@ function AdminNav() {
 
   return (
     <Navbar className="admin-nav-bar fixed-top">
-        {isSidebarOpen ? <FaToggleOff className='mx-2 text-white' size={'2em'} onClick={handleToggleSidebar}/> : <FaToggleOn className='mx-2 text-white' size={'2em'} onClick={handleToggleSidebar}/>}
-        <Navbar.Brand className="navbar-brand text-white" href="/admin/">NexGenRent</Navbar.Brand>
+        {isSidebarOpen ? <FaToggleOff className='mx-2 text-white' size={'2em'} onClick={handleToggleSidebar}/> : <FaToggleOn className='mx-2 text-black' size={'2em'} onClick={handleToggleSidebar}/>}
+        <Navbar.Brand className="navbar-brand text-black" href="/admin/">NexGenRent</Navbar.Brand>
         <Navbar.Collapse className="justify-content-end">
-          <Navbar.Text className="navbar-menu text-white">
-            Signed in as: <a className="text-white" href="#login">Hüseyin</a>
+          <Navbar.Text className="navbar-menu text-black">
+            Signed in as: <a className="text-black" href="#login">Hüseyin</a>
           </Navbar.Text>
         </Navbar.Collapse>
     </Navbar>

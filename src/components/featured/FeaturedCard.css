@@ -1,0 +1,30 @@
+.featured-card {
+  background-color: #ffffff; /* Kartın arka plan rengi beyaz */
+  border-radius: 16px; /* Daha fazla yuvarlak köşeler */
+  padding: 1.5rem; /* Daha fazla iç padding */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Daha hafif gölge */
+  transition: all 0.3s ease; /* Genel animasyon geçişi */
+  cursor: pointer;
+  color: #333; /* Daha koyu yazı rengi */
+}
+
+.featured-card:hover {
+  transform: translateY(-10px); /* Kartın daha fazla yükselmesi */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); /* Gölgenin artması */
+}
+
+.featured-card .icon {
+  color: #ff5722; /* Canlı ikon rengi */
+  margin-bottom: 1rem; /* Daha fazla boşluk */
+}
+
+.featured-card .card-title {
+  font-size: 1.25rem; /* Daha büyük başlık */
+  color: #333; /* Daha koyu başlık rengi */
+  margin-bottom: 0.25rem;
+}
+
+.featured-card .card-text {
+  font-size: 1rem; /* Daha büyük metin boyutu */
+  color: #555; /* Daha koyu metin rengi */
+}

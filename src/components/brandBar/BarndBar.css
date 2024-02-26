@@ -1,0 +1,27 @@
+/* BrandBar.css */
+
+.brand-bar {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    overflow-x: auto;
+    margin-bottom: 20px; /* Alt kısıma boşluk bırakma */
+  }
+  
+  .brand-logo {
+    height: 50px;
+    margin: 0 10px;
+    transition: transform 0.2s ease;
+    border: 1px solid #ddd; /* Logoların etrafına 1 piksel kalınlığında bir border ekleme */
+    padding: 5px; /* Logoların içerisine biraz iç boşluk bırakma */
+  }
+  
+  .brand-logo:hover {
+    transform: scale(1.1);
+    cursor: pointer;
+  }
+  
+  .brand-logo:active {
+    transform: scale(0.9);
+  }
+  

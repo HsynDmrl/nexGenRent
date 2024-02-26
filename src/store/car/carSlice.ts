@@ -43,7 +43,6 @@ export const getAll = createAsyncThunk(
     async (_, { rejectWithValue }) => {
         try {
             const response = await carService.getAll();
-			console.log("merhaba", response.data);
             return response.data;
         } catch (error:any) {
             return rejectWithValue(error.message);

@@ -19,7 +19,7 @@ axiosInstance.interceptors.response.use(
   async (error) => {
     const originalRequest = error.config;
 
-	if (error.response?.status === 404 && originalRequest.url.includes("/auth/refresh-token")) {
+	if (error.response?.status === 403 && originalRequest.url.includes("/auth/refresh-token")) {
 	  tokenService.removeToken();
 	  window.location.href = "/";
 	  return Promise.reject(error);

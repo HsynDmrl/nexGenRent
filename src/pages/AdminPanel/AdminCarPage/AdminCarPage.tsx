@@ -94,7 +94,7 @@ const AdminCarPage: React.FC = () => {
 
 	return (
 		<Container>
-			<h1>Admin Araba Sayfası</h1>
+			<h1>Araçlar Sayfası</h1>
 			<Row className='mb-5 col-12'>
 				<EntityBox entity="Toplam Araç Sayısı" count={allCars.length} icon={<EntityIcon entity="Araç Sayısı" />} />
 				<EntityBox entity="Toplam Model Sayısı" count={allModels.length} icon={<EntityIcon entity="Model Sayısı" />} />

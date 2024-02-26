@@ -95,7 +95,7 @@ const AdminRolePage: React.FC = () => {
 
 	return (
 		<Container>
-			<h1>Admin Rol Sayfası</h1>
+			<h1>Roller Sayfası</h1>
 			<Row className='mb-5 col-12'>
 				<EntityBox entity="Toplam Rol Sayısı" count={allRoles.length} icon={<EntityIcon entity="Rol Sayısı" />} />
 			</Row>

@@ -100,7 +100,7 @@ const AdminModelPage: React.FC = () => {
 
 	return (
 		<Container>
-			<h1>Admin Model Sayfası</h1>
+			<h1>Modeller Sayfası</h1>
 			<Row className='mb-5 col-12'>
 				<EntityBox entity="Toplam Marka Sayısı" count={allBrands.length} icon={<EntityIcon entity="Model Sayısı" />} />
 				<EntityBox entity="Toplam Model Sayısı" count={allModels.length} icon={<EntityIcon entity="Marka Sayısı" />} />

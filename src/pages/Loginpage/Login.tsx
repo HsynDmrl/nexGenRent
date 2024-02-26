@@ -23,7 +23,6 @@ const Login = () => {
         const resultAction = dispatch(loginUser(values));
 
         if (loginUser.fulfilled.match(resultAction)) {
-          //console.log("Login successful!");
           window.location.reload();
         } else if (loginUser.rejected.match(resultAction)) {
           console.error("Login error:", resultAction.error);

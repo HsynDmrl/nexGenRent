@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Table from 'react-bootstrap/Table';
 import Form from 'react-bootstrap/Form';
-import { Badge, Button, Container, Modal } from 'react-bootstrap';
+import { Badge, Button, Col, Container, Modal, Row } from 'react-bootstrap';
 import AdminInvoiceAddForm from './AdminInvoiceAddForm';
 import AdminInvoiceDeleteForm from './AdminInvoiceDeleteForm';
 import { useAppDispatch } from '../../../store/configStore/useAppDispatch';
@@ -16,6 +16,8 @@ import { LiaSortAmountDownAltSolid, LiaSortAmountUpSolid, LiaImages } from "reac
 import { getAll as getAllRentals } from '../../../store/rental/rentalSlice';
 import { FcConferenceCall, FcBusinessman } from "react-icons/fc";
 import AdminInvoiceUpdateForm from './AdminInvoiceUpdateForm';
+import EntityBox from '../../../components/changePasswordModal/entityBox';
+import EntityIcon from '../../../components/entityIcon/entityIcon';
 
 const AdminInvoicePage: React.FC = () => {
 	const dispatch = useAppDispatch();
@@ -109,17 +111,18 @@ const AdminInvoicePage: React.FC = () => {
 	return (
 		<Container>
 			<h1>Admin Invoice Sayfası</h1>
-			<div className="container mb-5">
-				<Badge className='custom-badge mb-2 mt-5 mx-5' bg="danger">{allInvoices.length}<FcBusinessman size={'2em'} />
-					<div>Toplam Faturalar</div>
-				</Badge>
-				<Badge className='custom-badge' bg="warning">{allRentals.length}<FcConferenceCall size={'2em'} />
-					<div>Toplam Siparişler</div>
-				</Badge>
-			</div>
-			<div className="container">
-				<ExportToCSVButton className='button-admin-invoice ms-4' data={allInvoices} />
-			</div>
+			<Row className='mb-5 col-12'>
+				<EntityBox entity="Toplam Fatura Sayısı" count={allInvoices.length} icon={<EntityIcon entity="Fatura Sayısı" />} />
+				<EntityBox entity="Toplam Sipariş Sayısı" count={allRentals.length} icon={<EntityIcon entity="Kiralama Sayısı" />} />
+			</Row>
+			<Row className='g-3 justify-content-start'>
+				<Col xs={12} sm={5} lg={2}>
+					<ExportToCSVButton className='w-100' data={allInvoices} />
+				</Col>
+				<Col xs={12} sm={5} lg={2}>
+					<Button className='w-100 bg-success' style={{ height: 'calc(2em + 12px)' }} onClick={handleAddButtonClick}>Yeni Fatura Ekle</Button>
+				</Col>
+			</Row>
 			<Table>
 				<thead>
 					<tr className='align-items-center'>

@@ -36,7 +36,6 @@ const AdminUserUpdateForm: React.FC = () => {
 	  name: userData?.name ?? '',
 	  nationalityId: userData?.nationalityId ?? '',
 	  surname: userData?.surname ?? '',
-	  roleId: userData?.role.id ?? 0,
   };
 
   const validationSchema: ObjectSchema<UpdateUserRequest> = Yup.object().shape({
@@ -132,16 +131,6 @@ const AdminUserUpdateForm: React.FC = () => {
                 placeholder="TC Kimlik Numarası Giriniz"
               />
               <ErrorMessage name="nationalityId" component="div" className="invalid-feedback" />
-            </div>
-            <div>
-              <label htmlFor="roleId" className="form-title mb-4">Rol {' '}</label>
-              <Field as="select" name="roleId" className={`form-control ${errors.roleId && touched.roleId ? 'is-invalid' : ''}`}>
-                <option value="">Rol Seçiniz </option>
-                {allRoles.map(role => (
-                  <option key={role.id} value={role.id}>{role.name}</option>
-                ))}
-              </Field>
-              <ErrorMessage name="roleId" component="div" className="invalid-feedback" />
             </div>
             <Button className='p-2 mb-2 mx-3 bg-success' variant="primary" type="submit">
               Güncelle

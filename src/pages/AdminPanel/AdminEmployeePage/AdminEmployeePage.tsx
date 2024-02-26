@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Table from 'react-bootstrap/Table';
 import Form from 'react-bootstrap/Form';
-import { Badge, Button, Container, Modal } from 'react-bootstrap';
+import { Badge, Button, Col, Container, Modal, Row } from 'react-bootstrap';
 import AdminEmployeeAddForm from './AdminEmployeeAddForm';
 import AdminEmployeeDeleteForm from './AdminEmployeeDeleteForm';
 import { useAppDispatch } from '../../../store/configStore/useAppDispatch';
@@ -13,9 +13,11 @@ import { FaSortNumericDown, FaSortNumericUp, FaSortAlphaDown, FaSortAlphaUp } fr
 import './adminEmployeePage.css';
 import ExportToCSVButton from './ExportToCSVButton';
 import { LiaSortAmountDownAltSolid, LiaSortAmountUpSolid, LiaImages } from "react-icons/lia";
-import { getAll as getAllUsers }  from '../../../store/role/roleSlice';
+import { getAll as getAllUsers } from '../../../store/role/roleSlice';
 import { FcAssistant, FcConferenceCall } from "react-icons/fc";
 import AdminEmployeeUpdateForm from './AdminEmployeeUpdateForm';
+import EntityBox from '../../../components/changePasswordModal/entityBox';
+import EntityIcon from '../../../components/entityIcon/entityIcon';
 
 const AdminEmployeePage: React.FC = () => {
 	const dispatch = useAppDispatch();
@@ -60,7 +62,7 @@ const AdminEmployeePage: React.FC = () => {
 					return sortDirection === 'asc' ? a.id - b.id : b.id - a.id;
 				case 'salary':
 					return sortDirection === 'asc' ? a.salary - b.salary : b.salary - a.salary;
-       			case 'createdDate':
+				case 'createdDate':
 					return sortDirection === 'asc' ? new Date(a.createdDate).getTime() - new Date(b.createdDate).getTime() : new Date(b.createdDate).getTime() - new Date(a.createdDate).getTime();
 				case 'updatedDate':
 					return sortDirection === 'asc' ? new Date(a.updatedDate).getTime() - new Date(b.updatedDate).getTime() : new Date(b.updatedDate).getTime() - new Date(a.updatedDate).getTime();
@@ -98,19 +100,19 @@ const AdminEmployeePage: React.FC = () => {
 
 	return (
 		<Container>
-			<h1>Admin Employee Sayfası</h1>
-			<div className="container mb-5">
-				<Badge className='custom-badge mb-2 mt-5 mx-5' bg="danger">{allEmployees.length}<FcAssistant size={'2em'} />
-					<div>Toplam Çalışan</div>
-				</Badge>
-				<Badge className='custom-badge' bg="warning">{allUsers.length}<FcConferenceCall size={'2em'} />
-					<div>Toplam Kullanıcı</div>
-				</Badge>
-			</div>
-			<div className="container">
-				<ExportToCSVButton className='button-admin-employee ms-4' data={allEmployees} />
-				<Button className='button-admin-employee mb-2 ms-1 bg-success' onClick={handleAddButtonClick}>Yeni Employee Ekle</Button>
-			</div>
+			<h1>Admin Çalışan Sayfası</h1>
+			<Row className='mb-5 col-12'>
+				<EntityBox entity="Çalışan Sayısı" count={allEmployees.length} icon={<EntityIcon entity="Çalışan Sayısı" />} />
+				<EntityBox entity="Kullanıcı Sayısı" count={allUsers.length} icon={<EntityIcon entity="Kullanıcı Sayısı" />} />
+			</Row>
+			<Row className='g-3 justify-content-start'>
+				<Col xs={12} sm={5} lg={2}>
+					<ExportToCSVButton className='w-100' data={allEmployees} />
+				</Col>
+				<Col xs={12} sm={5} lg={2}>
+					<Button className='w-100 bg-success' style={{ height: 'calc(2em + 12px)' }} onClick={handleAddButtonClick}>Yeni Çalışan Ekle</Button>
+				</Col>
+			</Row>
 			<Table>
 				<thead>
 					<tr className='align-items-center'>
@@ -177,26 +179,26 @@ const AdminEmployeePage: React.FC = () => {
 						</th>
 					</tr>
 					<tr>
-                        <th><Form.Control size="sm" type="text" placeholder="Id Ara" onChange={(e) => setSearchId(e.target.value)}/></th>
-						<th><Form.Control size="sm" type="text" placeholder="Salary Ara" onChange={(e) => setSearchName(e.target.value)}/></th>
-                        <th><Form.Control size="sm" type="text" placeholder="Kullanıcı Ara" onChange={(e) => setSearchUser(e.target.value)}/></th>
-                        <th><Form.Control size="sm" type="text" placeholder="Oluşturulma Tarihi Ara" onChange={(e) => setSearchCreatedDate(e.target.value)}/></th>
-                        <th><Form.Control size="sm" type="text" placeholder="Yenilenme Tarihi Ara" onChange={(e) => setSearchUpdatedDate(e.target.value)}/></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {filteredEmployees.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage).map((employee, index) => (
-                        <tr key={employee.id} onClick={() => handleEmployeeSelectAndUpdateForm(employee.id)}>
-                            <td style={{ cursor: 'pointer' }}>{(currentPage - 1) * itemsPerPage + index + 1}</td>
-                            <td style={{ cursor: 'pointer' }}>{employee.id}</td>
+						<th><Form.Control size="sm" type="text" placeholder="Id Ara" onChange={(e) => setSearchId(e.target.value)} /></th>
+						<th><Form.Control size="sm" type="text" placeholder="Salary Ara" onChange={(e) => setSearchName(e.target.value)} /></th>
+						<th><Form.Control size="sm" type="text" placeholder="Kullanıcı Ara" onChange={(e) => setSearchUser(e.target.value)} /></th>
+						<th><Form.Control size="sm" type="text" placeholder="Oluşturulma Tarihi Ara" onChange={(e) => setSearchCreatedDate(e.target.value)} /></th>
+						<th><Form.Control size="sm" type="text" placeholder="Yenilenme Tarihi Ara" onChange={(e) => setSearchUpdatedDate(e.target.value)} /></th>
+					</tr>
+				</thead>
+				<tbody>
+					{filteredEmployees.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage).map((employee, index) => (
+						<tr key={employee.id} onClick={() => handleEmployeeSelectAndUpdateForm(employee.id)}>
+							<td style={{ cursor: 'pointer' }}>{(currentPage - 1) * itemsPerPage + index + 1}</td>
+							<td style={{ cursor: 'pointer' }}>{employee.id}</td>
 							<td style={{ cursor: 'pointer' }}>{employee.salary}</td>
 							<td style={{ cursor: 'pointer' }}>{employee.user && employee.user.name}</td>
 							{/* <td style={{ cursor: 'pointer' }}>{employee.role.name}</td> */}
-                            <td style={{ cursor: 'pointer' }}>{employee.createdDate?.toString()}</td>
-                            <td style={{ cursor: 'pointer' }}>{employee.updatedDate?.toString()}</td>
-                        </tr>
-                    ))}
-                </tbody>
+							<td style={{ cursor: 'pointer' }}>{employee.createdDate?.toString()}</td>
+							<td style={{ cursor: 'pointer' }}>{employee.updatedDate?.toString()}</td>
+						</tr>
+					))}
+				</tbody>
 			</Table>
 			<Modal show={showAddForm} onHide={handleCloseAddForm}>
 				<Modal.Header closeButton>

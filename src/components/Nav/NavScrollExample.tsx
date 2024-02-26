@@ -52,19 +52,10 @@ function NavScrollExample() {
 		//window.location.reload();
 	};
 
-	const cars = () => {
-		navigate("/cars");
-	};
-
 	const homepage = () => {
 		navigate("/");
 	};
-	const brands = () => {
-		navigate("/brands");
-	};
-	const models = () => {
-		navigate("/models");
-	};
+	
 	return (
 		<Navbar expand="lg" className={`bg-body-tertiary ${scroll ? 'scroll-active' : ''}`} data-bs-theme="dark">
 		<Container fluid className='col-8'>

@@ -1,4 +1,4 @@
-import { Button, Container } from 'react-bootstrap';
+import { Button, Col, Container, Row } from 'react-bootstrap';
 import React, { useEffect, useState } from 'react';
 import { useAppDispatch } from '../../../store/configStore/useAppDispatch';
 import { useAppSelector } from '../../../store/configStore/useAppSelector';
@@ -14,6 +14,8 @@ import useCarFilter from './UseCarFilter';
 import './adminCarPage.css';
 import AdminCarPagination from "./AdminCarPagination";
 import AdminCarInfoBadges from './AdminCarInfoBadges';
+import EntityIcon from '../../../components/entityIcon/entityIcon';
+import EntityBox from '../../../components/changePasswordModal/entityBox';
 
 const AdminCarPage: React.FC = () => {
 	const dispatch = useAppDispatch();
@@ -79,7 +81,7 @@ const AdminCarPage: React.FC = () => {
 		searchModel, searchColor, searchCreatedDate, searchUpdatedDate, showAddForm, showUpdateForm]);
 
 	const handleSort = (key: 'id' | 'kilometer' | 'year' | 'dailyPrice' | 'plate' | 'imagePath' |
-	 'isStatus' | 'gearType' | 'fuelType' | 'modelName' | 'colorName' | 'createdDate' | 'updatedDate', direction: 'asc' | 'desc') => {
+		'isStatus' | 'gearType' | 'fuelType' | 'modelName' | 'colorName' | 'createdDate' | 'updatedDate', direction: 'asc' | 'desc') => {
 		setSortBy(key);
 		setSortDirection(direction);
 		handleSortIconDirection();
@@ -93,11 +95,19 @@ const AdminCarPage: React.FC = () => {
 	return (
 		<Container>
 			<h1>Admin Araba Sayfası</h1>
-			<AdminCarInfoBadges allCars={allCars.length} allModels={allModels.length} allColors={allColors.length} />
-			<div className="container">
-				<ExportToCSVButton className='button-admin-car ms-4' data={allCars} />
-				<Button className='button-admin-car mb-2 ms-1 bg-success' onClick={handleAddButtonClick}>Yeni Car Ekle</Button>
-			</div>
+			<Row className='mb-5 col-12'>
+				<EntityBox entity="Toplam Araç Sayısı" count={allCars.length} icon={<EntityIcon entity="Araç Sayısı" />} />
+				<EntityBox entity="Toplam Model Sayısı" count={allModels.length} icon={<EntityIcon entity="Model Sayısı" />} />
+				<EntityBox entity="Toplam Renk Sayısı" count={allColors.length} icon={<EntityIcon entity="Renk Sayısı" />} />
+			</Row>
+			<Row className='g-3 justify-content-start'>
+				<Col xs={12} sm={5} lg={2}>
+					<ExportToCSVButton className='w-100' data={allCars} />
+				</Col>
+				<Col xs={12} sm={5} lg={2}>
+					<Button className='w-100 bg-success' style={{ height: 'calc(2em + 12px)' }} onClick={handleAddButtonClick}>Yeni Araba Ekle</Button>
+				</Col>
+			</Row>
 			<AdminCarTable
 				filteredCars={filteredCars}
 				sortBy={sortBy}

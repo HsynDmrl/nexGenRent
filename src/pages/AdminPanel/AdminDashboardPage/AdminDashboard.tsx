@@ -19,6 +19,10 @@ import { Card } from 'react-bootstrap';
 import { FaBuilding, FaCar, FaFileInvoiceDollar, FaToolbox, FaUsers } from 'react-icons/fa';
 import { IoIosPeople } from "react-icons/io";
 import './AdminDashboard';
+import EntityBox from '../../../components/changePasswordModal/entityBox';
+import getIconForEntity from '../../../components/entityIcon/entityIcon';
+import EntityIcon from '../../../components/entityIcon/entityIcon';
+
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, ArcElement, PointElement, LineElement);
 
 
@@ -63,40 +67,6 @@ const AdminDashboard: React.FC = () => {
 		{ entity: 'Müşteri Sayısı', count: dataState.customers.length },
 		{ entity: 'Kiralama Sayısı', count: dataState.rentals.length }
 	];
-
-	const getIconForEntity = (entity: string) => {
-		const iconStyle = { fontSize: '48px', color: '#007bff' };
-		switch (entity) {
-			case 'Marka Sayısı':
-				return <FaBuilding style={iconStyle} />;
-			case 'Model Sayısı':
-				return <FaToolbox style={iconStyle} />;
-			case 'Araç Sayısı':
-				return <FaCar style={iconStyle} />;
-			case 'Çalışan Sayısı':
-				return <FaUsers style={iconStyle} />;
-			case 'Müşteri Sayısı':
-				return <IoIosPeople style={iconStyle} />;
-			case 'Kiralama Sayısı':
-				return <FaFileInvoiceDollar style={iconStyle} />;
-			default:
-				return null;
-		}
-	};
-
-	const entityBoxes = tableData.map((data, index) => (
-		<Col key={index} className="mb-4" xs={12} sm={6} md={4} lg={2}>
-			<Card className="h-100 shadow-sm text-center card-custom">
-				<Card.Header className="card-header-custom">{data.entity}</Card.Header>
-				<Card.Body className="d-flex flex-column justify-content-center align-items-center">
-					<div className="icon-custom">{getIconForEntity(data.entity)}</div>
-					<Card.Text style={{ fontSize: '24px', fontWeight: 'bold' }}>
-						{data.count}
-					</Card.Text>
-				</Card.Body>
-			</Card>
-		</Col>
-	));
 
 	const totalDistributionData: ChartData<'pie'> = {
 		labels: [
@@ -295,7 +265,12 @@ const AdminDashboard: React.FC = () => {
 
 	return (
 		<Container>
-			<Row className='mb-5'>{entityBoxes}</Row>
+			<Row className='mb-5'>
+				{tableData.map((data, index) => (
+					<EntityBox key={index} entity={data.entity} count={data.count} icon={<EntityIcon entity={data.entity} />} />
+				))}
+			</Row>
+
 			<Row>
 				<Col xs={12} md={6} lg={8} className="col-9 mb-4">
 					<Card className="h-100 shadow-sm text-center">
@@ -307,6 +282,7 @@ const AdminDashboard: React.FC = () => {
 						</Card.Body>
 					</Card>
 				</Col>
+
 				<Col xs={12} md={6} lg={4} className="col-3 mb-4">
 					<Card className="h-100 w-11 shadow-sm text-center">
 						<Card.Header>Toplam Dağılım</Card.Header>
@@ -318,6 +294,7 @@ const AdminDashboard: React.FC = () => {
 					</Card>
 				</Col>
 			</Row>
+
 			<Row>
 				<Col xs={12} className="mb-4 custom-table-container">
 					<Table striped bordered hover className="custom-table">
@@ -338,6 +315,7 @@ const AdminDashboard: React.FC = () => {
 					</Table>
 				</Col>
 			</Row>
+
 			<Row className="mb-5">
 				<Col xs={12} md={6} lg={6} className="col-6 mb-2">
 					<Card className="h-100 shadow-sm text-center">
@@ -349,6 +327,7 @@ const AdminDashboard: React.FC = () => {
 						</Card.Body>
 					</Card>
 				</Col>
+
 				<Col xs={12} md={6} lg={6} className="col-6 mb-2">
 					<Card className="h-100 shadow-sm text-center">
 						<Card.Header>Vites Türü Dağılımı</Card.Header>
@@ -360,18 +339,22 @@ const AdminDashboard: React.FC = () => {
 					</Card>
 				</Col>
 			</Row>
-			<Col xs={12} md={6} lg={12} className="mb-4">
-				<Card className="h-100 shadow-sm text-center">
-					<Card.Header>Yıllık Satışlar</Card.Header>
-					<Card.Body>
-						<div style={{ height: '700px' }}>
-							<Bar data={yearlyChartData} />
-						</div>
-					</Card.Body>
-				</Card>
-			</Col>
+
+			<Row className="mb-4">
+				<Col xs={12} md={6} lg={12}>
+					<Card className="h-100 shadow-sm text-center">
+						<Card.Header>Yıllık Satışlar</Card.Header>
+						<Card.Body>
+							<div style={{ height: '700px' }}>
+								<Bar data={yearlyChartData} />
+							</div>
+						</Card.Body>
+					</Card>
+				</Col>
+			</Row>
 		</Container>
 	);
+
 };
 
 export default AdminDashboard;

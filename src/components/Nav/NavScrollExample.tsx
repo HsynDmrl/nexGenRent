@@ -8,7 +8,6 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import Login from '../../pages/Loginpage/Login';
 import ProfileDropdown from '../ProfileDropdown/ProfileDropdown';
 import { useAppDispatch } from '../../store/configStore/useAppDispatch';
-//import { useDispatch } from 'react-redux';
 import { logOut } from '../../store/auth/authSlice';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
@@ -16,6 +15,7 @@ import { RootState } from '../../store/configStore/configureStore';
 import { getByEmail } from '../../store/user/userSlice';
 import './NavScrollExample.css'
 import { useState } from 'react';
+import { useAppSelector } from '../../store/configStore/useAppSelector';
 
 function NavScrollExample() {
 
@@ -35,10 +35,9 @@ function NavScrollExample() {
   }, []);
 
 	const isUserLoggedIn = useSelector((state: RootState) => state.auth.isAuthenticated);
-	const user = useSelector((state: RootState) => state.user.dataFromByEmail);
+	const user = useAppSelector((state: RootState) => state.user.dataFromById);
 
 	const dispatch = useAppDispatch();
-	//const dispatch = useDispatch<AppDispatch>();
 
 
 	useEffect(() => {
@@ -78,9 +77,6 @@ function NavScrollExample() {
 						navbarScroll
 					>
 						<Nav.Link onClick={homepage}>Anasayfa</Nav.Link>
-						{isUserLoggedIn && (<Nav.Link onClick={cars}>Arabalar</Nav.Link>)}
-						{isUserLoggedIn && (<Nav.Link onClick={brands}>Brands</Nav.Link>)}
-						{isUserLoggedIn && (<Nav.Link onClick={models}>Models</Nav.Link>)}
 					</Nav><Form className="d-flex me-5 my-2 my-lg-0">
 						<Form.Control
 							type="search"
@@ -97,7 +93,6 @@ function NavScrollExample() {
 							<>
 								<Login />
 								<NavDropdown.Divider />
-								<NavDropdown.Item href="#action5" >Beni Hatırla</NavDropdown.Item>
 							</>
 						)}
 					</NavDropdown>

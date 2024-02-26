@@ -10,10 +10,18 @@ import {
 	FcAssistant, FcMultipleSmartphones, FcRules, FcNeutralDecision
 } from "react-icons/fc";
 import { LiaImages } from "react-icons/lia";
+import { useAppDispatch } from '../../../store/configStore/useAppDispatch';
+import { logOut } from '../../../store/auth/authSlice';
+import { useNavigate } from 'react-router-dom';
 
 const AdminSidebar: React.FC = () => {
 	const isOpen = useSelector((state: RootState) => state.toggleAdminSidebar.isOpen);
-
+	const dispatch = useAppDispatch();
+	const navigate = useNavigate();
+	
+	const handleLogout = () => {
+		dispatch(logOut());
+	};
 	return (
 		<Sidebar className={`adminSideBar ${isOpen ? 'open' : ''}`}>
 			<Sidebar.Nav>
@@ -65,7 +73,7 @@ const AdminSidebar: React.FC = () => {
 				</Sidebar.Nav.Item>
 			</Sidebar.Nav>
 			<SidebarMenuFooter>
-				<Sidebar.Nav.Item className='sidebarNavItem'  as={NavLink } to="/admin/logout">
+				<Sidebar.Nav.Item className='sidebarNavItem' onClick={handleLogout} as={NavLink } to="/">
 					<Sidebar.Nav.Title className='sidebarNavTitle' ><FcImport size={'2em'}/> Çıkış</Sidebar.Nav.Title>
 				</Sidebar.Nav.Item>
 			</SidebarMenuFooter>

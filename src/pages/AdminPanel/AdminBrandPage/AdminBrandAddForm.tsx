@@ -54,7 +54,6 @@ const AdminBrandAddForm: React.FC = () => {
 		}
 
 		try {
-			console.log('formDat2a2', formData);
 			await brandService.customAdd(formData);
 			setIsSuccess(true);
 		} catch (error) {

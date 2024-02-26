@@ -30,7 +30,6 @@ class BrandService extends BaseService<
 			'Content-Type': 'multipart/form-data'
 		  }
 		}).then((response) => {
-		  console.log('response', response);
 		  return response;
 		});
 	  }

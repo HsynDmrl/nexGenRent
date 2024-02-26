@@ -6,10 +6,12 @@ import { AddCarRequest } from '../../models/cars/requests/addCarRequest';
 import { GetByIdCarResponse } from '../../models/cars/response/getByIdCarResponse';
 import { UpdateCarRequest } from '../../models/cars/requests/updateCarRequest';
 import { AddCarResponse } from '../../models/cars/response/addCarResponse';
+import { GetAllCarFilterResponse } from '../../models/cars/response/getAllCarFilterResponse';
 
 interface CarState {
     dataFromById: Car | null;
     allData: Car[];
+    allDataCar:GetAllCarFilterResponse[];
     loading: boolean;
     error: string | null;
     selectedId: number | null;
@@ -21,6 +23,7 @@ const initialState: CarState = {
     loading: false,
     error: null,
     selectedId: null,
+    allDataCar: []
 };
 
 export const getById = createAsyncThunk(
@@ -127,6 +130,9 @@ const carSlice = createSlice({
         setSelectedId: (state, action) => { 
             state.selectedId = action.payload;
         },
+        setFilteredCars: (state, action) => {
+            state.allDataCar = action.payload;
+        },
     },
     extraReducers: (builder) => {
         builder
@@ -184,5 +190,5 @@ const carSlice = createSlice({
     },
 });
 
-export const { getDataStart, getDataFromByIdSuccess, getDataFailure, getAllDataSuccess, setSelectedId } = carSlice.actions;
+export const {setFilteredCars, getDataStart, getDataFromByIdSuccess, getDataFailure, getAllDataSuccess, setSelectedId } = carSlice.actions;
 export default carSlice.reducer;

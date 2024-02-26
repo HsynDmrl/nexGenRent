@@ -1,0 +1,124 @@
+.hero {
+  position: relative;
+  overflow: hidden;
+  height: 90vh; /* Yüksekliği tam olarak ekran yüksekliği olarak ayarla */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background-image: linear-gradient(to right top, rgba(155, 170, 173, 0.8), rgba(171, 181, 191, 0.9)), url('../../assets/images/banner4.jpg'); /* Arka plan resmi ve transparan gradienti ekle */
+  background-size: cover; /* Arka plan resmini kaplayacak şekilde ayarla */
+  background-position: center; /* Arka plan resmini dikey ve yatayda ortala */
+  /* background-image: linear-gradient(to right top, #eef2f3, #e8ecef, #e2e7eb, #dce1e7, #d6dce3, #d0d6df, #c9d1db, #c3cbd7, #bdc6d3, #b7c0cf, #b1bbcb, #abb5c7); */
+}
+
+/* Araba resminin konumunu ve boyutunu ayarlayın */
+.car-image {
+  margin-top: 15vh;
+  position: absolute;
+  opacity: 0.6; /* Resmin opaklığını azalt */
+  will-change: transform;
+  animation: carMove 60s linear infinite;
+}
+
+/* Formun stilini iyileştir */
+/* Formun pozisyonunu ve z-index değerini ayarlayın */
+.hero form {
+  position: relative; /* Eğer başka bir öğe tarafından etkileniyorsa absolute yapabilirsiniz */
+  z-index: 2;
+  background: #ffffff;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  border: 1px solid #ddd;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Hafif bir gölge ekle */
+  width: 100%; /* Tam genişlik */
+
+  /* Herhangi bir üst marjı kaldır */
+  margin-top: 0 !important;
+  margin: 0 auto; /* Otomatik yan marjlar ile merkeze al */
+  top: 50%; /* Üstten yarı yarıya */
+  left: 50%; /* Soldan yarı yarıya */
+  transform: translate(-50%, -50%); /* Tam ortada olacak şekilde ayarla */
+  background-image: linear-gradient(to right top, #eef2f3, #e8ecef, #e2e7eb, #dce1e7, #d6dce3, #d0d6df, #c9d1db, #c3cbd7, #bdc6d3, #b7c0cf, #b1bbcb, #abb5c7);
+
+}
+
+
+/* Metinleri ve butonları formun önüne getir */
+.hero h1,
+.hero p {
+  position: relative;
+  z-index: 3;
+  margin-left: 0;
+  text-align: center;
+}
+
+/* Buton ve input stillerini iyileştir */
+.hero button,
+.hero input {
+  border: 1px solid #ccc;
+  padding: 10px 20px;
+  margin: 0 5px;
+}
+
+/* Buton stilini iyileştir */
+.hero button {
+  background-color: #ff6a00;
+  color: white;
+  border: none; /* Buton kenarlığını kaldır */
+}
+
+/* Input alanlarının stilini iyileştir */
+.hero input {
+  background-color: #fff;
+  color: #333;
+}
+
+/* Ekran küçüldüğünde formu ve resmi uygun şekilde ayarla */
+
+@keyframes slide {
+  0% {
+    transform: translateX(100%);
+  }
+  50% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes carMove {
+  0% {
+    transform: translateX(300%);
+  }
+  100% {
+    transform: translateX(calc(-100% - 100vh)); /* Banner genişliği kadar ve ekran genişliği kadar kaydır */
+  }
+}
+
+/* Ekran küçüldüğünde formu ve resmi uygun şekilde ayarla */
+@media (max-width: 768px) {
+  .hero .car-image {
+    margin-top: 2rem; /* Mobil cihazlar için daha az üst boşluk */
+    max-width: 8rem; /* Araba resminin maksimum genişliğini azalt */
+  }
+
+  .hero form {
+    margin-top: 2rem; /* Mobil cihazlar için daha az üst boşluk */
+    padding: 1rem;
+    width: 80%; /* Formun genişliğini azalt */
+  }
+
+  .hero button,
+  .hero input {
+    padding: 8px 16px; /* Buton ve input boyutlarını küçült */
+  }
+
+  /* h1 ve p elementlerini merkeze hizala */
+  .hero h1,
+  .hero p {
+    text-align: center;
+  }
+}

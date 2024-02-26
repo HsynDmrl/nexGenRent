@@ -1,0 +1,72 @@
+/* CarFilter.css */
+
+/* Filtre bölümünün genel stilini ayarlayın */
+.filter-section {
+  background-color: #d20707; /* Arka plan rengi */
+  padding: 20px; /* İç boşluk */
+  border-radius: 10px; /* Köşeleri yuvarlat */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Gölge efekti */
+  margin-bottom: 20px; /* Alt boşluk */
+  border: 2px solid #af0c0c; /* Kenarlık */
+}
+
+/* Başlık için stil */
+.filter-title {
+  font-size: 1.25rem; /* Başlık boyutu */
+  margin-bottom: 15px; /* Başlık altı boşluk */
+  color: #333; /* Metin rengi */
+  font-weight: 500; /* Font kalınlığı */
+}
+
+/* Form elemanları için genel stil */
+.filter-form-group {
+  margin-bottom: 15px; /* Form elemanları arası boşluk */
+}
+
+/* Etiketler için stil */
+.filter-form-label {
+  font-weight: 500; /* Etiket font kalınlığı */
+  color: #555; /* Etiket rengi */
+}
+
+/* Dropdown için özel stil */
+.filter-form-select {
+  border-color: #ced4da; /* Kenarlık rengi */
+}
+
+/* Filtrele butonu için stil */
+.filter-submit-btn {
+  width: 100%; /* Buton genişliği */
+  background-color: #0056b3; /* Buton arka plan rengi */
+  color: white; /* Buton yazı rengi */
+  padding: 10px 15px; /* İç boşluk */
+  border: none; /* Kenarlık kaldır */
+  border-radius: 4px; /* Köşe yuvarlat */
+  font-weight: 500; /* Font kalınlığı */
+  margin-top: 10px; /* Üst boşluk */
+  transition: background-color 0.2s; /* Arka plan rengi geçişi */
+}
+
+.filter-submit-btn:hover {
+  background-color: #004494; /* Buton arka plan rengi (hover) */
+  color: #fff; /* Buton yazı rengi (hover) */
+}
+
+/* Responsive düzenlemeler */
+@media (max-width: 768px) {
+  .filter-section {
+    padding: 15px; /* Mobil cihazlarda iç boşluk */
+  }
+
+  .filter-title {
+    font-size: 1rem; /* Mobil cihazlarda başlık boyutu */
+  }
+
+  .filter-form-label {
+    font-size: 0.9rem; /* Mobil cihazlarda etiket boyutu */
+  }
+
+  .filter-submit-btn {
+    padding: 8px 12px; /* Mobil cihazlarda buton iç boşluk */
+  }
+}

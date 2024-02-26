@@ -94,7 +94,7 @@ const AdminColorPage: React.FC = () => {
 
 	return (
 		<Container>
-			<h1>Admin Renk Sayfası</h1>
+			<h1>Renkler Sayfası</h1>
 			<Row className='mb-5 col-12'>
 				<EntityBox entity="Toplam Renk Sayısı" count={allColors.length} icon={<EntityIcon entity="Renk Sayısı" />} />
 			</Row>

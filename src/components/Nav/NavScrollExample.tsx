@@ -34,7 +34,7 @@ function NavScrollExample() {
     window.addEventListener('scroll', handleScroll);
   }, []);
 
-	const isUserLoggedIn = useSelector((state: RootState) => state.auth.isAuthenticated);
+	const isUserLoggedIn = useAppSelector((state: RootState) => state.auth.isAuthenticated);
 	const user = useAppSelector((state: RootState) => state.user.dataFromById);
 
 	const dispatch = useAppDispatch();

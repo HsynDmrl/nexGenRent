@@ -97,7 +97,7 @@ const AdminBrandPage: React.FC = () => {
 
 	return (
 		<Container>
-			<h1>Admin Marka Sayfası</h1>
+			<h1>Markalar Sayfası</h1>
 			<Row className='mb-5 col-12'>
 				<EntityBox entity="Toplam Marka Sayısı" count={allBrands.length} icon={<EntityIcon entity="Marka Sayısı" />} />
 				<EntityBox entity="Toplam Model Sayısı" count={allBrands.reduce((totalLogos, brand) => totalLogos + (brand.logoPath ? 1 : 0), 0)} icon={<EntityIcon entity="Logo Sayısı" />} />

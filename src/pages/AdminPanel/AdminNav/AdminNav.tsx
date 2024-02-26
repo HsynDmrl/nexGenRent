@@ -11,6 +11,7 @@ import UserProfileModal from '../../../components/userProfileModal/userProfileMo
 import { useNavigate } from 'react-router-dom';
 import { logOut } from '../../../store/auth/authSlice';
 import { FaSignOutAlt } from 'react-icons/fa';
+import './adminNav.css';
 
 function AdminNav() {
 	const dispatch = useAppDispatch();
@@ -36,19 +37,19 @@ function AdminNav() {
 	const homeDashboard = () => {navigate("/admin/dashboard")};
 	
 	return (
-		<Navbar expand="lg" className="admin-nav-bar fixed-top shadow-sm">
+		<Navbar expand="lg" className="admin-nav-bar fixed-top">
 			<Container fluid>
 				{isSidebarOpen ? (
-				<FaToggleOff style={{ cursor: 'pointer' }}  className="mx-2 text-secondary" size={'2em'} onClick={handleToggleSidebar} />
+				<FaToggleOff style={{ cursor: 'pointer' }}  className="mx-2 text-light" size={'2em'} onClick={handleToggleSidebar} />
 				) : (
 				<FaToggleOn  style={{ cursor: 'pointer' }} className="mx-2 text-primary" size={'2em'} onClick={handleToggleSidebar} />
 				)}
-				<Navbar.Brand className="navbar-brand text-dark" style={{ cursor: 'pointer' }}  onClick={homepageAdmin}>NexGenRent</Navbar.Brand>
+				<Navbar.Brand className="navbar-brand text-light" style={{ cursor: 'pointer' }}  onClick={homepageAdmin}>NexGenRent</Navbar.Brand>
 				<Navbar.Toggle aria-controls="basic-navbar-nav" />
 				<Navbar.Collapse id="basic-navbar-nav"className="justify-content-end">
 					<Nav className="align-items-center">
-						<Nav.Link onClick={homeDashboard} className="text-dark">
-							<FaHome className="mb-1" /> Kontrol Paneli
+						<Nav.Link onClick={homeDashboard} className="text-light">
+							<FaHome className="mb-1 text-light" /> Kontrol Paneli
 						</Nav.Link>
 						<Button variant="outline-primary" onClick={homepage} className="ms-2">Siteye Git</Button>
 						<Dropdown>

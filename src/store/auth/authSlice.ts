@@ -5,7 +5,6 @@ import { increaseRequestCount, decreaseRequestCount } from "../loading/loadingSl
 import { AuthState} from "../../models/auth/authState";
 import { LoginCredentials } from "../../models/auth/loginCredentials";
 
-// AccessToken'in süresi kontrol edilerek refreshToken ile yeniden oturum oluşturulur
 const refreshSession = async () => {
   const tokenResponse = await authService.refreshAccessToken();
   const accessToken = tokenResponse.accessToken;
@@ -20,7 +19,6 @@ export const loginUser = createAsyncThunk(
     try {
       let tokenResponse: { accessToken: string, refreshToken?: string } = await authService.login(email, password, rememberMe);
       
-      // AccessToken süresi geçmişse oturumu yeniden güncelle
       const currentTime = new Date().getTime() / 1000;
       if (tokenService.getTokenExpire() && tokenService.getTokenExpire() < currentTime) {
         tokenResponse = await refreshSession();
@@ -79,10 +77,6 @@ export const authSlice = createSlice({
           tokenStart: tokenService.getTokenStart() || "",
           tokenExpire: tokenService.getTokenExpire() || "",
         };
-        //console.log("tokenDetails: ", state.tokenDetails);
-        //console.log("accessToken: ", state.token);
-        //console.log("refreshToken: ", state.refreshToken);
-        //console.log("isAuthenticated: ", state.isAuthenticated);
       })      
       .addCase(loginUser.rejected, (state) => {
         decreaseRequestCount();

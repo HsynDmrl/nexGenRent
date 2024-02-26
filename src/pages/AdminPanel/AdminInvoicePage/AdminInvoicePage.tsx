@@ -110,7 +110,7 @@ const AdminInvoicePage: React.FC = () => {
 	};
 	return (
 		<Container>
-			<h1>Admin Invoice Sayfası</h1>
+			<h1>Faturalar Sayfası</h1>
 			<Row className='mb-5 col-12'>
 				<EntityBox entity="Toplam Fatura Sayısı" count={allInvoices.length} icon={<EntityIcon entity="Fatura Sayısı" />} />
 				<EntityBox entity="Toplam Sipariş Sayısı" count={allRentals.length} icon={<EntityIcon entity="Kiralama Sayısı" />} />

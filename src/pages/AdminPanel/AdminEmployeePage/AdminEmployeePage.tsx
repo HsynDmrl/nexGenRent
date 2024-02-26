@@ -100,7 +100,7 @@ const AdminEmployeePage: React.FC = () => {
 
 	return (
 		<Container>
-			<h1>Admin Çalışan Sayfası</h1>
+			<h1>Çalışanlar Sayfası</h1>
 			<Row className='mb-5 col-12'>
 				<EntityBox entity="Çalışan Sayısı" count={allEmployees.length} icon={<EntityIcon entity="Çalışan Sayısı" />} />
 				<EntityBox entity="Kullanıcı Sayısı" count={allUsers.length} icon={<EntityIcon entity="Kullanıcı Sayısı" />} />

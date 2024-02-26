@@ -214,9 +214,18 @@ const AdminDashboard: React.FC = () => {
 	}, {} as { [key: string]: number });
 
 	const prepareChartData = () => {
-		const gearTypes = dataState.cars.map(car => getGearTypeLabel(car.gearType));
-		const fuelTypes = dataState.cars.map(car => getFuelTypeLabel(car.fuelType));
-
+		if (!Array.isArray(dataState.cars)) {
+			return {
+				gearTypeLabels: [],
+				gearTypeData: [],
+				fuelTypeLabels: [],
+				fuelTypeData: [],
+			};
+		}
+	
+		const gearTypes = dataState.cars.map(car => getGearTypeLabel(car?.gearType));
+		const fuelTypes = dataState.cars.map(car => getFuelTypeLabel(car?.fuelType));
+	
 		const gearTypeCounts = countOccurrences(gearTypes);
 		const fuelTypeCounts = countOccurrences(fuelTypes);
 

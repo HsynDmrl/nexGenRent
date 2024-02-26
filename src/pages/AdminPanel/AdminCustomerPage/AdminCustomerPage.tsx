@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Table from 'react-bootstrap/Table';
 import Form from 'react-bootstrap/Form';
-import { Badge, Button, Container, Modal } from 'react-bootstrap';
+import { Badge, Button, Col, Container, Modal, Row } from 'react-bootstrap';
 import AdminCustomerAddForm from './AdminCustomerAddForm';
 import AdminCustomerDeleteForm from './AdminCustomerDeleteForm';
 import { useAppDispatch } from '../../../store/configStore/useAppDispatch';
@@ -16,6 +16,8 @@ import { LiaSortAmountDownAltSolid, LiaSortAmountUpSolid, LiaImages } from "reac
 import { getAll as getAllUsers } from '../../../store/user/userSlice';
 import { FcConferenceCall, FcBusinessman } from "react-icons/fc";
 import AdminCustomerUpdateForm from './AdminCustomerUpdateForm';
+import EntityBox from '../../../components/changePasswordModal/entityBox';
+import EntityIcon from '../../../components/entityIcon/entityIcon';
 
 const AdminCustomerPage: React.FC = () => {
 	const dispatch = useAppDispatch();
@@ -97,19 +99,19 @@ const AdminCustomerPage: React.FC = () => {
 
 	return (
 		<Container>
-			<h1>Admin Customer Sayfası</h1>
-			<div className="container mb-5">
-				<Badge className='custom-badge mb-2 mt-5 mx-5' bg="danger">{allCustomers.length}<FcBusinessman size={'2em'} />
-					<div>Toplam Müşteri</div>
-				</Badge>
-				<Badge className='custom-badge' bg="warning">{allUsers.length}<FcConferenceCall size={'2em'} />
-					<div>Toplam Kullanıcı</div>
-				</Badge>
-			</div>
-			<div className="container">
-				<ExportToCSVButton className='button-admin-customer ms-4' data={allCustomers} />
-				<Button className='button-admin-customer mb-2 ms-1 bg-success' onClick={handleAddButtonClick}>Yeni Customer Ekle</Button>
-			</div>
+			<h1>Admin Müşteri Sayfası</h1>
+			<Row className='mb-5 col-12'>
+				<EntityBox entity="Müşteri Sayısı" count={allCustomers.length} icon={<EntityIcon entity="Müşteri Sayısı" />} />
+				<EntityBox entity="Kullanıcı Sayısı" count={allUsers.length} icon={<EntityIcon entity="Kullanıcı Sayısı" />} />
+			</Row>
+			<Row className='g-3 justify-content-start'>
+				<Col xs={12} sm={5} lg={2}>
+					<ExportToCSVButton className='w-100' data={allCustomers} />
+				</Col>
+				<Col xs={12} sm={5} lg={2}>
+					<Button className='w-100 bg-success' style={{ height: 'calc(2em + 12px)' }} onClick={handleAddButtonClick}>Yeni Müşteri Ekle</Button>
+				</Col>
+			</Row>
 			<Table>
 				<thead>
 					<tr className='align-items-center'>

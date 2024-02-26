@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Table from 'react-bootstrap/Table';
 import Form from 'react-bootstrap/Form';
-import { Badge, Button, Container, Modal } from 'react-bootstrap';
+import { Badge, Button, Col, Container, Modal, Row } from 'react-bootstrap';
 import AdminBrandAddForm from './AdminBrandAddForm';
 import AdminBrandUpdateForm from './AdminBrandUpdateForm';
 import { useAppDispatch } from '../../../store/configStore/useAppDispatch';
@@ -15,6 +15,8 @@ import './adminBrandPage.css';
 import ExportToCSVButton from './ExportToCSVButton';
 import { LiaSortAmountDownAltSolid, LiaSortAmountUpSolid, LiaImages } from "react-icons/lia";
 import { IoMdImages } from "react-icons/io";
+import EntityBox from '../../../components/changePasswordModal/entityBox';
+import EntityIcon from '../../../components/entityIcon/entityIcon';
 
 const AdminBrandPage: React.FC = () => {
 	const dispatch = useAppDispatch();
@@ -96,20 +98,19 @@ const AdminBrandPage: React.FC = () => {
 	return (
 		<Container>
 			<h1>Admin Marka Sayfası</h1>
-			<div className="container mb-5">
-				<Badge className='custom-badge mb-2 mt-5 mx-5' bg="danger">{allBrands.length}<LiaImages size={'2em'} />
-					<div>Toplam Marka</div>
-				</Badge>
-				<Badge className='custom-badge' bg="warning">
-					{allBrands.reduce((totalLogos, brand) => totalLogos + (brand.logoPath ? 1 : 0), 0)}
-					<IoMdImages size={'2em'} />
-					<div>Toplam Logo</div>
-				</Badge>
-			</div>
-			<div className="container">
-				<ExportToCSVButton className='button-admin-brand ms-4' data={allBrands} />
-				<Button className='button-admin-brand mb-2 ms-1 bg-success' onClick={handleAddButtonClick}>Yeni Marka Ekle</Button>
-			</div>
+			<Row className='mb-5 col-12'>
+				<EntityBox entity="Toplam Marka Sayısı" count={allBrands.length} icon={<EntityIcon entity="Marka Sayısı" />} />
+				<EntityBox entity="Toplam Model Sayısı" count={allBrands.reduce((totalLogos, brand) => totalLogos + (brand.logoPath ? 1 : 0), 0)} icon={<EntityIcon entity="Logo Sayısı" />} />
+			</Row>
+			<Row className='g-3 justify-content-start'>
+				<Col xs={12} sm={5} lg={2}>
+					<ExportToCSVButton className='w-100' data={allBrands} />
+				</Col>
+				<Col xs={12} sm={5} lg={2}>
+					<Button className='w-100 bg-success' style={{ height: 'calc(2em + 12px)' }} onClick={handleAddButtonClick}>Yeni Marka Ekle</Button>
+				</Col>
+			</Row>
+
 			<Table>
 				<thead>
 					<tr className='align-items-center'>

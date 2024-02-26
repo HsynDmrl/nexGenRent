@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Table from 'react-bootstrap/Table';
 import Form from 'react-bootstrap/Form';
-import { Badge, Button, Container, Modal } from 'react-bootstrap';
+import { Badge, Button, Col, Container, Modal, Row } from 'react-bootstrap';
 import AdminRoleAddForm from './AdminRoleAddForm';
 import AdminRoleUpdateForm from './AdminRoleUpdateForm';
 import { useAppDispatch } from '../../../store/configStore/useAppDispatch';
@@ -15,6 +15,8 @@ import './adminRolePage.css';
 import ExportToCSVButton from './ExportToCSVButton';
 import { LiaSortAmountDownAltSolid, LiaSortAmountUpSolid } from "react-icons/lia";
 import {FcNeutralDecision} from "react-icons/fc";
+import EntityBox from '../../../components/changePasswordModal/entityBox';
+import EntityIcon from '../../../components/entityIcon/entityIcon';
 
 const AdminRolePage: React.FC = () => {
 	const dispatch = useAppDispatch();
@@ -94,15 +96,17 @@ const AdminRolePage: React.FC = () => {
 	return (
 		<Container>
 			<h1>Admin Rol Sayfası</h1>
-			<div className="container mb-5">
-				<Badge className='custom-badge mb-2 mt-5 mx-5' bg="danger">{allRoles.length}<FcNeutralDecision size={'2em'} />
-					<div>Toplam Rol</div>
-				</Badge>
-			</div>
-			<div className="container">
-				<ExportToCSVButton className='button-admin-role ms-4' data={allRoles} />
-				<Button className='button-admin-role mb-2 ms-1 bg-success' onClick={handleAddButtonClick}>Yeni Rol Ekle</Button>
-			</div>
+			<Row className='mb-5 col-12'>
+				<EntityBox entity="Toplam Rol Sayısı" count={allRoles.length} icon={<EntityIcon entity="Rol Sayısı" />} />
+			</Row>
+			<Row className='g-3 justify-content-start'>
+				<Col xs={12} sm={5} lg={2}>
+					<ExportToCSVButton className='w-100' data={allRoles} />
+				</Col>
+				<Col xs={12} sm={5} lg={2}>
+					<Button className='w-100 bg-success' style={{ height: 'calc(2em + 12px)' }} onClick={handleAddButtonClick}>Yeni Rol Ekle</Button>
+				</Col>
+			</Row>
 			<Table>
 				<thead>
 					<tr className='align-items-center'>

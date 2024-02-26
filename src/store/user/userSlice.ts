@@ -74,7 +74,6 @@ export const updateUser = createAsyncThunk(
 				name: userData.name,
 				nationalityId: userData.nationalityId,
 				surname: userData.surname,
-				roleId: userData.roleId,
             };
             const response = await userService.update(updateUserRequest);
             return response.data;

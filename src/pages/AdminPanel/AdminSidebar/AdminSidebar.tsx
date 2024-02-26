@@ -26,7 +26,7 @@ const AdminSidebar: React.FC = () => {
 		<Sidebar className={`adminSideBar ${isOpen ? 'open' : ''}`}>
 			<Sidebar.Nav>
 				<Sidebar.Nav.Item className='sidebarNavItem' as={NavLink } to="/admin/dashboard">
-					<Sidebar.Nav.Title className='sidebarNavTitle' ><FcAreaChart size={'2em'} /> Dashboard</Sidebar.Nav.Title>
+					<Sidebar.Nav.Title className='sidebarNavTitle' ><FcAreaChart size={'2em'} /> Kontrol Paneli</Sidebar.Nav.Title>
 				</Sidebar.Nav.Item>
 				<Sidebar.Sub>
 					<Sidebar.Sub.Toggle className='sidebarNavItem menu-toggle border-0'>

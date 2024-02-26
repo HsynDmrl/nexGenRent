@@ -5,5 +5,4 @@ export interface UpdateUserRequest  {
 	name: string;
 	nationalityId: string;
 	surname: string;
-	roleId: number;
 }

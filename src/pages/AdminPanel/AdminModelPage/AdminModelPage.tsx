@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import Table from 'react-bootstrap/Table';
 import Form from 'react-bootstrap/Form';
-import { Badge, Button, Container, Modal } from 'react-bootstrap';
+import { Badge, Button, Col, Container, Modal, Row } from 'react-bootstrap';
 import AdminModelAddForm from './AdminModelAddForm';
 import AdminModelUpdateForm from './AdminModelUpdateForm';
 import { useAppDispatch } from '../../../store/configStore/useAppDispatch';
 import { useAppSelector } from '../../../store/configStore/useAppSelector';
-import { getAll as getAllBrands }  from '../../../store/brand/brandSlice';
+import { getAll as getAllBrands } from '../../../store/brand/brandSlice';
 import { getAll, setSelectedIdAction } from '../../../store/model/modelSlice';
 import { RootState } from '../../../store/configStore/configureStore';
 import Pagination from 'react-bootstrap/Pagination';
@@ -15,7 +15,9 @@ import AdminModelDeleteForm from './AdminModelDeleteForm';
 import './adminModelPage.css';
 import ExportToCSVButton from './ExportToCSVButton';
 import { LiaSortAmountDownAltSolid, LiaSortAmountUpSolid, LiaImages } from "react-icons/lia";
-import { FcWorkflow} from "react-icons/fc";
+import { FcWorkflow } from "react-icons/fc";
+import EntityIcon from '../../../components/entityIcon/entityIcon';
+import EntityBox from '../../../components/changePasswordModal/entityBox';
 
 const AdminModelPage: React.FC = () => {
 	const dispatch = useAppDispatch();
@@ -69,7 +71,7 @@ const AdminModelPage: React.FC = () => {
 		});
 		setFilteredModels(sorted);
 	}, [searchId, searchName, searchLogoPath, searchCreatedDate, searchUpdatedDate, allModels, sortBy, sortDirection]);
-	
+
 	useEffect(() => {
 		dispatch(getAllBrands());
 		dispatch(getAll());
@@ -99,18 +101,19 @@ const AdminModelPage: React.FC = () => {
 	return (
 		<Container>
 			<h1>Admin Model Sayfası</h1>
-			<div className="container mb-5">
-				<Badge className='custom-badge mb-2 mt-5 mx-5' bg="danger">{allModels.length}<FcWorkflow size={'2em'} />
-					<div>Toplam Model</div>
-				</Badge>
-				<Badge className='custom-badge' bg="warning">{allBrands.length}<LiaImages size={'2em'} />
-					<div>Toplam Marka</div>
-				</Badge>
-			</div>
-			<div className="container">
-				<ExportToCSVButton className='button-admin-model ms-4' data={allModels} />
-				<Button className='button-admin-model mb-2 ms-1 bg-success' onClick={handleAddButtonClick}>Yeni Model Ekle</Button>
-			</div>
+			<Row className='mb-5 col-12'>
+				<EntityBox entity="Toplam Marka Sayısı" count={allBrands.length} icon={<EntityIcon entity="Model Sayısı" />} />
+				<EntityBox entity="Toplam Model Sayısı" count={allModels.length} icon={<EntityIcon entity="Marka Sayısı" />} />
+			</Row>
+			<Row className='g-3 justify-content-start'>
+				<Col xs={12} sm={5} lg={2}>
+					<ExportToCSVButton className='w-100' data={allModels} />
+				</Col>
+				<Col xs={12} sm={5} lg={2}>
+					<Button className='w-100 bg-success' style={{ height: 'calc(2em + 12px)' }} onClick={handleAddButtonClick}>Yeni Marka Ekle</Button>
+				</Col>
+			</Row>
+
 			<Table>
 				<thead>
 					<tr className='align-items-center'>
@@ -166,11 +169,11 @@ const AdminModelPage: React.FC = () => {
 						</th>
 					</tr>
 					<tr>
-						<th><Form.Control size="sm" type="text" placeholder="Id Ara" onChange={(e) => setSearchId(e.target.value)}/></th>
-						<th><Form.Control size="sm" type="text" placeholder="İsim Ara" onChange={(e) => setSearchName(e.target.value)}/></th>
-						<th><Form.Control size="sm" type="text" placeholder="Logo Path Ara" onChange={(e) => setSearchLogoPath(e.target.value)}/></th>
-						<th><Form.Control size="sm" type="text" placeholder="Oluşturulma Tarihi Ara" onChange={(e) => setSearchCreatedDate(e.target.value)}/></th>
-						<th><Form.Control size="sm" type="text" placeholder="Yenilenme Tarihi Ara" onChange={(e) => setSearchUpdatedDate(e.target.value)}/></th>
+						<th><Form.Control size="sm" type="text" placeholder="Id Ara" onChange={(e) => setSearchId(e.target.value)} /></th>
+						<th><Form.Control size="sm" type="text" placeholder="İsim Ara" onChange={(e) => setSearchName(e.target.value)} /></th>
+						<th><Form.Control size="sm" type="text" placeholder="Logo Path Ara" onChange={(e) => setSearchLogoPath(e.target.value)} /></th>
+						<th><Form.Control size="sm" type="text" placeholder="Oluşturulma Tarihi Ara" onChange={(e) => setSearchCreatedDate(e.target.value)} /></th>
+						<th><Form.Control size="sm" type="text" placeholder="Yenilenme Tarihi Ara" onChange={(e) => setSearchUpdatedDate(e.target.value)} /></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -199,7 +202,7 @@ const AdminModelPage: React.FC = () => {
 					<Modal.Title className='form-title'>Model Güncelle veya Sil</Modal.Title>
 				</Modal.Header>
 				<Modal.Body>
-					<AdminModelUpdateForm/>
+					<AdminModelUpdateForm />
 					<hr />
 					<AdminModelDeleteForm />
 				</Modal.Body>

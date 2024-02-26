@@ -1,39 +1,71 @@
-import Container from 'react-bootstrap/Container';
-import Navbar from 'react-bootstrap/Navbar';
-import { toggleAdminSidebar } from '../../../store/adminToggle/adminToggleSlice';
-import { FaToggleOn, FaToggleOff } from "react-icons/fa";
+import { useState } from 'react';
+import { Container, Navbar, Nav, Button, Dropdown } from 'react-bootstrap';
+import { FaToggleOn, FaToggleOff, FaHome, FaUserCircle } from 'react-icons/fa';
 import { RootState } from '../../../store/configStore/configureStore';
+import { useEffect } from 'react';
 import { useAppDispatch } from '../../../store/configStore/useAppDispatch';
 import { useAppSelector } from '../../../store/configStore/useAppSelector';
-import './adminNav.css';
-import { useEffect } from 'react';
+import { toggleAdminSidebar } from '../../../store/adminToggle/adminToggleSlice';
 import { getByEmail } from '../../../store/user/userSlice';
+import UserProfileModal from '../../../components/userProfileModal/userProfileModal';
+import { useNavigate } from 'react-router-dom';
+import { logOut } from '../../../store/auth/authSlice';
+import { FaSignOutAlt } from 'react-icons/fa';
 
 function AdminNav() {
-  const dispatch = useAppDispatch();
-  const isSidebarOpen = useAppSelector((state: RootState) => state.toggleAdminSidebar.isOpen);
-  const userId = useAppSelector((state: RootState) => state.user.dataFromById);
+	const dispatch = useAppDispatch();
+	const isSidebarOpen = useAppSelector((state: RootState) => state.toggleAdminSidebar.isOpen);
+	const userId = useAppSelector((state: RootState) => state.user.dataFromById);
+	const [modalShow, setModalShow] = useState(false);
+	const navigate = useNavigate();
 
-  useEffect(() => {
-	dispatch(getByEmail());
-  }
-  , [dispatch]);
+	useEffect(() => {
+		dispatch(getByEmail());
+	}, [dispatch]);
 
-  const handleToggleSidebar = () => {
-    dispatch(toggleAdminSidebar());
-  };
+	const handleToggleSidebar = () => {
+		dispatch(toggleAdminSidebar());
+	};
 
-  return (
-    <Navbar className="admin-nav-bar fixed-top">
-        {isSidebarOpen ? <FaToggleOff className='mx-2 text-white' size={'2em'} onClick={handleToggleSidebar}/> : <FaToggleOn className='mx-2 text-black' size={'2em'} onClick={handleToggleSidebar}/>}
-        <Navbar.Brand className="navbar-brand text-black" href="/admin/">NexGenRent</Navbar.Brand>
-        <Navbar.Collapse className="justify-content-end">
-          <Navbar.Text className="navbar-menu text-black">
-		  	Hoşgeldiniz, <a className="text-black">{userId?.name}</a>
-          </Navbar.Text>
-        </Navbar.Collapse>
-    </Navbar>
-  );
+	const handleLogout = () => {
+		dispatch(logOut());
+		navigate("/");
+	};
+	const homepage = () => {navigate("/")};
+	const homepageAdmin = () => {navigate("/admin/")};
+	const homeDashboard = () => {navigate("/admin/dashboard")};
+	
+	return (
+		<Navbar expand="lg" className="admin-nav-bar fixed-top shadow-sm">
+			<Container fluid>
+				{isSidebarOpen ? (
+				<FaToggleOff style={{ cursor: 'pointer' }}  className="mx-2 text-secondary" size={'2em'} onClick={handleToggleSidebar} />
+				) : (
+				<FaToggleOn  style={{ cursor: 'pointer' }} className="mx-2 text-primary" size={'2em'} onClick={handleToggleSidebar} />
+				)}
+				<Navbar.Brand className="navbar-brand text-dark" style={{ cursor: 'pointer' }}  onClick={homepageAdmin}>NexGenRent</Navbar.Brand>
+				<Navbar.Toggle aria-controls="basic-navbar-nav" />
+				<Navbar.Collapse id="basic-navbar-nav"className="justify-content-end">
+					<Nav className="align-items-center">
+						<Nav.Link onClick={homeDashboard} className="text-dark">
+							<FaHome className="mb-1" /> Kontrol Paneli
+						</Nav.Link>
+						<Button variant="outline-primary" onClick={homepage} className="ms-2">Siteye Git</Button>
+						<Dropdown>
+							<Dropdown.Toggle variant="success" id="dropdown-basic" className="ms-2">
+								<FaUserCircle /> Hoşgeldiniz, {userId?.name}
+							</Dropdown.Toggle>
+							<Dropdown.Menu>
+                			<Dropdown.Item onClick={() => setModalShow(true)}>Profili Düzenle</Dropdown.Item>
+							<Dropdown.Item onClick={handleLogout}><FaSignOutAlt /> Çıkış Yap</Dropdown.Item>
+              			</Dropdown.Menu>
+						</Dropdown>
+					</Nav>
+				</Navbar.Collapse>
+			</Container>
+			<UserProfileModal show={modalShow} handleClose={() => setModalShow(false)} />
+		</Navbar>
+	);
 }
 
 export default AdminNav;

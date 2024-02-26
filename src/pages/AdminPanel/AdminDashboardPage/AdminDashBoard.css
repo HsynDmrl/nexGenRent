@@ -1,73 +1,78 @@
 .card-custom {
-    transition: transform .3s ease-in-out;
-    cursor: pointer;
-}
-.card-custom:hover {
-    transform: scale(1.05);
-}
-.card-header-custom {
-    background-color: #007bff;
-    color: #fff;
-}
-.icon-custom {
-    margin-bottom: 15px;
-    color: #007bff;
+	transition: transform .3s ease-in-out;
+	cursor: pointer;
 }
 
-/* Özelleştirilmiş Tablo Stilleri */
+.card-custom:hover {
+	transform: scale(1.05);
+}
+
+.card-header-custom {
+	background-color: #007bff;
+	color: #fff;
+}
+
+.icon-custom {
+	margin-bottom: 15px;
+	color: #007bff;
+}
+
 .custom-table-container {
-    overflow-x: auto; /* Yatay kaydırma çubuğu için */
+	overflow-x: auto;
 }
 
 .custom-table {
-    border-collapse: collapse;
-    width: 100%;
-    background-color: #fff; /* Arka plan rengi */
+	border-collapse: collapse;
+	width: 100%;
+	background-color: #fff;
 }
 
 .custom-table th {
-    background-color: #007bff; /* Başlık arka plan rengi */
-    color: white; /* Başlık metin rengi */
-    padding: 12px 15px; /* Başlık iç boşluğu */
+	background-color: #007bff;
+	color: white;
+	padding: 12px 15px;
 }
 
 .custom-table td {
-    padding: 12px 15px; /* Hücre iç boşluğu */
-    border-top: 1px solid #dee2e6; /* Hücre üst kenarlık rengi */
+	padding: 12px 15px;
+	border-top: 1px solid #dee2e6;
 }
 
 .custom-table tbody tr:hover {
-    background-color: #f2f2f2; /* Satır hover arka plan rengi */
+	background-color: #f2f2f2;
 }
 
 @media (max-width: 768px) {
-    .custom-table thead {
-        display: none; /* Küçük ekranlarda başlıkları gizle */
-    }
+	.custom-table thead {
+		display: none;
+	}
 
-    .custom-table, .custom-table tbody, .custom-table tr, .custom-table td {
-        display: block;
-        width: 100%;
-    }
+	.custom-table,
+	.custom-table tbody,
+	.custom-table tr,
+	.custom-table td {
+		display: block;
+		width: 100%;
+	}
 
-    .custom-table tr {
-        margin-bottom: 15px;
-    }
+	.custom-table tr {
+		margin-bottom: 15px;
+	}
 
-    .custom-table td {
-        text-align: right;
-        padding-left: 50%;
-        text-align: right;
-        position: relative;
-    }
+	.custom-table td {
+		text-align: right;
+		padding-left: 50%;
+		text-align: right;
+		position: relative;
+	}
 
-    .custom-table td::before {
-        content: attr(data-label);
-        position: absolute;
-        left: 0;
-        width: 50%;
-        padding-left: 15px;
-        font-weight: bold;
-        text-align: left;
-    }
+	.custom-table td::before {
+		content: attr(data-label);
+		position: absolute;
+		left: 0;
+		width: 50%;
+		padding-left: 15px;
+		font-weight: bold;
+		text-align: left;
+	}
 }

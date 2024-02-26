@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Table from 'react-bootstrap/Table';
 import Form from 'react-bootstrap/Form';
-import { Badge, Button, Container, Modal } from 'react-bootstrap';
+import { Badge, Button, Col, Container, Modal, Row } from 'react-bootstrap';
 import AdminColorAddForm from './AdminColorAddForm';
 import AdminColorUpdateForm from './AdminColorUpdateForm';
 import { useAppDispatch } from '../../../store/configStore/useAppDispatch';
@@ -14,6 +14,8 @@ import AdminColorDeleteForm from './AdminColorDeleteForm';
 import './adminColorPage.css';
 import ExportToCSVButton from './ExportToCSVButton';
 import { LiaSortAmountDownAltSolid, LiaSortAmountUpSolid, LiaImages } from "react-icons/lia";
+import EntityBox from '../../../components/changePasswordModal/entityBox';
+import EntityIcon from '../../../components/entityIcon/entityIcon';
 
 const AdminColorPage: React.FC = () => {
 	const dispatch = useAppDispatch();
@@ -93,15 +95,17 @@ const AdminColorPage: React.FC = () => {
 	return (
 		<Container>
 			<h1>Admin Renk Sayfası</h1>
-			<div className="container mb-5">
-				<Badge className='custom-badge mb-2 mt-5 mx-5' bg="danger">{allColors.length}<LiaImages size={'2em'} />
-					<div>Toplam Renk</div>
-				</Badge>
-			</div>
-			<div className="container">
-				<ExportToCSVButton className='button-admin-color ms-4' data={allColors} />
-				<Button className='button-admin-color mb-2 ms-1 bg-success' onClick={handleAddButtonClick}>Yeni Renk Ekle</Button>
-			</div>
+			<Row className='mb-5 col-12'>
+				<EntityBox entity="Toplam Renk Sayısı" count={allColors.length} icon={<EntityIcon entity="Renk Sayısı" />} />
+			</Row>
+			<Row className='g-3 justify-content-start'>
+				<Col xs={12} sm={5} lg={2}>
+					<ExportToCSVButton className='w-100' data={allColors} />
+				</Col>
+				<Col xs={12} sm={5} lg={2}>
+					<Button className='w-100 bg-success' style={{ height: 'calc(2em + 12px)' }} onClick={handleAddButtonClick}>Yeni Renk Ekle</Button>
+				</Col>
+			</Row>
 			<Table>
 				<thead>
 					<tr className='align-items-center'>

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Table from 'react-bootstrap/Table';
 import Form from 'react-bootstrap/Form';
 import Pagination from 'react-bootstrap/Pagination';
-import { Badge, Button, Container, Modal } from 'react-bootstrap';
+import { Badge, Button, Col, Container, Modal, Row } from 'react-bootstrap';
 import { FaSortNumericDown, FaSortNumericUp, FaSortAlphaDown, FaSortAlphaUp } from "react-icons/fa";
 import { LiaSortAmountDownAltSolid, LiaSortAmountUpSolid } from "react-icons/lia";
 import { FcAutomotive, FcParallelTasks, FcAssistant, FcBusinessman } from "react-icons/fc";
@@ -18,6 +18,8 @@ import AdminRentalDeleteForm from './AdminRentalDeleteForm';
 import AdminRentalAddForm from './AdminRentalAddForm';
 import ExportToCSVButton from './ExportToCSVButton';
 import './adminRentalPage.css';
+import EntityBox from '../../../components/changePasswordModal/entityBox';
+import EntityIcon from '../../../components/entityIcon/entityIcon';
 
 const AdminRentalPage: React.FC = () => {
 	const dispatch = useAppDispatch();
@@ -137,27 +139,21 @@ const AdminRentalPage: React.FC = () => {
 
 	return (
 		<Container>
-			<h1>Admin Rental Sayfası</h1>
-			<div className="container mb-5">
-				<div>
-				<Badge className='custom-badge mb-2 mt-5 mx-2' bg="danger">{allRentals.length}<FcParallelTasks size={'2em'} />
-					<div>Toplam Sipariş</div>
-				</Badge>
-				<Badge className='custom-badge mx-2' bg="warning">{allCars.length}<FcAutomotive size={'2em'} />
-					<div>Toplam Araba</div>
-				</Badge>
-				<Badge className='custom-badge mx-2' bg="primary">{allCustomers.length}<FcBusinessman size={'2em'} />
-					<div>Toplam Müşteri</div>
-				</Badge>
-				<Badge className='custom-badge mx-2' bg="primary">{allEmployees.length}<FcAssistant size={'2em'} />
-					<div>Toplam Çalışan</div>
-				</Badge>
-				</div>
-			</div>
-			<div className="container">
-				<ExportToCSVButton className='button-admin-rental ms-4' data={allRentals} />
-				<Button className='button-admin-rental mb-2 ms-1 bg-success' onClick={handleAddButtonClick}>Yeni Rental Ekle</Button>
-			</div>
+			<h1>Admin Sipariş Sayfası</h1>
+			<Row className='mb-5 col-12'>
+				<EntityBox entity="Sipariş Sayısı" count={allRentals.length} icon={<EntityIcon entity="Kiralama Sayısı" />} />
+				<EntityBox entity="Toplam Araç Sayısı" count={allCars.length} icon={<EntityIcon entity="Araç Sayısı" />} />
+				<EntityBox entity="Toplam Müşteri Sayısı" count={allCustomers.length} icon={<EntityIcon entity="Müşteri Sayısı" />} />
+				<EntityBox entity="Toplam Çalışan Sayısı" count={allEmployees.length} icon={<EntityIcon entity="Çalışan Sayısı" />} />
+			</Row>
+			<Row className='g-3 justify-content-start'>
+				<Col xs={12} sm={5} lg={2}>
+					<ExportToCSVButton className='w-100' data={allRentals} />
+				</Col>
+				<Col xs={12} sm={5} lg={2}>
+					<Button className='w-100 bg-success' style={{ height: 'calc(2em + 12px)' }} onClick={handleAddButtonClick}>Yeni Sipariş Ekle</Button>
+				</Col>
+			</Row>
 			<Table>
 				<thead>
 					<tr className='align-items-center'>

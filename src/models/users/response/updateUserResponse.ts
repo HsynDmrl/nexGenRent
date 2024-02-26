@@ -6,7 +6,6 @@ export interface UpdateUserResponse {
 	nationalityId: string;
 	password: string;
 	surname: string;
-    roleId: number;
 	createdDate: Date;
 	updatedDate: Date;
 }

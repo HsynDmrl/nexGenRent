@@ -140,8 +140,8 @@ const AdminCarTable: React.FC<AdminCarTableProps> = ({
 						<td style={{ cursor: 'pointer' }}>{car.status ? 'Aktif' : 'Pasif'}</td>
 						<td style={{ cursor: 'pointer' }}>{car.gearType}</td>
 						<td style={{ cursor: 'pointer' }}>{car.fuelType}</td>
-						<td style={{ cursor: 'pointer' }}>{car.model.name}</td>
-						<td style={{ cursor: 'pointer' }}>{car.color.name}</td>
+						<td style={{ cursor: 'pointer' }}>{car.model ? car.model.name : 'Marka Yok' }</td>
+						<td style={{ cursor: 'pointer' }}>{car.color ? car.color.name : 'Renk Yok' }</td>
 						<td style={{ cursor: 'pointer' }}>{car.createdDate?.toString()}</td>
 						<td style={{ cursor: 'pointer' }}>{car.updatedDate?.toString()}</td>
 					</tr>

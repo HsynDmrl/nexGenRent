@@ -7,6 +7,7 @@ import { useAppSelector } from '../../store/configStore/useAppSelector';
 import { useAppDispatch } from '../../store/configStore/useAppDispatch'; // useAppDispatch ve useAppSelector hooklarını import edin
 import { GetAllCarFilterResponse } from '../../models/cars/response/getAllCarFilterResponse';
 import { RootState } from '../../store/configStore/configureStore';
+import { useNavigate } from 'react-router-dom';
 
 interface RecentProps {
   onCarSelect: (car: GetAllCarFilterResponse) => void;
@@ -16,16 +17,16 @@ const Recent: React.FC<RecentProps> = ({ onCarSelect }) => {
   const dispatch = useAppDispatch();
   const cars = useAppSelector((state:RootState) => state.car.allDataCar);
   const loading = useAppSelector((state:RootState) => state.car.loading);
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(getAll());
   }, [dispatch]);
 
   const handleCarClick = (car: GetAllCarFilterResponse) => {
-    onCarSelect(car);
+    navigate('/order', { state: { car } });
   };
-
-  console.log("---",cars)
+ 
 
   if (loading ) {
     return <div>Loading...</div>;

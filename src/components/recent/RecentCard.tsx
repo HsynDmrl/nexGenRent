@@ -17,9 +17,8 @@ const RecentCard: React.FC<RecentCardProps> = ({ cover, name, price, distance, o
       <Card.Body>
         <Card.Title>{name}</Card.Title>
         <Card.Text><FaRoad /> {distance} km</Card.Text>
-        {/* Buton üzerindeki onClick işlevi */}
         <Button variant="primary" onClick={(e) => {
-          e.stopPropagation(); // Kartın kendisine tıklanmasını önle
+          e.stopPropagation();
           onClick();
         }}>{`₺ ${price} / Gün`}</Button>
       </Card.Body>

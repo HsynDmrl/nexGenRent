@@ -22,7 +22,7 @@ const CarsPage = () => {
 
   const handleFilterChange = (filters: CarFilterModel) => {
     dispatch(fetchFilteredCars(filters));
-    setSelectedCar(null); // Filtreleme sonrası selectedCar'ı sıfırla
+    setSelectedCar(null);
   };
 
   
@@ -36,10 +36,10 @@ const CarsPage = () => {
         </Col>
         <Col lg={9}>
           {!selectedCar ? (
-            // Recent bileşenine onCarSelect prop'unu geçir
+           
             <Recent onCarSelect={handleCarSelect} />
           ) : (
-            // OrderPage bileşenine onBack prop'unu geçir
+            
             <OrderPage car={selectedCar} onBack={() => setSelectedCar(null)} />
           )}
         </Col>

@@ -29,7 +29,6 @@ const baseSlice = createSlice({
 	getAllDataSuccess: (state, action) => {
 		state.loading = false;
 		state.allData = action.payload;
-		//console.log("alldata baseSlice reducers içindeki ", state.allData);
 	},
     getDataFailure(state, action: PayloadAction<string>) {
       state.loading = false;
@@ -54,7 +53,6 @@ export const fetchAllData = <T>(service: any) => async (dispatch: any) => {
   dispatch(getDataStart());
   try {
     const response: AxiosResponse<T[]> = await service.getAll();
-	//console.log("response burda", response.data);
     dispatch(getAllDataSuccess(response.data));
   } catch (error: any) {
     dispatch(getDataFailure(error.message));

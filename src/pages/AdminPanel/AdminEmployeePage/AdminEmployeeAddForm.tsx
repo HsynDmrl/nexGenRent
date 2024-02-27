@@ -53,7 +53,6 @@ const AdminEmployeeAddForm = () => {
 
   return (
     <div>
-      <h2>Add Employee</h2>
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
@@ -62,7 +61,7 @@ const AdminEmployeeAddForm = () => {
 		 {({ errors, touched }) => (
         <Form>
           <div>
-            <label htmlFor="salary" className="form-title">İsim</label> 
+            <label htmlFor="salary" className="form-title text-dark">İsim</label> 
 			<Field
                     type="text"
                     name="salary"
@@ -72,7 +71,7 @@ const AdminEmployeeAddForm = () => {
             <ErrorMessage name="salary" component="div" />
           </div>
           <div>
-            <label htmlFor="userId">User</label>
+            <label htmlFor="userId" className="text-dark">User</label>
             <Field as="select" name="userId">
               <option value="">Select a user</option>
               {users.map(user => (

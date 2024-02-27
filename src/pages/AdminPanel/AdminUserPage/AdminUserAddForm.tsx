@@ -53,7 +53,6 @@ const AdminUserAddForm = () => {
 
   return (
     <div>
-      <h2>Add User</h2>
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
@@ -62,7 +61,7 @@ const AdminUserAddForm = () => {
 		 {({ errors, touched }) => (
         <Form>
           <div>
-            <label htmlFor="name" className="form-title">İsim</label> 
+            <label htmlFor="name" className="form-title text-dark">İsim</label> 
 			<Field
                     type="text"
                     name="name"
@@ -72,7 +71,7 @@ const AdminUserAddForm = () => {
             <ErrorMessage name="name" component="div" />
           </div>
           <div>
-            <label htmlFor="roleId">Role</label>
+            <label htmlFor="roleId" className="text-dark">Role</label>
             <Field as="select" name="roleId">
               <option value="">Role Seçiniz</option>
               {roles.map(role => (

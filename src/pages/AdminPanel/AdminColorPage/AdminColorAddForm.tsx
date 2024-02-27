@@ -49,7 +49,7 @@ const AdminColorAddForm: React.FC = () => {
         {({ errors, touched }) => (
           <Form>
             <div className="mb-3">
-              <label htmlFor="name" className="form-label">İsim</label>
+              <label htmlFor="name" className="form-label text-dark">İsim</label>
               <Field
                 type="text"
                 name="name"

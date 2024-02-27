@@ -50,7 +50,6 @@ const AdminCustomerAddForm = () => {
 
   return (
     <div>
-      <h2>Add Customer</h2>
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
@@ -59,8 +58,8 @@ const AdminCustomerAddForm = () => {
 		 {({ errors, touched }) => (
         <Form>
           <div>
-            <label htmlFor="userId">User</label>
-            <Field as="select" name="userId" className="form-control mb-4">
+            <label htmlFor="userId" className="text-dark">User</label>
+            <Field as="select" name="userId" className="form-control mb-4 text-dark">
               <option value="">Select a user</option>
               {users.map(user => (
                 <option key={user.id} value={user.id}>{user.name}</option>

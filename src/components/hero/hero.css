@@ -19,7 +19,7 @@
   position: absolute;
   opacity: 0.6; /* Resmin opaklığını azalt */
   will-change: transform;
-  animation: carMove 60s linear infinite;
+  animation: carMove 10s linear infinite;
 }
 
 /* Formun stilini iyileştir */
@@ -91,7 +91,7 @@
 
 @keyframes carMove {
   0% {
-    transform: translateX(300%);
+    transform: translateX(380%);
   }
   100% {
     transform: translateX(calc(-100% - 100vh)); /* Banner genişliği kadar ve ekran genişliği kadar kaydır */

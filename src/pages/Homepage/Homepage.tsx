@@ -13,7 +13,7 @@ const Homepage = () => {
     <Hero></Hero>
     <Featured></Featured>
     <CarsPage></CarsPage>
-    <Footer></Footer>
+    {/* <Footer></Footer> */}
     </div>
   );
 };

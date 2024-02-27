@@ -21,7 +21,7 @@ const OrderPage: React.FC<OrderPageProps> = ({ car, onBack }) => {
   return (
     <Container>
       <Row className="justify-content-md-center">
-        <Col md={6} style={{ color: 'black' }}> {/* Renk stilini burada doğrudan tanımlıyoruz */}
+        <Col md={6} style={{ color: 'black' }}>
           <h2>Sipariş Detayları</h2>
           <p>Model: {car.modelName}</p>
           <p>Günlük Fiyat: ₺{car.dailyPrice}</p>

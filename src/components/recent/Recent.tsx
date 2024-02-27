@@ -1,13 +1,13 @@
-// Recent.tsx
-import React, { useEffect } from 'react';
-import { Container, Row, Col } from 'react-bootstrap';
+import React, { useState } from 'react';
+import { Container, Row, Col, Modal } from 'react-bootstrap';
 import RecentCard from './RecentCard';
 import { getAll } from '../../store/car/carSlice';
 import { useAppSelector } from '../../store/configStore/useAppSelector';
-import { useAppDispatch } from '../../store/configStore/useAppDispatch'; // useAppDispatch ve useAppSelector hooklarını import edin
+import { useAppDispatch } from '../../store/configStore/useAppDispatch';
 import { GetAllCarFilterResponse } from '../../models/cars/response/getAllCarFilterResponse';
 import { RootState } from '../../store/configStore/configureStore';
-import { useNavigate } from 'react-router-dom';
+import OrderPage from '../orderPage/OrderPage';
+import { useEffect } from 'react';
 
 interface RecentProps {
   onCarSelect: (car: GetAllCarFilterResponse) => void;
@@ -15,20 +15,23 @@ interface RecentProps {
 
 const Recent: React.FC<RecentProps> = ({ onCarSelect }) => {
   const dispatch = useAppDispatch();
-  const cars = useAppSelector((state:RootState) => state.car.allDataCar);
-  const loading = useAppSelector((state:RootState) => state.car.loading);
-  const navigate = useNavigate();
+  const cars = useAppSelector((state: RootState) => state.car.allDataCar);
+  const loading = useAppSelector((state: RootState) => state.car.loading);
+  const [showModal, setShowModal] = useState(false);
+  const [selectedCar, setSelectedCar] = useState<GetAllCarFilterResponse | null>(null);
 
   useEffect(() => {
     dispatch(getAll());
   }, [dispatch]);
 
   const handleCarClick = (car: GetAllCarFilterResponse) => {
-    navigate('/order', { state: { car } });
+    setSelectedCar(car);
+    setShowModal(true);
   };
- 
 
-  if (loading ) {
+  const handleCloseModal = () => setShowModal(false);
+
+  if (loading || cars.length === 0) {
     return <div>Loading...</div>;
   }
 
@@ -51,6 +54,14 @@ const Recent: React.FC<RecentProps> = ({ onCarSelect }) => {
           ))}
         </Row>
       </Container>
+      <Modal show={showModal} onHide={handleCloseModal} size="lg">
+        <Modal.Header closeButton>
+          <Modal.Title>Sipariş Detayları</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {selectedCar && <OrderPage car={selectedCar} onBack={handleCloseModal} />}
+        </Modal.Body>
+      </Modal>
     </section>
   );
 };

@@ -71,7 +71,7 @@ const AdminCarAddForm = () => {
 		fuelType: '',
 		modelId: 0,
 		colorId: 0,
-		isStatus: false,
+		isStatus: true,
 	};
 
 	const validationSchema = Yup.object({
@@ -112,7 +112,7 @@ const AdminCarAddForm = () => {
 			fuelType: values.fuelType,
 			modelId: values.modelId,
 			colorId: values.colorId,
-			isStatus: values.isStatus,
+			status: values.isStatus,
 		};
 
 		formData.append('car', JSON.stringify(carInfo));

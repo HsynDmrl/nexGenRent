@@ -6,6 +6,7 @@ import { getAll } from '../../store/car/carSlice';
 import { useAppSelector } from '../../store/configStore/useAppSelector';
 import { useAppDispatch } from '../../store/configStore/useAppDispatch'; // useAppDispatch ve useAppSelector hooklarını import edin
 import { GetAllCarFilterResponse } from '../../models/cars/response/getAllCarFilterResponse';
+import { RootState } from '../../store/configStore/configureStore';
 
 interface RecentProps {
   onCarSelect: (car: GetAllCarFilterResponse) => void;
@@ -13,8 +14,8 @@ interface RecentProps {
 
 const Recent: React.FC<RecentProps> = ({ onCarSelect }) => {
   const dispatch = useAppDispatch();
-  const cars = useAppSelector((state) => state.car.allDataCar);
-  const loading = useAppSelector((state) => state.car.loading);
+  const cars = useAppSelector((state:RootState) => state.car.allDataCar);
+  const loading = useAppSelector((state:RootState) => state.car.loading);
 
   useEffect(() => {
     dispatch(getAll());
@@ -24,7 +25,9 @@ const Recent: React.FC<RecentProps> = ({ onCarSelect }) => {
     onCarSelect(car);
   };
 
-  if (loading) {
+  console.log("---",cars)
+
+  if (loading ) {
     return <div>Loading...</div>;
   }
 

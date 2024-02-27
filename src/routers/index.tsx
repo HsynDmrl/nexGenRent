@@ -9,7 +9,9 @@ import AdminNav from "../pages/AdminPanel/AdminNav/AdminNav";
 import { useLocation } from "react-router-dom";
 import AdminProtectedRoute from "../components/adminProtectedRoute/AdminProtectedRoute";
 import UserProtectedRoute from "../components/userProtectedRoute/UserProtectedRoute";
-import UserDashboard from "../pages/UserDashboard/UserDashboard";
+import PaymentPage from "../pages/paymentPage/PaymentPage";
+import Footer from "../components/footer/Footer";
+import UserProfilePage from "../pages/userPages/UserPages";
 
 const AppRouters = () => {
   const [isAdminPage, setIsAdminPage] = useState(false);
@@ -25,15 +27,20 @@ const AppRouters = () => {
       {isAdminPage ? <AdminNav /> : <NavScrollExample />}
       <Routes>
         <Route path="/" element={<Homepage />} />
+        <Route path="//nexGenRent" element={<Homepage />} />
         <Route path="/register" element={<Register />} />
         <Route element={<AdminProtectedRoute />}>
           <Route path="/admin/*" element={<AdminRouters />} />
         </Route>
         <Route element={<UserProtectedRoute />}>
-          <Route path="/user/dashboard" element={<UserDashboard />} />
+          <Route path="/profile" element={<UserProfilePage />} />
+        </Route>
+        <Route element={<UserProtectedRoute />}>
+          <Route path="/payment" element={<PaymentPage />} />
         </Route>
       </Routes>
-    </>
+      {isAdminPage?"":<Footer/>}
+    </> 
   );
 };
 

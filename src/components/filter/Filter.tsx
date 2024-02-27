@@ -32,6 +32,39 @@ const Filter: React.FC<Props> = ({ onFilterChange }) => {
   });
   const dispatch = useAppDispatch();
 
+  /////
+  
+  const [filterServiceInstance] = useState(new FilterService());
+
+  useEffect(() => {
+    // Sayfa ilk yüklendiğinde tüm arabaları getir
+    const initialFilters = {
+      brandId: undefined,
+      modelId: undefined,
+      year: undefined,
+      colorId: undefined,
+      gearType: '',
+      fuelType: '',
+      minDailyPrice: undefined,
+      maxDailyPrice: undefined
+    };
+    filterServiceInstance.fetchCarsWithFilters(initialFilters)
+      .then(filteredCars => {
+        onFilterChange(filteredCars); // Filtreleme sonuçlarını güncelle
+        dispatch(setFilteredCars(filteredCars)); // Sonuçları Redux store'a kaydet
+      })
+      .catch(error => {
+        console.error('Arabaları yüklerken bir hata oluştu:', error);
+      });
+  }, [filterServiceInstance, onFilterChange, dispatch]);
+
+
+
+
+
+
+///////////
+
   const years = Array.from({ length: 2024 - 1900 + 1 }, (_, index) => 1900 + index);
 
   const [colors, setColors] = useState<Color[]>([]);
@@ -81,7 +114,7 @@ const Filter: React.FC<Props> = ({ onFilterChange }) => {
     setFilters(prevFilters => ({ ...prevFilters, [name]: value }));
   };
   
-  const filterServiceInstance = new FilterService();
+
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

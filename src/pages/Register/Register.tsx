@@ -1,81 +1,115 @@
-import React, { useState } from "react";
+import React, { useState, ChangeEvent } from "react";
 import authService from '../../services/authService';
+import { Form, Button, Container, Row, Col } from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Register = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [roleId, setRoleId] = useState("");
-  const [name, setName] = useState("");
-  const [surname, setSurname] = useState("");
-  const [nationalityId, setNationalityId] = useState("");
-  const [gsm, setGsm] = useState("");
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+    roleId: "",
+    name: "",
+    surname: "",
+    nationalityId: "",
+    gsm: ""
+  });
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData(prevState => ({
+      ...prevState,
+      [name]: value
+    }));
+  };
 
   const handleRegister = async () => {
     try {
-      await authService.register(name, surname, nationalityId, gsm, email, password,  Number(roleId));
+      const { email, password, roleId, name, surname, nationalityId, gsm } = formData;
+      await authService.register(name, surname, nationalityId, gsm, email, password, Number(roleId));
       // window.location.reload();
     } catch (error) {
       console.error("Registration error:", error);
     }
   };
-  
+
   return (
-    <div>
-      <form>
-        <label>Email:</label>
-        <input
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
+    <Container className="my-5">
+      <Row className="justify-content-md-center">
+        <Col xs={12} md={6}>
+          <h2>Kayıt Ol</h2>
+          <Form>
+            <Form.Group controlId="formBasicEmail">
+            <Form.Text className="text-muted">
+              Lütfen e postanızı giriniz.
+            </Form.Text>
+              <Form.Control
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                placeholder="Email adresinizi girin"
+              />
+            </Form.Group>
 
-        <label>Şifre:</label>
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
+            <Form.Group controlId="formBasicPassword">
+              <Form.Text>Şifre:</Form.Text>
+              <Form.Control
+                type="password"
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+                placeholder="Şifrenizi girin"
+              />
+            </Form.Group>
 
-        <label>Role ID:</label>
-        <input
-          type="text"
-          value={roleId}
-          onChange={(e) => setRoleId(e.target.value)}
-        />
 
-        <label>Ad:</label>
-        <input
-          type="text"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
+            <Form.Group controlId="formBasicName">
+              <Form.Text>Ad:</Form.Text>
+              <Form.Control
+                type="text"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+              />
+            </Form.Group>
 
-        <label>Soyad:</label>
-        <input
-          type="text"
-          value={surname}
-          onChange={(e) => setSurname(e.target.value)}
-        />
+            <Form.Group controlId="formBasicSurname">
+              <Form.Text>Soyad:</Form.Text>
+              <Form.Control
+                type="text"
+                name="surname"
+                value={formData.surname}
+                onChange={handleChange}
+              />
+            </Form.Group>
 
-        <label>TC Kimlik Numarası:</label>
-        <input
-          type="text"
-          value={nationalityId}
-          onChange={(e) => setNationalityId(e.target.value)}
-        />
+            <Form.Group controlId="formBasicNationalityId">
+              <Form.Text>TC Kimlik Numarası:</Form.Text>
+              <Form.Control
+                type="text"
+                name="nationalityId"
+                value={formData.nationalityId}
+                onChange={handleChange}
+              />
+            </Form.Group>
 
-        <label>GSM Numarası:</label>
-        <input
-          type="tel"
-          value={gsm}
-          onChange={(e) => setGsm(e.target.value)}
-        />
+            <Form.Group controlId="formBasicGsm">
+              <Form.Text>GSM Numarası:</Form.Text>
+              <Form.Control
+                type="tel"
+                name="gsm"
+                value={formData.gsm}
+                onChange={handleChange}
+              />
+            </Form.Group>
 
-        <button type="button" onClick={handleRegister}>
-          Kayıt Ol
-        </button>
-      </form>
-    </div>
+            <Button variant="primary" onClick={handleRegister}>
+              Kayıt Ol
+            </Button>
+          </Form>
+        </Col>
+      </Row>
+    </Container>
   );
 };
 

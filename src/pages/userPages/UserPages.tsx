@@ -32,7 +32,7 @@ const UserProfilePage: React.FC = () => {
     validationSchema,
     onSubmit: (values) => {
       // Handle form submission here
-      console.log('Form submitted with values:', values);
+
     },
   });
 

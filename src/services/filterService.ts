@@ -29,7 +29,6 @@ export class FilterService extends BaseService<any, any, CarFilterModel, any, Ca
 
     async fetchCarsWithFilters(filters: CarFilterModel) {
         try {
-          console.log("object",filters)
           const response = await axiosInstance.get('filters/car', { params: filters });
           return response.data;
         } catch (error) {

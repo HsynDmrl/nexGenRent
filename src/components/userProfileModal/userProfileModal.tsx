@@ -38,8 +38,7 @@ const UserProfileModal: React.FC<UserProfileModalProps> = ({ show, handleClose }
     initialValues,
     validationSchema,
     onSubmit: (values) => {
-      // Handle form submission here
-      console.log('Form submitted with values:', values);
+
     },
   });
 

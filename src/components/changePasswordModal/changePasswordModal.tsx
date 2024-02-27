@@ -32,8 +32,7 @@ const ChangePasswordModal: React.FC<ChangePasswordModalProps> = ({ show, handleC
     initialValues,
     validationSchema,
     onSubmit: (values) => {
-      // Handle password change submission here
-      console.log('Password change form submitted with values:', values);
+      
     },
   });
 

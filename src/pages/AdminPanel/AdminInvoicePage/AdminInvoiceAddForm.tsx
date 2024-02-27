@@ -71,7 +71,7 @@ const AdminInvoiceAddForm = () => {
 				{({ errors, touched }) => (
 					<Form>
 						<div>
-							<label htmlFor="invoiceNo" className="form-title">Fatura No</label>
+							<label htmlFor="invoiceNo" className="form-title text-dark">Fatura No</label>
 							<Field
 								type="text"
 								name="invoiceNo"
@@ -82,7 +82,7 @@ const AdminInvoiceAddForm = () => {
 							<ErrorMessage name="invoiceNo" component="div" />
 						</div>
 						<div>
-							<label htmlFor="totalPrice" className="form-title">Toplam Fiyat</label>
+							<label htmlFor="totalPrice" className="form-title text-dark">Toplam Fiyat</label>
 							<Field
 								type="number"
 								name="totalPrice"
@@ -93,7 +93,7 @@ const AdminInvoiceAddForm = () => {
 							<ErrorMessage name="totalPrice" component="div" />
 						</div>
 						<div>
-							<label htmlFor="discountRate" className="form-title">İndirim Oranı</label>
+							<label htmlFor="discountRate" className="form-title text-dark">İndirim Oranı</label>
 							<Field
 								type="number"
 								name="discountRate"
@@ -104,7 +104,7 @@ const AdminInvoiceAddForm = () => {
 							<ErrorMessage name="discountRate" component="div" />
 						</div>
 						<div>
-							<label htmlFor="taxRate" className="form-title">Vergi Oranı</label>
+							<label htmlFor="taxRate" className="form-title text-dark">Vergi Oranı</label>
 							<Field
 								type="number"
 								name="taxRate"

@@ -45,7 +45,7 @@ const AdminColorUpdateForm: React.FC = () => {
         {({ errors, touched, status }) => (
           <Form>
             <div className="mb-3">
-              <label htmlFor="name" className="form-label">
+              <label htmlFor="name" className="form-label text-dark">
                 İsim
               </label>
               <Field

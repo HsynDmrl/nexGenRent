@@ -39,7 +39,7 @@ const AdminColorDeleteForm: React.FC = () => {
         {({ isSubmitting, status }) => (
           <Form>
             <div className="mb-3">
-              <label htmlFor="confirmationText" className="form-label">
+              <label htmlFor="confirmationText" className="form-label text-dark">
                 Silme işlemini onaylamak için "sil" yazın:
               </label>
               <Field

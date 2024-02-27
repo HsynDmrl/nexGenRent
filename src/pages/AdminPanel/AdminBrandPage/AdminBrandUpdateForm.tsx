@@ -78,7 +78,6 @@ const AdminBrandUpdateForm: React.FC = () => {
     }
 
     try {
-      console.log('formData', formData);
       await brandService.customUpdate(formData);
       setStatus({ success: true });
     } catch (error) {
@@ -92,7 +91,7 @@ const AdminBrandUpdateForm: React.FC = () => {
         {({ errors, touched, status, setFieldValue }) => (
           <Form>
             <div className="mb-3">
-              <label htmlFor="name" className="form-label">İsim</label>
+              <label htmlFor="name" className="form-label text-dark">İsim</label>
               <Field
                 type="text"
                 name="name"
@@ -103,7 +102,7 @@ const AdminBrandUpdateForm: React.FC = () => {
             </div>
 
             <div className="mb-3">
-              <label htmlFor="logoFile" className="form-label">Logo Yükle</label>
+              <label htmlFor="logoFile" className="form-label text-dark">Logo Yükle</label>
               <input
                 id="logoFile"
                 name="logoFile"

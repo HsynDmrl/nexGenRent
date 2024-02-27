@@ -176,7 +176,7 @@ const AdminRentalAddForm = () => {
 							<label htmlFor="carId">Carler</label>
 							<Field id="carId" as="select" name="carId" className="form-select mb-2">
 								<option value="">Araba Seçiniz</option>
-								{cars.map(car => (
+								{allCars.map(car => (
 									<option key={car.id} value={car.id}>{car.plate}</option>
 								))}
 							</Field>
@@ -186,7 +186,7 @@ const AdminRentalAddForm = () => {
 							<label htmlFor="customerId">Müşteriler</label>
 							<Field id="customerId" as="select" name="customerId" className="form-select mb-2">
 								<option value="">Müşteri Seçiniz</option>
-								{customers.map(customer => (
+								{allCustomers.map(customer => (
 									<option key={customer.id} value={customer.id}>{customer.user.name}</option>
 								))}
 							</Field>
@@ -196,7 +196,7 @@ const AdminRentalAddForm = () => {
 							<label htmlFor="employeeId">Çalışanlar</label>
 							<Field id="employeeId" as="select" name="employeeId" className="form-select mb-2">
 								<option value="">Çalışan Seçiniz</option>
-								{employees.map(employee => (
+								{allEmployees.map(employee => (
 									<option key={employee.id} value={employee.id}>{employee.user.name}</option>
 								))}
 							</Field>

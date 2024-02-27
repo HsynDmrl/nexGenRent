@@ -71,7 +71,7 @@ const AdminBrandAddForm: React.FC = () => {
 				{({ errors, touched }) => (
 					<Form>
 						<div className="mb-3">
-							<label htmlFor="name" className="form-label">İsim</label>
+							<label htmlFor="name" className="form-label text-dark">İsim</label>
 							<Field
 								type="text"
 								name="name"
@@ -80,7 +80,7 @@ const AdminBrandAddForm: React.FC = () => {
 							/>
 							<ErrorMessage name="name" component="div" className="invalid-feedback" />
 						</div>
-						<label htmlFor="image" className="form-title mb-2">Resim Yükle</label>
+						<label htmlFor="image" className="form-title mb-2 text-dark">Resim Yükle</label>
 						<input
 							id="image"
 							name="image"

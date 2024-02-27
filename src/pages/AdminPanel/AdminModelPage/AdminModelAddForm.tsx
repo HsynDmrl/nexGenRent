@@ -53,7 +53,6 @@ const AdminModelAddForm = () => {
 
   return (
     <div>
-      <h2>Add Model</h2>
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
@@ -62,7 +61,7 @@ const AdminModelAddForm = () => {
 		 {({ errors, touched }) => (
         <Form>
           <div>
-            <label htmlFor="name" className="form-title">İsim</label> 
+            <label htmlFor="name" className="form-title text-dark">İsim</label> 
 			<Field
                     type="text"
                     name="name"
@@ -72,9 +71,9 @@ const AdminModelAddForm = () => {
             <ErrorMessage name="name" component="div" />
           </div>
           <div>
-            <label htmlFor="brandId">Brand</label>
+            <label htmlFor="brandId" className="form-title text-dark">Marka</label>
             <Field as="select" name="brandId">
-              <option value="">Select a brand</option>
+              <option value="">Marka Seçiniz</option>
               {brands.map(brand => (
                 <option key={brand.id} value={brand.id}>{brand.name}</option>
               ))}

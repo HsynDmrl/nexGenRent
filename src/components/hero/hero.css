@@ -14,13 +14,13 @@
 }
 
 /* Araba resminin konumunu ve boyutunu ayarlayın */
+/*
 .car-image {
   margin-top: 15vh;
   position: absolute;
   opacity: 0.6; /* Resmin opaklığını azalt */
-  will-change: transform;
-  animation: carMove 10s linear infinite;
-}
+  /* will-change: transform;
+  animation: carMove 10s linear infinite; */
 
 /* Formun stilini iyileştir */
 /* Formun pozisyonunu ve z-index değerini ayarlayın */

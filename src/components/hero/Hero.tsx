@@ -36,7 +36,7 @@ const Hero = () => {
   return (
     <section className="hero">
       <Container>
-        <img src={carImage} alt="Car" className="car-image" style={{ top: '0', transform: 'translate(-50%, 0)' }} />
+        {/* <img src={carImage} alt="Car" className="car-image" style={{ top: '0', transform: 'translate(-50%, 0)' }} /> */}
         <Row className="justify-content-center">
           <Col md={8} lg={6}>
             <h1 className="text-dark">Size En Uygun Aracı Bulalım</h1>

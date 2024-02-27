@@ -11,6 +11,7 @@ interface RecentCardProps {
   onClick: () => void; // onClick prop'unu ekleyin
 }
 
+
 const RecentCard: React.FC<RecentCardProps> = ({ cover, name, price, distance, onClick }) => {
   return (
     <Card className="shadow" onClick={onClick}> 

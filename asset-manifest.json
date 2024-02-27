@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/nexGenRent/static/css/main.5898eb2c.css",
-    "main.js": "/nexGenRent/static/js/main.128464b3.js",
+    "main.css": "/nexGenRent/static/css/main.50f1d0b4.css",
+    "main.js": "/nexGenRent/static/js/main.53faf141.js",
     "static/media/banner4.jpg": "/nexGenRent/static/media/banner4.583cafad95a812c9c546.jpg",
-    "static/media/carg1.gif": "/nexGenRent/static/media/carg1.b988da4c7bb26008c179.gif",
+    "static/media/cg4.gif": "/nexGenRent/static/media/cg4.630d8947697c731c1eb9.gif",
     "index.html": "/nexGenRent/index.html",
-    "main.5898eb2c.css.map": "/nexGenRent/static/css/main.5898eb2c.css.map",
-    "main.128464b3.js.map": "/nexGenRent/static/js/main.128464b3.js.map"
+    "main.50f1d0b4.css.map": "/nexGenRent/static/css/main.50f1d0b4.css.map",
+    "main.53faf141.js.map": "/nexGenRent/static/js/main.53faf141.js.map"
   },
   "entrypoints": [
-    "static/css/main.5898eb2c.css",
-    "static/js/main.128464b3.js"
+    "static/css/main.50f1d0b4.css",
+    "static/js/main.53faf141.js"
   ]
 }

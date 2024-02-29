@@ -13,7 +13,6 @@ import AdminCarTable from './AdminCarTable';
 import useCarFilter from './UseCarFilter';
 import './adminCarPage.css';
 import AdminCarPagination from "./AdminCarPagination";
-import AdminCarInfoBadges from './AdminCarInfoBadges';
 import EntityIcon from '../../../components/entityIcon/entityIcon';
 import EntityBox from '../../../components/changePasswordModal/entityBox';
 

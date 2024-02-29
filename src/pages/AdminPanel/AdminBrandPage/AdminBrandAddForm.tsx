@@ -117,8 +117,7 @@ const AdminBrandAddForm: React.FC = () => {
 						<Button className='p-2 mb-2 bg-success' variant="primary" type="submit">Kaydet</Button>
 						<Button className='p-2 mb-2 mx-4 bg-warning' variant="primary" type="reset">Temizle</Button>
 						{isSuccess && <Alert variant="success">Form başarıyla gönderildi!</Alert>}
-						{!isSuccess && isSuccess !== null && <Alert variant="danger">Form gönderilirken hata oluştu!</Alert>}
-					</Form>
+						</Form>
 				)}
 			</Formik>
 		</Container>

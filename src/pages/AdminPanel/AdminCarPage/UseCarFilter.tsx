@@ -1,4 +1,3 @@
-// useCarFilter.ts
 import { useEffect, useState } from 'react';
 import { Car } from '../../../models/cars/entity/car';
 

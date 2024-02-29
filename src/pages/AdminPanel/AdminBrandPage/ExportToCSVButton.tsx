@@ -18,7 +18,7 @@ const ExportToCSVButton: React.FC<ExportToCSVButtonProps> = ({ data, className }
 	const convertToCSV = (brands: GetAllBrandResponse[]): string => {
 		const sortedBrands: GetAllBrandResponse[] = [...brands].sort((a, b) => a.id - b.id);
 	
-		const csvRows = ['id,name,logoPath,createdDate,updatedDate'];
+		const csvRows = ['\ufeffid,İsim,Logo Path,Oluşturulma Tarihi,Güncellenme Tarihi'];
 		sortedBrands.forEach(({ id, name, logoPath, createdDate, updatedDate }) => {
 			const formattedCreatedDate = createdDate ? formatDate(new Date(createdDate)) : '';
 			const formattedUpdatedDate = updatedDate ? formatDate(new Date(updatedDate)) : '';
@@ -26,6 +26,7 @@ const ExportToCSVButton: React.FC<ExportToCSVButtonProps> = ({ data, className }
 		});
 		return csvRows.join('\n');
 	};
+	
 
     const downloadCSV = (csvString: string, filename: string): void => {
         const blob = new Blob([csvString], { type: 'text/csv;charset=utf-8;' });

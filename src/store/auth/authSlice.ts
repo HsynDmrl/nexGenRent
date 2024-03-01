@@ -1,7 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import authService from "../../services/authService";
 import tokenService from "../../services/tokenService";
-import { increaseRequestCount, decreaseRequestCount } from "../loading/loadingSlice";
 import { AuthState} from "../../models/auth/authState";
 import { LoginCredentials } from "../../models/auth/loginCredentials";
 
@@ -59,10 +58,8 @@ export const authSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(loginUser.pending, (state) => {
-        increaseRequestCount();
       })
       .addCase(loginUser.fulfilled, (state, action) => {
-        decreaseRequestCount();
         state.isAuthenticated = true;
         state.token = action.payload.accessToken;
         if (action.payload.refreshToken) {
@@ -77,10 +74,7 @@ export const authSlice = createSlice({
           tokenStart: tokenService.getTokenStart() || "",
           tokenExpire: tokenService.getTokenExpire() || "",
         };
-      })      
-      .addCase(loginUser.rejected, (state) => {
-        decreaseRequestCount();
-      });
+      })
   },
 });
 

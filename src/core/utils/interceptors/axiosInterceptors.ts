@@ -1,9 +1,12 @@
 import axios from "axios";
 import tokenService from "../../../services/tokenService";
 import authService from "../../../services/authService";
+import { addRequest, removeRequest } from "../../../store/loading/loadingSlice";
+import { BASE_API_URL } from "../../../environment/environment";
+
 
 const axiosInstance = axios.create({
-  baseURL: "https://nexgenrentacar.azurewebsites.net/api/v1",
+  baseURL: BASE_API_URL,
 });
 
 axiosInstance.interceptors.request.use((config) => {
@@ -11,6 +14,7 @@ axiosInstance.interceptors.request.use((config) => {
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
+  addRequest();
   return config;
 });
 
@@ -22,11 +26,13 @@ axiosInstance.interceptors.response.use(
 	if (error.response?.status === 403 && originalRequest.url.includes("/auth/refresh-token")) {
 	  tokenService.removeToken();
 	  window.location.href = "/";
+    removeRequest();
 	  return Promise.reject(error);
 	}
     if (error.response?.status === 401 && originalRequest.url.includes("/auth/refresh-token")) {
       tokenService.removeToken();
       window.location.href = "/";
+      removeRequest();
       return Promise.reject(error);
     }
 
@@ -42,11 +48,11 @@ axiosInstance.interceptors.response.use(
           return axiosInstance(originalRequest);
         }
       } catch (refreshError) {
-        console.error('Error refreshing access token:', refreshError);
+        removeRequest();
         return Promise.reject(refreshError);
       }
     }
-
+    removeRequest();
     return Promise.reject(error);
   }
 );

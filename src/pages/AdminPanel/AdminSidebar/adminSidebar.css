@@ -1,7 +1,7 @@
 .adminSideBar {
 	height: 100vh;
 	background-color: #333;
-	width: 200px;
+	width: 160px;
 	height: 100%;
 	transition: transform 0.3s ease-in-out;
 	transform: translateX(-200px);
@@ -74,33 +74,37 @@
   }
   
   .MainContent {
-	background-color: #fff;
-	justify-content: center;
-	transition: transform 0.3s ease;
-	transform: translateX(0);
-	margin-top: 60px;
-	padding: 20px;
-  }
-  
-  @media (max-width: 768px) {
-	.adminSideBar {
-	  width: 100%;
-	  height: 100%;
-	  transform: translateX(-100%);
-	  background-color: rgba(0, 0, 0, 0.9);
-	}
-  
-	.adminSideBar.open {
-	  transform: translateX(0);
-	}
-  
-	.adminSideBar.open + .MainContent {
-	  transform: translateX(100%);
-	}
-  
-	.MainContent {
-	  width: 100%;
-	  padding: 10px;
-	  height: calc(100vh - 60px);
-	}
-  }
+    background-color: #fff;
+    justify-content: center;
+    transition: transform 0.3s ease;
+    margin-top: 60px;
+    padding: 15px;
+}
+
+.adminSideBar.open + .MainContent {
+    transform: translateX(55px);
+	overflow-y: hidden; 
+}
+
+@media (max-width: 768px) {
+    .MainContent {
+        width: 100%;
+        padding: 10px;
+        height: calc(100vh - 60px);
+    }
+
+    .adminSideBar {
+        width: 100%;
+        height: 100%;
+        transform: translateX(-100%);
+        background-color: rgba(0, 0, 0, 0.9);
+    }
+
+    .adminSideBar.open {
+        transform: translateX(0);
+    }
+
+    .adminSideBar.open + .MainContent {
+        transform: translateX(0);
+    }
+}

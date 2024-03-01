@@ -1,0 +1,1 @@
+export const BASE_API_URL = "https://nexgenrentacar.azurewebsites.net/api/v1";

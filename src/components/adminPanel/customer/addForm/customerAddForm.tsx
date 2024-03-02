@@ -2,14 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { useSelector } from 'react-redux';
-import { RootState } from '../../../store/configStore/configureStore';
-import { getAll, addCustomer } from '../../../store/customer/customerSlice';
-import { User } from '../../../models/users/entity/user';
-import { useAppDispatch } from '../../../store/configStore/useAppDispatch';
-import { getAll as getAllUsers } from '../../../store/user/userSlice';
+import { RootState } from '../../../../store/configStore/configureStore';
+import { getAll, addCustomer } from '../../../../store/customer/customerSlice';
+import { User } from '../../../../models/users/entity/user';
+import { useAppDispatch } from '../../../../store/configStore/useAppDispatch';
+import { getAll as getAllUsers } from '../../../../store/user/userSlice';
 import { Button, Alert } from 'react-bootstrap';
 
-const AdminCustomerAddForm = () => {
+const CustomerAddForm = () => {
   const [users, setUsers] = useState<User[]>([]);
   const dispatch = useAppDispatch();
   const allUsers = useSelector((state: RootState) => state.user.allData);
@@ -58,9 +58,9 @@ const AdminCustomerAddForm = () => {
 		 {({ errors, touched }) => (
         <Form>
           <div>
-            <label htmlFor="userId" className="text-dark">User</label>
+            <label htmlFor="userId" className="text-dark">Kullanıcı</label>
             <Field as="select" name="userId" className="form-control mb-4 text-dark">
-              <option value="">Select a user</option>
+              <option value="">Kullanıcı Seçiniz</option>
               {users.map(user => (
                 <option key={user.id} value={user.id}>{user.name}</option>
               ))}
@@ -78,4 +78,4 @@ const AdminCustomerAddForm = () => {
   );
 };
 
-export default AdminCustomerAddForm;
+export default CustomerAddForm;

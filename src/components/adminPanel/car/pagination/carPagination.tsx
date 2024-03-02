@@ -1,14 +1,14 @@
 import React from 'react';
 import Pagination from 'react-bootstrap/Pagination';
 
-interface AdminCarPaginationProps {
+interface CarPaginationProps {
   currentPage: number;
   itemsPerPage: number;
   totalItems: number;
   paginate: (pageNumber: number) => void;
 }
 
-const AdminCarPagination: React.FC<AdminCarPaginationProps> = ({
+const CarPagination: React.FC<CarPaginationProps> = ({
   currentPage,
   itemsPerPage,
   totalItems,
@@ -31,4 +31,4 @@ const AdminCarPagination: React.FC<AdminCarPaginationProps> = ({
   );
 };
 
-export default AdminCarPagination;
+export default CarPagination;

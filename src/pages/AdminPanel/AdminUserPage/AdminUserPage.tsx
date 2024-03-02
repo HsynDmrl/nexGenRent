@@ -100,7 +100,7 @@ const AdminUserPage: React.FC = () => {
 
 	return (
 		<Container>
-			<h1>Admin Kullanıcı Sayfası</h1>
+			<h1 className='text-black'>Kullanıcı Sayfası</h1>
 			<Row className='mb-5 col-12'>
 				<EntityBox entity="Kullanıcı Sayısı" count={allUsers.length} icon={<EntityIcon entity="Kullanıcı Sayısı" />} />
 				<EntityBox entity="Rol Sayısı" count={allRoles.length} icon={<EntityIcon entity="Rol Sayısı" />} />

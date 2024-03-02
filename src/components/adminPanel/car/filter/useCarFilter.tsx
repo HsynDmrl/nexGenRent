@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Car } from '../../../models/cars/entity/car';
+import { Car } from '../../../../models/cars/entity/car';
 
 const useCarFilter = (allCars: Car[], sortBy: string, sortDirection: string, searchId: string, searchKilometer: string, searchYear: string, searchDailyPrice: string, searchPlate: string, searchImagePath: string, searchStatus: string, searchGearType: string, searchFuelType: string, searchModel: string, searchColor: string, searchCreatedDate: string, searchUpdatedDate: string): Car[] => {
     const [filteredCars, setFilteredCars] = useState<Car[]>(allCars);

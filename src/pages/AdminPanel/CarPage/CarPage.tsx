@@ -6,17 +6,17 @@ import { getAll, setSelectedIdAction } from '../../../store/car/carSlice';
 import { getAll as getAllModels } from '../../../store/model/modelSlice';
 import { getAll as getAllColors } from '../../../store/color/colorSlice';
 import { RootState } from '../../../store/configStore/configureStore';
-import AdminCarUpdateModal from './AdminCarUpdateModal';
-import ExportToCSVButton from './ExportToCSVButton';
-import AdminCarAddModal from './AdminCarAddModal';
-import AdminCarTable from './AdminCarTable';
-import useCarFilter from './UseCarFilter';
-import './adminCarPage.css';
-import AdminCarPagination from "./AdminCarPagination";
+import CarUpdateModal from '../../../components/adminPanel/car/updateModal/carUpdateModal';
+import CarAddModal from '../../../components/adminPanel/car/addModal/carAddModal';
+import CarTable from '../../../components/adminPanel/car/table/carTable';
+import CarPagination from "../../../components/adminPanel/car/pagination/carPagination";
 import EntityIcon from '../../../components/entityIcon/entityIcon';
 import EntityBox from '../../../components/changePasswordModal/entityBox';
+import './carPage.css';
+import ExportToCSVButton from '../../../components/adminPanel/car/exportToCSVButton/exportToCSVButton';
+import useCarFilter from '../../../components/adminPanel/car/filter/useCarFilter';
 
-const AdminCarPage: React.FC = () => {
+const CarPage: React.FC = () => {
 	const dispatch = useAppDispatch();
 	const allCars = useAppSelector((state: RootState) => state.car.allData);
 	const allModels = useAppSelector((state: RootState) => state.model.allData);
@@ -42,7 +42,6 @@ const AdminCarPage: React.FC = () => {
 	const [searchColor, setSearchColor] = useState('');
 	const [searchCreatedDate, setSearchCreatedDate] = useState('');
 	const [searchUpdatedDate, setSearchUpdatedDate] = useState('');
-
 	const handleSortIconDirection = () => { setSortIconDirection(sortIconDirection === 'asc' ? 'desc' : 'asc'); };
 	const handleAddButtonClick = () => { setShowAddForm(true); };
 	const handleUpdateButtonClick = () => { setShowUpdateForm(true); };
@@ -50,7 +49,6 @@ const AdminCarPage: React.FC = () => {
 	const handleCloseUpdateForm = () => { setShowUpdateForm(false); };
 	const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 	const handleCarSelect = (id: number): void => { dispatch(setSelectedIdAction(id)); };
-
 
 	const filteredCars = useCarFilter(
 		allCars,
@@ -93,11 +91,11 @@ const AdminCarPage: React.FC = () => {
 
 	return (
 		<Container>
-			<h1>Araçlar Sayfası</h1>
+			<h1 className='text-black'>Araçlar Sayfası</h1>
 			<Row className='mb-5 col-12'>
-				<EntityBox entity="Toplam Araç Sayısı" count={allCars.length} icon={<EntityIcon entity="Araç Sayısı" />} />
-				<EntityBox entity="Toplam Model Sayısı" count={allModels.length} icon={<EntityIcon entity="Model Sayısı" />} />
-				<EntityBox entity="Toplam Renk Sayısı" count={allColors.length} icon={<EntityIcon entity="Renk Sayısı" />} />
+				<EntityBox entity="Araç Sayısı" count={allCars.length} icon={<EntityIcon entity="Araç Sayısı" />} />
+				<EntityBox entity="Model Sayısı" count={allModels.length} icon={<EntityIcon entity="Model Sayısı" />} />
+				<EntityBox entity="Renk Sayısı" count={allColors.length} icon={<EntityIcon entity="Renk Sayısı" />} />
 			</Row>
 			<Row className='g-3 justify-content-start'>
 				<Col xs={12} sm={5} lg={2}>
@@ -107,7 +105,7 @@ const AdminCarPage: React.FC = () => {
 					<Button className='w-100 bg-success' style={{ height: 'calc(2em + 12px)' }} onClick={handleAddButtonClick}>Yeni Araba Ekle</Button>
 				</Col>
 			</Row>
-			<AdminCarTable
+			<CarTable
 				filteredCars={filteredCars}
 				sortBy={sortBy}
 				sortDirection={sortDirection}
@@ -131,9 +129,9 @@ const AdminCarPage: React.FC = () => {
 				allModels={allModels}
 				allColors={allColors}
 			/>
-			<AdminCarUpdateModal showUpdateForm={showUpdateForm} handleCloseUpdateForm={handleCloseUpdateForm} />
-			<AdminCarAddModal showAddForm={showAddForm} handleCloseAddForm={handleCloseAddForm} />
-			<AdminCarPagination
+			<CarUpdateModal showUpdateForm={showUpdateForm} handleCloseUpdateForm={handleCloseUpdateForm} />
+			<CarAddModal showAddForm={showAddForm} handleCloseAddForm={handleCloseAddForm} />
+			<CarPagination
 				currentPage={currentPage}
 				itemsPerPage={itemsPerPage}
 				totalItems={filteredCars.length}
@@ -143,4 +141,4 @@ const AdminCarPage: React.FC = () => {
 	);
 }
 
-export default AdminCarPage;
+export default CarPage;

@@ -1,23 +1,23 @@
 import React from 'react';
 import { Modal } from 'react-bootstrap';
-import AdminCarAddForm from './AdminCarAddForm';
+import CarAddForm from '../addForm/carAddForm';
 
-interface AdminCarAddModalProps {
+interface CarAddModalProps {
   showAddForm: boolean;
   handleCloseAddForm: () => void;
 }
 
-const AdminCarAddModal: React.FC<AdminCarAddModalProps> = ({ showAddForm, handleCloseAddForm }) => {
+const CarAddModal: React.FC<CarAddModalProps> = ({ showAddForm, handleCloseAddForm }) => {
   return (
     <Modal show={showAddForm} onHide={handleCloseAddForm}>
       <Modal.Header closeButton>
         <Modal.Title className='form-title'>Araba Ekle</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <AdminCarAddForm />
+        <CarAddForm />
       </Modal.Body>
     </Modal>
   );
 };
 
-export default AdminCarAddModal;
+export default CarAddModal;

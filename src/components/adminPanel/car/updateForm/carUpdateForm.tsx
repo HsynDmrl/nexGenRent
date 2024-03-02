@@ -2,23 +2,22 @@ import React, { useState, useEffect } from 'react';
 import { Formik, Form, Field, ErrorMessage, FieldProps, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
 import { Button, Container, Alert } from 'react-bootstrap';
-import { UpdateCarRequest } from '../../../models/cars/requests/updateCarRequest';
+import { UpdateCarRequest } from '../../../../models/cars/requests/updateCarRequest';
 import { useSelector } from 'react-redux';
-import { RootState } from '../../../store/configStore/configureStore';
-import { updateCar } from '../../../store/car/carSlice';
-import { useAppDispatch } from '../../../store/configStore/useAppDispatch';
-import { Model } from '../../../models/models/entity/model';
-import { Color } from '../../../models/colors/entity/color';
-import { getAll as getAllColors } from '../../../store/color/colorSlice';
-import { getAll as getAllModels } from '../../../store/model/modelSlice';
-import { FuelType, getFuelTypeLabel } from '../../../models/cars/entity/fuelType';
-import { GearType, getGearTypeLabel } from '../../../models/cars/entity/gearType';
-import { CustomInputComponent } from '../../../core/formatPlate/CustomInputComponent';
-import BooleanSelect from './BooleanSelect';
-import { formatPlate } from '../../../core/formatPlate/formatPlate';
+import { RootState } from '../../../../store/configStore/configureStore';
+import { updateCar } from '../../../../store/car/carSlice';
+import { useAppDispatch } from '../../../../store/configStore/useAppDispatch';
+import { Model } from '../../../../models/models/entity/model';
+import { Color } from '../../../../models/colors/entity/color';
+import { getAll as getAllColors } from '../../../../store/color/colorSlice';
+import { getAll as getAllModels } from '../../../../store/model/modelSlice';
+import { FuelType, getFuelTypeLabel } from '../../../../models/cars/entity/fuelType';
+import { GearType, getGearTypeLabel } from '../../../../models/cars/entity/gearType';
+import { CustomInputComponent } from '../../../../core/formatPlate/CustomInputComponent';
+import { formatPlate } from '../../../../core/formatPlate/formatPlate';
 
 
-const AdminCarUpdateForm: React.FC = () => {
+const CarUpdateForm: React.FC = () => {
 	const dispatch = useAppDispatch();
 	const selectedCarId = useSelector((state: RootState) => state.car.selectedId);
 	const allData = useSelector((state: RootState) => state.car.allData);
@@ -53,8 +52,8 @@ const AdminCarUpdateForm: React.FC = () => {
 		isStatus: carData?.status || false,
 		gearType: carData?.gearType || '',
 		fuelType: carData?.fuelType || '',
-		modelId: carData?.model.id || 0,
-		colorId: carData?.color.id || 0
+		modelId: carData?.model?.id || 0,
+		colorId: carData?.color?.id || 0
 	};
 
 	const validationSchema = Yup.object({
@@ -227,4 +226,4 @@ const AdminCarUpdateForm: React.FC = () => {
 	);
 };
 
-export default AdminCarUpdateForm;
+export default CarUpdateForm;

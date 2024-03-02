@@ -1,14 +1,14 @@
 import React from 'react';
 import Pagination from 'react-bootstrap/Pagination';
 
-interface ColorPaginationProps {
+interface ModelPaginationProps {
   currentPage: number;
   itemsPerPage: number;
   totalItems: number;
   paginate: (pageNumber: number) => void;
 }
 
-const ColorPagination: React.FC<ColorPaginationProps> = ({
+const ModelPagination: React.FC<ModelPaginationProps> = ({
   currentPage,
   itemsPerPage,
   totalItems,
@@ -31,4 +31,4 @@ const ColorPagination: React.FC<ColorPaginationProps> = ({
   );
 };
 
-export default ColorPagination;
+export default ModelPagination;

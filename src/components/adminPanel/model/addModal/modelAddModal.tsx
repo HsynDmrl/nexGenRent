@@ -1,23 +1,23 @@
 import React from 'react';
 import { Modal } from 'react-bootstrap';
-import ColorAddForm from '../addForm/colorAddForm';
+import ModelAddForm from '../addForm/modelAddForm';
 
-interface ColorAddModalProps {
+interface ModelAddModalProps {
   showAddForm: boolean;
   handleCloseAddForm: () => void;
 }
 
-const ColorAddModal: React.FC<ColorAddModalProps> = ({ showAddForm, handleCloseAddForm }) => {
+const ModelAddModal: React.FC<ModelAddModalProps> = ({ showAddForm, handleCloseAddForm }) => {
   return (
     <Modal show={showAddForm} onHide={handleCloseAddForm}>
       <Modal.Header closeButton>
-        <Modal.Title className='form-title'>Renk Ekle</Modal.Title>
+        <Modal.Title className='form-title'>Model Ekle</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <ColorAddForm />
+        <ModelAddForm />
       </Modal.Body>
     </Modal>
   );
 };
 
-export default ColorAddModal;
+export default ModelAddModal;

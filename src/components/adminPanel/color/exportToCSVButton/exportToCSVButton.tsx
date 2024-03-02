@@ -18,7 +18,7 @@ const ExportToCSVButton: React.FC<ExportToCSVButtonProps> = ({ data, className }
 	const convertToCSV = (colors: GetAllColorResponse[]): string => {
 		const sortedColors: GetAllColorResponse[] = [...colors].sort((a, b) => a.id - b.id);
 	
-		const csvRows = ['id,name,createdDate,updatedDate'];
+		const csvRows = ['id, Renk İsmi, Oluşturulma Tarihi, Güncellenme Tarihi'];
 		sortedColors.forEach(({ id, name, createdDate, updatedDate }) => {
 			const formattedCreatedDate = createdDate ? formatDate(new Date(createdDate)) : '';
 			const formattedUpdatedDate = updatedDate ? formatDate(new Date(updatedDate)) : '';

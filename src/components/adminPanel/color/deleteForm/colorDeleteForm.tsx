@@ -7,7 +7,7 @@ import { deleteColor, setSelectedId } from '../../../../store/color/colorSlice';
 import { useAppDispatch } from '../../../../store/configStore/useAppDispatch';
 import { useAppSelector } from '../../../../store/configStore/useAppSelector';
 
-const AdminColorDeleteForm: React.FC = () => {
+const ColorDeleteForm: React.FC = () => {
   const dispatch = useAppDispatch();
   const selectedColorId = useAppSelector((state: RootState) => state.color.selectedId);
 
@@ -59,4 +59,4 @@ const AdminColorDeleteForm: React.FC = () => {
   );
 };
 
-export default AdminColorDeleteForm;
+export default ColorDeleteForm;

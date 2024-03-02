@@ -2,10 +2,10 @@ import React from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { Button, Container, Alert } from 'react-bootstrap';
-import { RootState } from '../../../store/configStore/configureStore';
-import { deleteColor, setSelectedId } from '../../../store/color/colorSlice';
-import { useAppDispatch } from '../../../store/configStore/useAppDispatch';
-import { useAppSelector } from '../../../store/configStore/useAppSelector';
+import { RootState } from '../../../../store/configStore/configureStore';
+import { deleteColor, setSelectedId } from '../../../../store/color/colorSlice';
+import { useAppDispatch } from '../../../../store/configStore/useAppDispatch';
+import { useAppSelector } from '../../../../store/configStore/useAppSelector';
 
 const AdminColorDeleteForm: React.FC = () => {
   const dispatch = useAppDispatch();

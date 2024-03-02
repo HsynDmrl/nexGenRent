@@ -1,20 +1,20 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Col, Container, Modal, Row } from 'react-bootstrap';
+import { Button, Col, Container, Row } from 'react-bootstrap';
 import { useAppDispatch } from '../../../store/configStore/useAppDispatch';
 import { useAppSelector } from '../../../store/configStore/useAppSelector';
 import { RootState } from '../../../store/configStore/configureStore';
 import { getAll, setSelectedIdAction } from '../../../store/brand/brandSlice';
 import EntityBox from '../../../components/changePasswordModal/entityBox';
 import EntityIcon from '../../../components/entityIcon/entityIcon';
-import AdminBrandUpdateModal from './AdminBrandUpdateModal';
-import AdminBrandPagination from './AdminCarPagination';
-import AdminBrandAddModal from './AdminBrandAddModal';
-import ExportToCSVButton from './ExportToCSVButton';
-import AdminBrandTable from './AdminBrandTable';
-import useBrandFilter from './UseBrandFilter';
-import './adminBrandPage.css';
+import BrandUpdateModal from '../../../components/adminPanel/brand/updateModal/brandUpdateModal';
+import BrandPagination from '../../../components/adminPanel/brand/pagination/brandPagination';
+import BrandAddModal from '../../../components/adminPanel/brand/addModal/brandAddModal';
+import ExportToCSVButton from '../../../components/adminPanel/brand/exportToCSVButton/exportToCSVButton';
+import BrandTable from '../../../components/adminPanel/brand/table/brandTable';
+import useBrandFilter from '../../../components/adminPanel/brand/filter/brandFilter';
+import './brandPage.css';
 
-const AdminBrandPage: React.FC = () => {
+const BrandPage: React.FC = () => {
 	const dispatch = useAppDispatch();
 	const allBrands = useAppSelector((state: RootState) => state.brand.allData);
 	const selectedBrandId = useAppSelector((state: RootState) => state.brand.selectedId);
@@ -81,7 +81,7 @@ const AdminBrandPage: React.FC = () => {
 					<Button className='w-100 bg-success' style={{ height: 'calc(2em + 12px)' }} onClick={handleAddButtonClick}>Yeni Marka Ekle</Button>
 				</Col>
 			</Row>
-			<AdminBrandTable
+			<BrandTable
 				filteredBrands={filteredBrands}
 				sortBy={sortBy}
 				sortDirection={sortDirection}
@@ -95,9 +95,9 @@ const AdminBrandPage: React.FC = () => {
 				currentPage={currentPage}
 				itemsPerPage={itemsPerPage}
 			/>
-			<AdminBrandAddModal showAddForm={showAddForm} handleCloseAddForm={handleCloseAddForm} />
-			<AdminBrandUpdateModal showUpdateForm={showUpdateForm} handleCloseUpdateForm={handleCloseUpdateForm} />
-			<AdminBrandPagination
+			<BrandAddModal showAddForm={showAddForm} handleCloseAddForm={handleCloseAddForm} />
+			<BrandUpdateModal showUpdateForm={showUpdateForm} handleCloseUpdateForm={handleCloseUpdateForm} />
+			<BrandPagination
 				currentPage={currentPage}
 				itemsPerPage={itemsPerPage}
 				totalItems={filteredBrands.length}
@@ -107,4 +107,4 @@ const AdminBrandPage: React.FC = () => {
 	);
 }
 
-export default AdminBrandPage;
+export default BrandPage;

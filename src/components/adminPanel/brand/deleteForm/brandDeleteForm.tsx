@@ -2,12 +2,12 @@ import React from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { Button, Container, Alert } from 'react-bootstrap';
-import { RootState } from '../../../store/configStore/configureStore';
-import { deleteBrand, setSelectedId } from '../../../store/brand/brandSlice';
-import { useAppDispatch } from '../../../store/configStore/useAppDispatch';
-import { useAppSelector } from '../../../store/configStore/useAppSelector';
+import { RootState } from '../../../../store/configStore/configureStore';
+import { deleteBrand, setSelectedId } from '../../../../store/brand/brandSlice';
+import { useAppDispatch } from '../../../../store/configStore/useAppDispatch';
+import { useAppSelector } from '../../../../store/configStore/useAppSelector';
 
-const AdminBrandDeleteForm: React.FC = () => {
+const BrandDeleteForm: React.FC = () => {
   const dispatch = useAppDispatch();
   const selectedBrandId = useAppSelector((state: RootState) => state.brand.selectedId);
 
@@ -59,4 +59,4 @@ const AdminBrandDeleteForm: React.FC = () => {
   );
 };
 
-export default AdminBrandDeleteForm;
+export default BrandDeleteForm;

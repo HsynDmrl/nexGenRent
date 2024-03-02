@@ -2,16 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { Button, Container, Alert } from 'react-bootstrap';
-import { UpdateBrandRequest } from '../../../models/brands/requests/updateBrandRequest';
+import { UpdateBrandRequest } from '../../../../models/brands/requests/updateBrandRequest';
 import { ObjectSchema } from 'yup';
 import { useSelector, useDispatch } from 'react-redux';
-import { RootState } from '../../../store/configStore/configureStore';
-import { updateBrand } from '../../../store/brand/brandSlice';
+import { RootState } from '../../../../store/configStore/configureStore';
 import { MdCancel } from 'react-icons/md';
-import brandService from '../../../services/brandService';
+import brandService from '../../../../services/brandService';
 
-const AdminBrandUpdateForm: React.FC = () => {
-  const dispatch = useDispatch();
+const BrandUpdateForm: React.FC = () => {
   const selectedBrandId = useSelector((state: RootState) => state.brand.selectedId);
   const allData = useSelector((state: RootState) => state.brand.allData);
 
@@ -150,4 +148,4 @@ const AdminBrandUpdateForm: React.FC = () => {
   );
 }
 
-export default AdminBrandUpdateForm;
+export default BrandUpdateForm;

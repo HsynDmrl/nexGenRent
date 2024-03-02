@@ -1,7 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
 import AdminSidebar from '../pages/AdminPanel/AdminSidebar/AdminSidebar';
 import AdminDashboard from '../pages/AdminPanel/AdminDashboardPage/AdminDashboard';
-import AdminBrandPage from '../pages/AdminPanel/AdminBrandPage/AdminBrandPage';
+import BrandPage from '../pages/AdminPanel/AdminBrandPage/BrandPage';
 import AdminColorPage from '../pages/AdminPanel/AdminColorPage/AdminColorPage';
 import AdminModelPage from '../pages/AdminPanel/AdminModelPage/AdminModelPage';
 import AdminRolePage from '../pages/AdminPanel/AdminRolePage/AdminRolePage';
@@ -22,7 +22,7 @@ const AdminRouters = () => {
           <Route path="/dashboard" element={<AdminDashboard />} />
           <Route path="/cars" element={<AdminCarPage />} />
           <Route path="/users" element={<AdminUserPage />} />
-          <Route path="/brands" element={<AdminBrandPage />} />
+          <Route path="/brands" element={<BrandPage />} />
           <Route path="/colors" element={<AdminColorPage />} />
           <Route path="/models" element={<AdminModelPage />} />
           <Route path="/roles" element={<AdminRolePage />} />

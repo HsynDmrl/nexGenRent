@@ -2,12 +2,12 @@ import React from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { Button, Container, Alert } from 'react-bootstrap';
-import { UpdateColorRequest } from '../../../models/colors/requests/updateColorRequest';
+import { UpdateColorRequest } from '../../../../models/colors/requests/updateColorRequest';
 import { ObjectSchema } from 'yup';
 import { useSelector } from 'react-redux';
-import { RootState } from '../../../store/configStore/configureStore';
-import { updateColor } from '../../../store/color/colorSlice';
-import { useAppDispatch } from '../../../store/configStore/useAppDispatch';
+import { RootState } from '../../../../store/configStore/configureStore';
+import { updateColor } from '../../../../store/color/colorSlice';
+import { useAppDispatch } from '../../../../store/configStore/useAppDispatch';
 
 const AdminColorUpdateForm: React.FC = () => {
   const dispatch = useAppDispatch();

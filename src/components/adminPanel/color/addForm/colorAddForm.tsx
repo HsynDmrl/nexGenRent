@@ -7,7 +7,7 @@ import { addColor } from '../../../../store/color/colorSlice';
 import { AddColorRequest } from '../../../../models/colors/requests/addColorRequest';
 import { ObjectSchema } from 'yup';
 
-const AdminColorAddForm: React.FC = () => {
+const ColorAddForm: React.FC = () => {
   const initialValues: AddColorRequest = {
     id: 0,
     name: ''
@@ -61,6 +61,7 @@ const AdminColorAddForm: React.FC = () => {
             <Button className='p-2 mb-2 bg-success' variant="primary" type="submit">Kaydet</Button>
             <Button className='p-2 mb-2 mx-4 bg-warning' variant="primary" type="reset">Temizle</Button>
             {isSuccess && <Alert variant="success">Form başarıyla gönderildi!</Alert>}
+            {error && <Alert variant="danger">{error}</Alert>}
           </Form>
         )}
       </Formik>
@@ -68,4 +69,4 @@ const AdminColorAddForm: React.FC = () => {
   );
 };
 
-export default AdminColorAddForm;
+export default ColorAddForm;

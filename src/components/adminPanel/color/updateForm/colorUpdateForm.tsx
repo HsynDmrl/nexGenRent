@@ -9,7 +9,7 @@ import { RootState } from '../../../../store/configStore/configureStore';
 import { updateColor } from '../../../../store/color/colorSlice';
 import { useAppDispatch } from '../../../../store/configStore/useAppDispatch';
 
-const AdminColorUpdateForm: React.FC = () => {
+const ColorUpdateForm: React.FC = () => {
   const dispatch = useAppDispatch();
   const selectedColorId = useSelector((state: RootState) => state.color.selectedId);
   const allData = useSelector((state: RootState) => state.color.allData);
@@ -71,4 +71,4 @@ const AdminColorUpdateForm: React.FC = () => {
   );
 };
 
-export default AdminColorUpdateForm;
+export default ColorUpdateForm;

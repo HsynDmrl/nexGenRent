@@ -8,13 +8,13 @@ import ExportToCSVButton from '../../../components/adminPanel/color/exportToCSVB
 import EntityBox from '../../../components/changePasswordModal/entityBox';
 import EntityIcon from '../../../components/entityIcon/entityIcon';
 import useColorFilter from '../../../components/adminPanel/color/filter/colorFilter';
-import AdminColorTable from '../../../components/adminPanel/color/table/colorTable';
-import AdminColorAddModal from '../../../components/adminPanel/color/addModal/colorAddModal';
-import AdminColorUpdateModal from '../../../components/adminPanel/color/updateModal/colorUpdateModal';
-import AdminColorPagination from '../../../components/adminPanel/color/pagination/colorPagination';
-import './adminColorPage.css';
+import ColorTable from '../../../components/adminPanel/color/table/colorTable';
+import ColorAddModal from '../../../components/adminPanel/color/addModal/colorAddModal';
+import ColorUpdateModal from '../../../components/adminPanel/color/updateModal/colorUpdateModal';
+import ColorPagination from '../../../components/adminPanel/color/pagination/colorPagination';
+import './colorPage.css';
 
-const AdminColorPage: React.FC = () => {
+const ColorPage: React.FC = () => {
 	const dispatch = useAppDispatch();
 	const allColors = useAppSelector((state: RootState) => state.color.allData);
 	const selectedColorId = useAppSelector((state: RootState) => state.color.selectedId);
@@ -78,7 +78,7 @@ const AdminColorPage: React.FC = () => {
 					<Button className='w-100 bg-success' style={{ height: 'calc(2em + 12px)' }} onClick={handleAddButtonClick}>Yeni Renk Ekle</Button>
 				</Col>
 			</Row>
-			<AdminColorTable
+			<ColorTable
 				filteredColors={filteredColors}
 				sortBy={sortBy}
 				sortDirection={sortDirection}
@@ -91,9 +91,9 @@ const AdminColorPage: React.FC = () => {
 				currentPage={currentPage}
 				itemsPerPage={itemsPerPage}
 			/>
-			<AdminColorAddModal showAddForm={showAddForm} handleCloseAddForm={handleCloseAddForm} />
-			<AdminColorUpdateModal showUpdateForm={showUpdateForm} handleCloseUpdateForm={handleCloseUpdateForm} />
-			<AdminColorPagination
+			<ColorAddModal showAddForm={showAddForm} handleCloseAddForm={handleCloseAddForm} />
+			<ColorUpdateModal showUpdateForm={showUpdateForm} handleCloseUpdateForm={handleCloseUpdateForm} />
+			<ColorPagination
 				currentPage={currentPage}
 				itemsPerPage={itemsPerPage}
 				totalItems={filteredColors.length}
@@ -103,4 +103,4 @@ const AdminColorPage: React.FC = () => {
 	);
 }
 
-export default AdminColorPage;
+export default ColorPage;

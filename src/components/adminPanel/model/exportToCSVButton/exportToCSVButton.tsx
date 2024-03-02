@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
-import { GetAllModelResponse } from '../../../models/models/response/getAllModelResponse';
+import { GetAllModelResponse } from '../../../../models/models/response/getAllModelResponse';
 
 interface ExportToCSVButtonProps {
     data: GetAllModelResponse[];
@@ -18,7 +18,7 @@ const ExportToCSVButton: React.FC<ExportToCSVButtonProps> = ({ data, className }
 	const convertToCSV = (models: GetAllModelResponse[]): string => {
 		const sortedModels: GetAllModelResponse[] = [...models].sort((a, b) => a.id - b.id);
 	
-		const csvRows = ['id,name,brand,createdDate,updatedDate'];
+		const csvRows = ['id, Model İsmi, Marka İsmi, Oluşturulma Tarihi, Güncellenme Tarihi'];
 		sortedModels.forEach(({ id, name, brand, createdDate, updatedDate }) => {
 			const formattedCreatedDate = createdDate ? formatDate(new Date(createdDate)) : '';
 			const formattedUpdatedDate = updatedDate ? formatDate(new Date(updatedDate)) : '';

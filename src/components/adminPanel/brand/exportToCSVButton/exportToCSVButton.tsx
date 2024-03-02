@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
-import { GetAllBrandResponse } from '../../../models/brands/response/getAllBrandResponse';
+import { GetAllBrandResponse } from '../../../../models/brands/response/getAllBrandResponse';
 
 interface ExportToCSVButtonProps {
     data: GetAllBrandResponse[];

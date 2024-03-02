@@ -1,14 +1,14 @@
 import React from 'react';
 import Pagination from 'react-bootstrap/Pagination';
 
-interface AdminBrandPaginationProps {
+interface BrandPaginationProps {
   currentPage: number;
   itemsPerPage: number;
   totalItems: number;
   paginate: (pageNumber: number) => void;
 }
 
-const AdminBrandPagination: React.FC<AdminBrandPaginationProps> = ({
+const BrandPagination: React.FC<BrandPaginationProps> = ({
   currentPage,
   itemsPerPage,
   totalItems,
@@ -31,4 +31,4 @@ const AdminBrandPagination: React.FC<AdminBrandPaginationProps> = ({
   );
 };
 
-export default AdminBrandPagination;
+export default BrandPagination;

@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
-import { AddBrandRequest } from '../../../models/brands/requests/addBrandRequest';
+import { AddBrandRequest } from '../../../../models/brands/requests/addBrandRequest';
 import { Formik, Form, Field, ErrorMessage, FormikHelpers } from 'formik';
 import { Button, Container, Alert } from 'react-bootstrap';
-import brandService from '../../../services/brandService';
+import brandService from '../../../../services/brandService';
 import { MdCancel } from 'react-icons/md';
 import { ObjectSchema } from 'yup';
 import * as Yup from 'yup';
 
-const AdminBrandAddForm: React.FC = () => {
+const BrandAddForm: React.FC = () => {
 
 	const [selectedFile, setSelectedFile] = useState<File | null>(null);
 	const [previewUrl, setPreviewUrl] = useState<string | null>(null);
@@ -124,4 +124,4 @@ const AdminBrandAddForm: React.FC = () => {
 	);
 };
 
-export default AdminBrandAddForm;
+export default BrandAddForm;

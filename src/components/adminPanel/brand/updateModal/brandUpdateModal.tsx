@@ -1,14 +1,14 @@
 import React from 'react';
 import { Modal } from 'react-bootstrap';
-import AdminBrandUpdateForm from './AdminBrandUpdateForm';
-import AdminBrandDeleteForm from './AdminBrandDeleteForm';
+import BrandUpdateForm from '../updateForm/brandUpdateForm';
+import BrandDeleteForm from '../deleteForm/brandDeleteForm';
 
-interface AdminBrandModalProps {
+interface BrandModalProps {
   showUpdateForm: boolean;
   handleCloseUpdateForm: () => void;
 }
 
-const AdminBrandUpdateModal: React.FC<AdminBrandModalProps> = ({ showUpdateForm, handleCloseUpdateForm }) => {
+const BrandUpdateModal: React.FC<BrandModalProps> = ({ showUpdateForm, handleCloseUpdateForm }) => {
   return (
     <Modal show={showUpdateForm} onHide={handleCloseUpdateForm}>
       <Modal.Header closeButton>
@@ -17,12 +17,12 @@ const AdminBrandUpdateModal: React.FC<AdminBrandModalProps> = ({ showUpdateForm,
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <AdminBrandUpdateForm />
+        <BrandUpdateForm />
         <hr />
-        <AdminBrandDeleteForm />
+        <BrandDeleteForm />
       </Modal.Body>
     </Modal>
   );
 };
 
-export default AdminBrandUpdateModal;
+export default BrandUpdateModal;

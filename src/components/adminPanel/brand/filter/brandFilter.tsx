@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Brand } from '../../../models/brands/entity/brand';
+import { Brand } from '../../../../models/brands/entity/brand';
 
 const useBrandFilter = (allBrands: Brand[], sortBy: string, sortDirection: string,
 	 searchId: string, searchName: string, searchLogoPath: string, searchCreatedDate: string,

@@ -3,9 +3,9 @@ import Table from 'react-bootstrap/Table';
 import Form from 'react-bootstrap/Form';
 import { FaSortNumericDown, FaSortNumericUp, FaSortAlphaDown, FaSortAlphaUp } from "react-icons/fa";
 import { LiaSortAmountDownAltSolid, LiaSortAmountUpSolid } from "react-icons/lia";
-import { Brand } from '../../../models/brands/entity/brand';
+import { Brand } from '../../../../models/brands/entity/brand';
 
-interface AdminBrandTableProps {
+interface BrandTableProps {
 	filteredBrands: Brand[];
 	sortBy: string;
 	sortDirection: 'asc' | 'desc';
@@ -20,7 +20,7 @@ interface AdminBrandTableProps {
 	itemsPerPage: number;
 }
 
-const AdminBrandTable: React.FC<AdminBrandTableProps> = ({
+const BrandTable: React.FC<BrandTableProps> = ({
 	filteredBrands,
 	sortBy,
 	sortDirection,
@@ -71,4 +71,4 @@ const AdminBrandTable: React.FC<AdminBrandTableProps> = ({
 	);
 };
 
-export default AdminBrandTable;
+export default BrandTable;

@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { Formik, Form, Field, ErrorMessage, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
 import { Button, Container, Alert } from 'react-bootstrap';
-import { useAppDispatch } from '../../../store/configStore/useAppDispatch';
-import { addColor } from '../../../store/color/colorSlice';
-import { AddColorRequest } from '../../../models/colors/requests/addColorRequest';
+import { useAppDispatch } from '../../../../store/configStore/useAppDispatch';
+import { addColor } from '../../../../store/color/colorSlice';
+import { AddColorRequest } from '../../../../models/colors/requests/addColorRequest';
 import { ObjectSchema } from 'yup';
 
 const AdminColorAddForm: React.FC = () => {

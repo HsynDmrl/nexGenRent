@@ -1,14 +1,14 @@
 import React from 'react';
 import { Modal } from 'react-bootstrap';
-import AdminCarUpdateForm from './AdminCarUpdateForm';
-import AdminCarDeleteForm from './AdminCarDeleteForm';
+import CarUpdateForm from '../updateForm/carUpdateForm';
+import CarDeleteForm from '../deleteForm/carDeleteForm';
 
-interface AdminCarModalProps {
+interface CarModalProps {
   showUpdateForm: boolean;
   handleCloseUpdateForm: () => void;
 }
 
-const AdminCarUpdateModal: React.FC<AdminCarModalProps> = ({ showUpdateForm, handleCloseUpdateForm }) => {
+const CarUpdateModal: React.FC<CarModalProps> = ({ showUpdateForm, handleCloseUpdateForm }) => {
   return (
     <Modal show={showUpdateForm} onHide={handleCloseUpdateForm}>
       <Modal.Header closeButton>
@@ -17,12 +17,12 @@ const AdminCarUpdateModal: React.FC<AdminCarModalProps> = ({ showUpdateForm, han
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <AdminCarUpdateForm />
+        <CarUpdateForm />
         <hr />
-        <AdminCarDeleteForm />
+        <CarDeleteForm />
       </Modal.Body>
     </Modal>
   );
 };
 
-export default AdminCarUpdateModal;
+export default CarUpdateModal;

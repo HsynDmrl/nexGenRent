@@ -2,16 +2,16 @@ import React, { useState, useEffect } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { Button, Container, Alert } from 'react-bootstrap';
-import { UpdateCustomerRequest } from '../../../models/customers/requests/updateCustomerRequest';
+import { UpdateCustomerRequest } from '../../../../models/customers/requests/updateCustomerRequest';
 import { ObjectSchema } from 'yup';
 import { useSelector } from 'react-redux';
-import { RootState } from '../../../store/configStore/configureStore';
-import { updateCustomer } from '../../../store/customer/customerSlice';
-import { useAppDispatch } from '../../../store/configStore/useAppDispatch';
-import { User } from '../../../models/users/entity/user';
-import { getAll as getAllUsers } from '../../../store/user/userSlice';
+import { RootState } from '../../../../store/configStore/configureStore';
+import { updateCustomer } from '../../../../store/customer/customerSlice';
+import { useAppDispatch } from '../../../../store/configStore/useAppDispatch';
+import { User } from '../../../../models/users/entity/user';
+import { getAll as getAllUsers } from '../../../../store/user/userSlice';
 
-const AdminCustomerUpdateForm: React.FC = () => {
+const CustomerUpdateForm: React.FC = () => {
   const dispatch = useAppDispatch();
   const selectedCustomerId = useSelector((state: RootState) => state.customer.selectedId);
   const allData = useSelector((state: RootState) => state.customer.allData);
@@ -67,9 +67,6 @@ const AdminCustomerUpdateForm: React.FC = () => {
             <Button className='p-2 mb-2 mx-3 bg-success' variant="primary" type="submit">
               Güncelle
             </Button>
-            <Button className='p-2 mb-2 mx-3 bg-warning' variant="primary" type="reset">
-              Temizle
-            </Button>
             {status && status.success && <Alert variant="success">Müşteri başarıyla güncellendi.</Alert>}
             {status && !status.success && <Alert variant="danger">Müşteri güncellenirken bir hata oluştu.</Alert>}
           </Form>
@@ -79,4 +76,4 @@ const AdminCustomerUpdateForm: React.FC = () => {
   );
 };
 
-export default AdminCustomerUpdateForm;
+export default CustomerUpdateForm;

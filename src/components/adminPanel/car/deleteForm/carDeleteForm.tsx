@@ -2,14 +2,14 @@ import React from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { Button, Container, Alert } from 'react-bootstrap';
-import { RootState } from '../../../store/configStore/configureStore';
-import { deleteCustomer, setSelectedId } from '../../../store/customer/customerSlice';
-import { useAppDispatch } from '../../../store/configStore/useAppDispatch';
-import { useAppSelector } from '../../../store/configStore/useAppSelector';
+import { RootState } from '../../../../store/configStore/configureStore';
+import { deleteCar, setSelectedId } from '../../../../store/car/carSlice';
+import { useAppDispatch } from '../../../../store/configStore/useAppDispatch';
+import { useAppSelector } from '../../../../store/configStore/useAppSelector';
 
-const AdminCustomerDeleteForm: React.FC = () => {
+const CarDeleteForm: React.FC = () => {
   const dispatch = useAppDispatch();
-  const selectedCustomerId = useAppSelector((state: RootState) => state.customer.selectedId);
+  const selectedCarId = useAppSelector((state: RootState) => state.car.selectedId);
 
   return (
     <Container>
@@ -22,7 +22,7 @@ const AdminCustomerDeleteForm: React.FC = () => {
 		onSubmit={(values, { setSubmitting, setStatus }) => {
 			if (values.confirmationText === 'sil') {
 			  try {
-				dispatch(deleteCustomer(selectedCustomerId as number));
+				dispatch(deleteCar(selectedCarId as number));
 				dispatch(setSelectedId(null));
 				setStatus({ success: true });
 			  } catch (error) {
@@ -39,7 +39,7 @@ const AdminCustomerDeleteForm: React.FC = () => {
         {({ isSubmitting, status }) => (
           <Form>
             <div className="mb-3">
-              <label htmlFor="confirmationText" className="form-title text-dark">
+              <label htmlFor="confirmationText" className="form-title">
                 Silme işlemini onaylamak için "sil" yazın:
               </label>
               <Field
@@ -50,7 +50,7 @@ const AdminCustomerDeleteForm: React.FC = () => {
               <ErrorMessage name="confirmationText" component="div" className="invalid-feedback" />
             </div>
             <Button className='bg-danger mb-2' variant="primary" type="submit" disabled={isSubmitting}>Sil</Button>
-            {status && status.success && <Alert className='mb-2' variant="success">Çalışan başarıyla silindi.</Alert>}
+            {status && status.success && <Alert className='mb-2' variant="success">Araba başarıyla silindi.</Alert>}
             {status && !status.success && <Alert className='mb-2' variant="danger">{status.error}</Alert>}
           </Form>
         )}
@@ -59,4 +59,4 @@ const AdminCustomerDeleteForm: React.FC = () => {
   );
 };
 
-export default AdminCustomerDeleteForm;
+export default CarDeleteForm;

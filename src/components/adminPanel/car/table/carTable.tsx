@@ -3,11 +3,11 @@ import Table from 'react-bootstrap/Table';
 import Form from 'react-bootstrap/Form';
 import { FaSortNumericDown, FaSortNumericUp, FaSortAlphaDown, FaSortAlphaUp } from "react-icons/fa";
 import { LiaSortAmountDownAltSolid, LiaSortAmountUpSolid } from "react-icons/lia";
-import { Car } from '../../../models/cars/entity/car';
-import { Model } from '../../../models/models/entity/model';
-import { Color } from '../../../models/colors/entity/color';
+import { Car } from '../../../../models/cars/entity/car';
+import { Model } from '../../../../models/models/entity/model';
+import { Color } from '../../../../models/colors/entity/color';
 
-interface AdminCarTableProps {
+interface CarTableProps {
 	filteredCars: Car[];
 	allModels: Model[];
 	allColors: Color[];
@@ -32,7 +32,7 @@ interface AdminCarTableProps {
 	itemsPerPage: number;
 }
 
-const AdminCarTable: React.FC<AdminCarTableProps> = ({
+const CarTable: React.FC<CarTableProps> = ({
 	filteredCars,
 	allModels,
 	allColors,
@@ -151,4 +151,4 @@ const AdminCarTable: React.FC<AdminCarTableProps> = ({
 	);
 };
 
-export default AdminCarTable;
+export default CarTable;

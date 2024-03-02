@@ -66,9 +66,9 @@ const ColorPage: React.FC = () => {
 
 	return (
 		<Container>
-			<h1>Renkler Sayfası</h1>
+			<h1 className='text-black'>Renkler Sayfası</h1>
 			<Row className='mb-5 col-12'>
-				<EntityBox entity="Toplam Renk Sayısı" count={allColors.length} icon={<EntityIcon entity="Renk Sayısı" />} />
+				<EntityBox entity="Renk Sayısı" count={allColors.length} icon={<EntityIcon entity="Renk Sayısı" />} />
 			</Row>
 			<Row className='g-3 justify-content-start'>
 				<Col xs={12} sm={5} lg={2}>

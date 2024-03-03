@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import { Formik, Form, Field, ErrorMessage, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
 import { Button, Container, Alert } from 'react-bootstrap';
-import { useAppDispatch } from '../../../store/configStore/useAppDispatch';
-import { addRole } from '../../../store/role/roleSlice';
-import { AddRoleRequest } from '../../../models/roles/requests/addRoleRequest';
+import { useAppDispatch } from '../../../../store/configStore/useAppDispatch';
+import { addRole } from '../../../../store/role/roleSlice';
+import { AddRoleRequest } from '../../../../models/roles/requests/addRoleRequest';
 import { ObjectSchema } from 'yup';
 
-const AdminRoleAddForm: React.FC = () => {
+const RoleAddForm: React.FC = () => {
   const initialValues: AddRoleRequest = {
     id: 0,
     name: '',
@@ -21,7 +21,7 @@ const AdminRoleAddForm: React.FC = () => {
 	id: Yup.number().required(),
 	name: Yup.string()
 	  .required('Rol adı zorunludur.')
-	  .matches(/^[A-Z][a-zA-Z\s]*$/, 'Rol adının ilk harfi büyük olmalı ve sadece harf içermelidir.')
+    .matches(/^[A-Z\s]*$/, 'Rol adı sadece büyük harflerden oluşmalıdır.')
 	  .min(2, 'Rol adı en az 2 karakter olmalıdır.')
 	  .max(50, 'Rol adı en fazla 50 karakter olmalıdır.'),
   });
@@ -30,9 +30,6 @@ const AdminRoleAddForm: React.FC = () => {
     try {
       await dispatch(addRole(values));
       setIsSuccess(true);
-      setTimeout(() => {
-        setIsSuccess(false);
-      }, 3000);
       resetForm();
     } catch (error:any) {
       setError(error.message);
@@ -69,4 +66,4 @@ const AdminRoleAddForm: React.FC = () => {
   );
 };
 
-export default AdminRoleAddForm;
+export default RoleAddForm;

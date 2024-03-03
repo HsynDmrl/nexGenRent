@@ -4,9 +4,9 @@ import AdminDashboard from '../pages/AdminPanel/AdminDashboardPage/AdminDashboar
 import BrandPage from '../pages/AdminPanel/BrandPage/BrandPage';
 import ColorPage from '../pages/AdminPanel/ColorPage/ColorPage';
 import ModelPage from '../pages/AdminPanel/ModelPage/ModelPage';
-import AdminRolePage from '../pages/AdminPanel/AdminRolePage/AdminRolePage';
+import RolePage from '../pages/AdminPanel/RolePage/rolePage';
 import AdminUserPage from '../pages/AdminPanel/AdminUserPage/AdminUserPage';
-import AdminEmployeePage from '../pages/AdminPanel/AdminEmployeePage/AdminEmployeePage';
+import EmployeePage from '../pages/AdminPanel/EmployeePage/EmployeePage';
 import CarPage from '../pages/AdminPanel/CarPage/CarPage';
 import CustomerPage from '../pages/AdminPanel/CustomerPage/CustomerPage';
 import AdminRentalPage from '../pages/AdminPanel/AdminRentalPage/AdminRentalPage';
@@ -25,8 +25,8 @@ const AdminRouters = () => {
           <Route path="/brands" element={<BrandPage />} />
           <Route path="/colors" element={<ColorPage />} />
           <Route path="/models" element={<ModelPage />} />
-          <Route path="/roles" element={<AdminRolePage />} />
-          <Route path="/employees" element={<AdminEmployeePage />} />
+          <Route path="/roles" element={<RolePage />} />
+          <Route path="/employees" element={<EmployeePage />} />
           <Route path="/customers" element={<CustomerPage />} />
           <Route path='/rentals' element={<AdminRentalPage />} />
           <Route path='/invoices' element={<AdminInvoicePage />} />

@@ -38,4 +38,40 @@
 .payment-button {
     margin-top: 20px;
 }
+.payment-page .faCreditCard,
+.payment-page .faUser {
+  color: black;
+}
+.payment-page {
+    color: black; /* Tüm metinleri siyah yapar */
+  }
+  
+  .payment-page h2 {
+    color: #007bff; /* Başlıkları açık mavi yapar */
+  }
+  
+  .payment-page p {
+    color: black; /* Paragrafları siyah yapar */
+  }
+  
+  .payment-page .form-label {
+    color: black; /* Form etiketlerini siyah yapar */
+  }
+  
+  .payment-page .form-control {
+    color: black; /* Form inputlarının metinlerini siyah yapar */
+  }
+.car-image-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 15px;
+}
 
+.car-side-image {
+  max-width: 100%;
+  height: auto;
+}  
+.car-image-small {
+    width: 100px; 
+    float: right; }

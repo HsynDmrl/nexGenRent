@@ -30,12 +30,12 @@ const FeaturedCard: React.FC<FeaturedCardProps> = ({ type, count }) => {
 
   return (
     <Card className="featured-card">
-  <Card className="text-center p-4">
-      <IconComponent size="3em" className="icon mb-2" />
-      <Card.Title>{type}</Card.Title>
-      <Card.Text>{`${count} araç`}</Card.Text>
+      <Card className="text-center p-4">
+        <IconComponent size="3em" className="icon mb-2" />
+        <Card.Title>{type}</Card.Title>
+        <Card.Text>{`${count} araç`}</Card.Text>
+      </Card>
     </Card>
-</Card>
 
     
   );

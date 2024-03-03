@@ -1,27 +1,39 @@
-/* BrandBar.css */
-
+/* BrandBar için modern ve minimalist bir stil tanımı */
 .brand-bar {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    overflow-x: auto;
-    margin-bottom: 20px; /* Alt kısıma boşluk bırakma */
-  }
-  
+  display: flex; /* İçerikleri yatay olarak hizala */
+  justify-content: space-around; /* İçerikleri ortala */
+  align-items: center; /* İçerikleri dikey olarak ortala */
+  padding: 1rem; /* İçten boşluk */
+  overflow-x: auto; /* Yatay kaydırma çubuğunu etkinleştir */
+  background-color: rgba(230, 238, 242, 0.8); /* Hafif şeffaf beyaz arka plan */
+  backdrop-filter: blur(10px); /* Arka plana bulanıklık efekti ekle */
+  border-bottom: 1px solid rgb(156, 209, 248);
+  margin-bottom: 2rem; /* Alt boşluk */
+}
+
+.brand-logo {
+  display: block; /* Her logo kendi satırında */
+  max-width: 80px; /* Maksimum genişlik */
+  max-height: 40px; /* Maksimum yükseklik */
+  margin: 0 10px; /* Logo arası boşluk */
+  transition: transform 0.3s ease; /* Animasyon için geçiş */
+}
+
+.brand-logo:hover {
+  transform: scale(1.1); /* Logo üzerine gelindiğinde büyüt */
+}
+
+/* BrandBar container'ını genişletmek için */
+.featured .container {
+  max-width: 100%; /* Konteyner genişliğini maksimum yap */
+  padding-left: 0; /* Sol iç boşluğu kaldır */
+  padding-right: 0; /* Sağ iç boşluğu kaldır */
+}
+
+/* Responsive tasarım */
+@media (max-width: 768px) {
   .brand-logo {
-    height: 50px;
-    margin: 0 10px;
-    transition: transform 0.2s ease;
-    border: 1px solid #ddd; /* Logoların etrafına 1 piksel kalınlığında bir border ekleme */
-    padding: 5px; /* Logoların içerisine biraz iç boşluk bırakma */
+    max-width: 60px; /* Mobil ekranlar için logo genişliğini azalt */
+    margin: 0 8px; /* Mobil ekranlar için logo arası boşluğu azalt */
   }
-  
-  .brand-logo:hover {
-    transform: scale(1.1);
-    cursor: pointer;
-  }
-  
-  .brand-logo:active {
-    transform: scale(0.9);
-  }
-  
+}

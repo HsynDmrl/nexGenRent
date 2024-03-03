@@ -8,23 +8,25 @@ import { GetAllCarFilterResponse } from '../../models/cars/response/getAllCarFil
 import { RootState } from '../../store/configStore/configureStore';
 import OrderPage from '../orderPage/OrderPage';
 import { useEffect } from 'react';
+import { GetAllCarResponse } from '../../models/cars/response/getAllCarResponse';
 
 interface RecentProps {
-  onCarSelect: (car: GetAllCarFilterResponse) => void;
+  onCarSelect: (car: GetAllCarResponse) => void;
 }
 
 const Recent: React.FC<RecentProps> = ({ onCarSelect }) => {
   const dispatch = useAppDispatch();
   const cars = useAppSelector((state: RootState) => state.car.allDataCar);
+  const carM = useAppSelector((state: RootState) => state.car.allData);
   const loading = useAppSelector((state: RootState) => state.car.loading);
   const [showModal, setShowModal] = useState(false);
-  const [selectedCar, setSelectedCar] = useState<GetAllCarFilterResponse | null>(null);
+  const [selectedCar, setSelectedCar] = useState<GetAllCarResponse | null>(null);
 
   useEffect(() => {
     dispatch(getAll());
   }, [dispatch]);
 
-  const handleCarClick = (car: GetAllCarFilterResponse) => {
+  const handleCarClick = (car: GetAllCarResponse) => {
     setSelectedCar(car);
     setShowModal(true);
   };
@@ -39,14 +41,16 @@ const Recent: React.FC<RecentProps> = ({ onCarSelect }) => {
     <section className="recent padding">
       <Container>
         <Row>
-          {cars.map((car) => (
+          {carM.map((car) => (
             car.status && (
               <Col key={car.id} xs={12} sm={6} md={4} className="mb-4">
                 <RecentCard
                   cover={car.imagePath}
-                  name={car.modelName || 'Marka Yok'}
+                  name={car.model.name || 'Marka Yok'}
+                  brand={car.model.brand.name}
                   price={car.dailyPrice}
                   distance={car.kilometer}
+                  year={car.year}
                   onClick={() => handleCarClick(car)}
                 />
               </Col>

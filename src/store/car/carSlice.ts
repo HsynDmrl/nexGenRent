@@ -173,6 +173,7 @@ const carSlice = createSlice({
 						updatedDate: carData.updatedDate,
                     }));
                     state.allData = cars;
+                    state.allDataCar = action.payload;
                 } else {
 					state.allData = [];
 				}

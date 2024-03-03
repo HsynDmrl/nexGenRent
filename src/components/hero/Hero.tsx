@@ -1,47 +1,59 @@
 import React, { useState } from "react";
-import { Container, Row, Col, Form, Button } from 'react-bootstrap';
+import { Container, Row, Col, Form, Button, InputGroup } from 'react-bootstrap';
 import './hero.css'; // Stil dosyasının yolu
-import carImage from '../../assets/images/cg4.gif'; // Resmin yolu
 
 const Hero = () => {
-  // Bugünün ve ertesi günün tarihini al
   const today = new Date();
   const tomorrow = new Date(today);
   tomorrow.setDate(tomorrow.getDate() + 1);
 
-  // Tarihleri YYYY-MM-DD formatında al
-  const formatDate = (date:Date) => date.toISOString().split('T')[0];
-
-  // Başlangıç tarih değerleri
+  const formatDate = (date: Date) => date.toISOString().split('T')[0];
+  const [searchTerm, setSearchTerm] = useState(""); 
   const [pickupDate, setPickupDate] = useState(formatDate(today));
   const [returnDate, setReturnDate] = useState(formatDate(tomorrow));
 
-  const handleFormSubmit = (e:any) => {
-    e.preventDefault();
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(e.target.value);
+  };
 
-    // Alış ve iade tarihlerini Date objesine dönüştür
+  const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    console.log("Arama Terimi:", searchTerm);
+
     const pickupDateTime = new Date(pickupDate);
     const returnDateTime = new Date(returnDate);
 
-    // Kontrol: Alış tarihi iade tarihinden sonra mı?
     if (pickupDateTime > returnDateTime) {
       alert("Alış tarihi, iade tarihinden sonra olamaz!");
-      return; // Fonksiyonu burada sonlandır
+      return;
     }
 
-    // Tüm kontroller başarılı ise devam edilebilir
-    // Örneğin, burada araç arama işlemi yapılabilir.
+    // Burada, araç arama işlemi yapılabilir.
   };
 
   return (
     <section className="hero">
       <Container>
-        {/* <img src={carImage} alt="Car" className="car-image" style={{ top: '0', transform: 'translate(-50%, 0)' }} /> */}
         <Row className="justify-content-center">
           <Col md={8} lg={6}>
             <h1 className="text-dark">Size En Uygun Aracı Bulalım</h1>
             <p className="text-secondary">Araçlarımız Tamamı Kaskoludur. Her Bütçeye Uygun Araç Kiralama Hizmeti</p>
             <Form className="mt-1" onSubmit={handleFormSubmit}>
+              <Row className="mb-3">
+                <Col>
+                  <InputGroup>
+                    <InputGroup.Text id="basic-addon1">🔍</InputGroup.Text>
+                    <Form.Control
+                      type="text"
+                      placeholder="Marka veya model ara"
+                      value={searchTerm}
+                      onChange={handleSearchChange}
+                      aria-label="Arama"
+                      aria-describedby="basic-addon1"
+                    />
+                  </InputGroup>
+                </Col>
+              </Row>
               <Row>
                 <Col md={6} className="mb-3">
                   <Form.Group controlId="formPickupDate">
@@ -64,9 +76,7 @@ const Hero = () => {
                   </Form.Group>
                 </Col>
               </Row>
-              <Button variant="primary" type="submit">
-                Araç Bul
-              </Button>
+              <Button variant="primary" type="submit">Araç Bul</Button>
             </Form>
           </Col>
         </Row>

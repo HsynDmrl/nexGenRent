@@ -1,9 +1,9 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
-import { GetAllRoleResponse } from '../../../models/roles/response/getAllRoleResponse';
+import { GetAllEmployeeResponse } from '../../../../models/employees/response/getAllEmployeeResponse';
 
 interface ExportToCSVButtonProps {
-    data: GetAllRoleResponse[];
+    data: GetAllEmployeeResponse[];
     className?: string;
 }
 
@@ -15,14 +15,14 @@ const ExportToCSVButton: React.FC<ExportToCSVButtonProps> = ({ data, className }
         return `${year}-${month}-${day}`;
     };
 
-	const convertToCSV = (roles: GetAllRoleResponse[]): string => {
-		const sortedRoles: GetAllRoleResponse[] = [...roles].sort((a, b) => a.id - b.id);
+	const convertToCSV = (employees: GetAllEmployeeResponse[]): string => {
+		const sortedEmployees: GetAllEmployeeResponse[] = [...employees].sort((a, b) => a.id - b.id);
 	
-		const csvRows = ['id,name,createdDate,updatedDate'];
-		sortedRoles.forEach(({ id, name, createdDate, updatedDate }) => {
-			const formattedCreatedDate = createdDate ? formatDate(new Date(createdDate)) : '';
-			const formattedUpdatedDate = updatedDate ? formatDate(new Date(updatedDate)) : '';
-			csvRows.push(`${id},${name.replace(',', ' ')},${formattedCreatedDate},${formattedUpdatedDate}`);
+		const csvRows = ['id, Maaş, Kullanıcı İsmi, Oluşturulma Tarihi, Güncellenme Tarihi'];
+		sortedEmployees.forEach(({ id, salary, user, createdDate, updatedDate }) => {
+		  const formattedCreatedDate = createdDate ? formatDate(new Date(createdDate)) : '';
+		  const formattedUpdatedDate = updatedDate ? formatDate(new Date(updatedDate)) : '';
+		  csvRows.push(`${id},${salary},${user.name.replace(',', ' ')},${formattedCreatedDate},${formattedUpdatedDate}`);
 		});
 		return csvRows.join('\n');
 	};
@@ -39,13 +39,13 @@ const ExportToCSVButton: React.FC<ExportToCSVButtonProps> = ({ data, className }
     const handleExportClick = (): void => {
         const today = new Date();
         const formattedDate = formatDate(today);
-        const filename = `Rollar-${formattedDate}.csv`;
+        const filename = `Calisanlar-${formattedDate}.csv`;
         const csvString = convertToCSV(data);
         downloadCSV(csvString, filename);
     };
 
     return (
-        <Button className={`button-admin-role mb-2 ms-1 bg-warning ${className}`} onClick={handleExportClick}>Dışa Aktar</Button>
+        <Button className={`button-admin-employee mb-2 ms-1 bg-warning ${className}`} onClick={handleExportClick}>Dışa Aktar</Button>
     );
 };
 

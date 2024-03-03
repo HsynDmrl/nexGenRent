@@ -2,14 +2,14 @@ import React from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { Button, Container, Alert } from 'react-bootstrap';
-import { UpdateRoleRequest } from '../../../models/roles/requests/updateRoleRequest';
+import { UpdateRoleRequest } from '../../../../models/roles/requests/updateRoleRequest';
 import { ObjectSchema } from 'yup';
 import { useSelector } from 'react-redux';
-import { RootState } from '../../../store/configStore/configureStore';
-import { updateRole } from '../../../store/role/roleSlice';
-import { useAppDispatch } from '../../../store/configStore/useAppDispatch';
+import { RootState } from '../../../../store/configStore/configureStore';
+import { updateRole } from '../../../../store/role/roleSlice';
+import { useAppDispatch } from '../../../../store/configStore/useAppDispatch';
 
-const AdminRoleUpdateForm: React.FC = () => {
+const RoleUpdateForm: React.FC = () => {
   const dispatch = useAppDispatch();
   const selectedRoleId = useSelector((state: RootState) => state.role.selectedId);
   const allData = useSelector((state: RootState) => state.role.allData);
@@ -71,4 +71,4 @@ const AdminRoleUpdateForm: React.FC = () => {
   );
 };
 
-export default AdminRoleUpdateForm;
+export default RoleUpdateForm;

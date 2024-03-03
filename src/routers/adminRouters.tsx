@@ -10,7 +10,7 @@ import EmployeePage from '../pages/AdminPanel/EmployeePage/EmployeePage';
 import CarPage from '../pages/AdminPanel/CarPage/CarPage';
 import CustomerPage from '../pages/AdminPanel/CustomerPage/CustomerPage';
 import AdminRentalPage from '../pages/AdminPanel/AdminRentalPage/AdminRentalPage';
-import AdminInvoicePage from '../pages/AdminPanel/AdminInvoicePage/AdminInvoicePage';
+import InvoicePage from '../pages/AdminPanel/InvoicePage/InvoicePage';
 
 const AdminRouters = () => {
   return (
@@ -29,7 +29,7 @@ const AdminRouters = () => {
           <Route path="/employees" element={<EmployeePage />} />
           <Route path="/customers" element={<CustomerPage />} />
           <Route path='/rentals' element={<AdminRentalPage />} />
-          <Route path='/invoices' element={<AdminInvoicePage />} />
+          <Route path='/invoices' element={<InvoicePage />} />
         </Routes>
       </div>
     </>

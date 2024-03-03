@@ -2,12 +2,12 @@ import React from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { Button, Container, Alert } from 'react-bootstrap';
-import { RootState } from '../../../store/configStore/configureStore';
-import { deleteInvoice, setSelectedId } from '../../../store/invoice/invoiceSlice';
-import { useAppDispatch } from '../../../store/configStore/useAppDispatch';
-import { useAppSelector } from '../../../store/configStore/useAppSelector';
+import { RootState } from '../../../../store/configStore/configureStore';
+import { deleteInvoice, setSelectedId } from '../../../../store/invoice/invoiceSlice';
+import { useAppDispatch } from '../../../../store/configStore/useAppDispatch';
+import { useAppSelector } from '../../../../store/configStore/useAppSelector';
 
-const AdminInvoiceDeleteForm: React.FC = () => {
+const InvoiceDeleteForm: React.FC = () => {
   const dispatch = useAppDispatch();
   const selectedInvoiceId = useAppSelector((state: RootState) => state.invoice.selectedId);
 
@@ -59,4 +59,4 @@ const AdminInvoiceDeleteForm: React.FC = () => {
   );
 };
 
-export default AdminInvoiceDeleteForm;
+export default InvoiceDeleteForm;

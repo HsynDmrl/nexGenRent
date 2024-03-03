@@ -4,7 +4,7 @@ import { useAppDispatch } from '../../../store/configStore/useAppDispatch';
 import { useAppSelector } from '../../../store/configStore/useAppSelector';
 import { RootState } from '../../../store/configStore/configureStore';
 import { getAll, setSelectedIdAction } from '../../../store/user/userSlice';
-import ExportToCSVButton from '../../../components/adminPanel/user/exportToCSVButton/ExportToCSVButton';
+import ExportToCSVButton from '../../../components/adminPanel/user/exportToCSVButton/exportToCSVButton';
 import { getAll as getAllRoles }  from '../../../store/role/roleSlice';
 import EntityBox from '../../../components/changePasswordModal/entityBox';
 import EntityIcon from '../../../components/entityIcon/entityIcon';

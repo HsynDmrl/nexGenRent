@@ -2,16 +2,16 @@ import React, { useState, useEffect } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { Button, Container, Alert } from 'react-bootstrap';
-import { UpdateUserRequest } from '../../../models/users/requests/updateUserRequest';
+import { UpdateUserRequest } from '../../../../models/users/requests/updateUserRequest';
 import { ObjectSchema } from 'yup';
 import { useSelector } from 'react-redux';
-import { RootState } from '../../../store/configStore/configureStore';
-import { updateUser } from '../../../store/user/userSlice';
-import { useAppDispatch } from '../../../store/configStore/useAppDispatch';
-import { Role } from '../../../models/roles/entity/role';
-import { getAll as getAllRoles } from '../../../store/role/roleSlice';
+import { RootState } from '../../../../store/configStore/configureStore';
+import { updateUser } from '../../../../store/user/userSlice';
+import { useAppDispatch } from '../../../../store/configStore/useAppDispatch';
+import { Role } from '../../../../models/roles/entity/role';
+import { getAll as getAllRoles } from '../../../../store/role/roleSlice';
 
-const AdminUserUpdateForm: React.FC = () => {
+const UserUpdateForm: React.FC = () => {
   const dispatch = useAppDispatch();
   const selectedUserId = useSelector((state: RootState) => state.user.selectedId);
   const allData = useSelector((state: RootState) => state.user.allData);
@@ -147,4 +147,4 @@ const AdminUserUpdateForm: React.FC = () => {
   );
 };
 
-export default AdminUserUpdateForm;
+export default UserUpdateForm;

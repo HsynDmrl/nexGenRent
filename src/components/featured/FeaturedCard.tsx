@@ -2,9 +2,9 @@ import React from 'react';
 import { Card } from 'react-bootstrap';
 import { FaBolt, FaGasPump, FaOilCan, FaLeaf, FaCar } from 'react-icons/fa';
 import { IconType } from 'react-icons';
-import './FeaturedCard.css'; // Stillerin olduğu CSS dosyasını import et
+import './FeaturedCard.css'; 
 
-// İkonların her biri için bir tip tanımlaması
+
 interface Icons {
   [key: string]: IconType;
 }
@@ -16,10 +16,10 @@ const icons: Icons = {
   Hibrit: FaLeaf,
 };
 
-// Varsayılan ikon
+
 const DefaultIcon = FaCar;
 
-// Props için bir tip tanımlaması
+
 interface FeaturedCardProps {
   type: keyof Icons;
   count: string;

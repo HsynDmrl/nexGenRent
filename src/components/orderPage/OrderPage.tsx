@@ -44,7 +44,7 @@ const OrderPage: React.FC<OrderPageProps> = ({ car, onBack }) => {
   };
 
   const handlePaymentRedirect = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    e.preventDefault(); // Formun varsayılan submit işlemini önle
+    e.preventDefault();
     if (validateDates()) {
       navigate('/payment', { state: { car, pickupDate, dropoffDate } });
     }

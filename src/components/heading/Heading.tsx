@@ -1,6 +1,6 @@
 import React from 'react';
 
-// Props için bir arayüz tanımlama
+
 interface HeadingProps {
   title: string;
   subtitle: string;

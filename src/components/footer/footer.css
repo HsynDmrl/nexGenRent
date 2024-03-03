@@ -1,4 +1,4 @@
-/* footer.css */
+
 .footerContact {
     background-color: #27ae60;
     padding: 40px 0;
@@ -47,7 +47,7 @@
     border: none;
     padding: 10px;
     border-radius: 20px;
-    margin-right: -1px; /* Align input with button */
+    margin-right: -1px; 
   }
   
   footer .btn {
@@ -86,7 +86,7 @@
     font-size: 0.9rem;
   }
   
-  /* Responsive adjustments */
+
   @media (max-width: 768px) {
     .footerContact h1 {
       font-size: 2rem;

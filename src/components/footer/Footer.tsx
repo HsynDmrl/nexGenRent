@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container, Row, Col, Button, Form } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './footer.css'; // Özel stil dosyanız
+import './footer.css'; 
 
 const Footer: React.FC = () => {
   return (

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Container, Row, Col, Form, Button, InputGroup } from 'react-bootstrap';
-import './hero.css'; // Stil dosyasının yolu
+import './hero.css'; 
 
 const Hero = () => {
   const today = new Date();
@@ -28,7 +28,7 @@ const Hero = () => {
       return;
     }
 
-    // Burada, araç arama işlemi yapılabilir.
+
   };
 
   return (

@@ -1,32 +1,32 @@
 .featured-card {
-  background-color: #edf3f7; /* Kartın arka plan rengi beyaz */
-  border-radius: 10px; /* Daha fazla yuvarlak köşeler */
-  padding: 0.5rem; /* Daha fazla iç padding */
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Daha hafif gölge */
-  transition: all 0.3s ease; /* Genel animasyon geçişi */
+  background-color: #edf3f7; 
+  border-radius: 10px;
+  padding: 0.5rem; 
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); 
+  transition: all 0.3s ease; 
   cursor: pointer;
-  color: #333; /* Daha koyu yazı rengi */
+  color: #333; 
   max-width: 30vh;
   justify-content: center;
 }
 
 .featured-card:hover {
-  transform: translateY(-10px); /* Kartın daha fazla yükselmesi */
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); /* Gölgenin artması */
+  transform: translateY(-10px); 
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); 
 }
 
 .featured-card .icon {
-  color: #ff5722; /* Canlı ikon rengi */
-  margin-bottom: 1rem; /* Daha fazla boşluk */
+  color: #ff5722; 
+  margin-bottom: 1rem; 
 }
 
 .featured-card .card-title {
-  font-size: 1.25rem; /* Daha büyük başlık */
-  color: #333; /* Daha koyu başlık rengi */
+  font-size: 1.25rem; 
+  color: #333;
   margin-bottom: 0.25rem;
 }
 
 .featured-card .card-text {
-  font-size: 1rem; /* Daha büyük metin boyutu */
-  color: #555; /* Daha koyu metin rengi */
+  font-size: 1rem;
+  color: #555; 
 }

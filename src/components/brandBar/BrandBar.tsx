@@ -1,10 +1,9 @@
 // BrandBar.tsx
 import React, { useEffect } from 'react';
 import { useAppSelector } from '../../store/configStore/useAppSelector';
-import { useAppDispatch } from '../../store/configStore/useAppDispatch'; // Custom hook'larınızı kullanın
-import { getAll as getAllBrands } from '../../store/brand/brandSlice'; // getAllBrands ismini kullanarak çakışmayı önleyin
-import './BarndBar.css'; // Özel stil dosyası
-
+import { useAppDispatch } from '../../store/configStore/useAppDispatch'; 
+import { getAll as getAllBrands } from '../../store/brand/brandSlice'; 
+import './BarndBar.css'; 
 const BrandBar = () => {
     const dispatch = useAppDispatch();
     const brands = useAppSelector((state) => state.brand.allData);

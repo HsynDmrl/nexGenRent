@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
-import { GetAllInvoiceResponse } from '../../../models/invoices/response/getAllInvoiceResponse';
+import { GetAllInvoiceResponse } from '../../../../models/invoices/response/getAllInvoiceResponse';
 
 interface ExportToCSVButtonProps {
     data: GetAllInvoiceResponse[];
@@ -17,9 +17,9 @@ const ExportToCSVButton: React.FC<ExportToCSVButtonProps> = ({ data, className }
 
 	const convertToCSV = (invoices: GetAllInvoiceResponse[]): string => {
 		const sortedInvoices: GetAllInvoiceResponse[] = [...invoices].sort((a, b) => a.id - b.id);
-	
-		const csvRows = ['id,invoiceNo,totalPrice,discountRate,taxRate,createdDate,updatedDate'];
-		sortedInvoices.forEach(({ id, invoiceNo, totalPrice, discountRate, taxRate, createdDate, updatedDate }) => {
+        
+        const csvRows = ['id,Fatura No,Toplam Fiyat,İndirim Oranı,Vergi Oranı,Oluşturulma Tarihi,Güncelleme Tarihi'];
+        sortedInvoices.forEach(({ id, invoiceNo, totalPrice, discountRate, taxRate, createdDate, updatedDate }) => {
 			const formattedCreatedDate = createdDate ? formatDate(new Date(createdDate)) : '';
 			const formattedUpdatedDate = updatedDate ? formatDate(new Date(updatedDate)) : '';
 			csvRows.push(`${id},${invoiceNo},${totalPrice},${discountRate},${taxRate},${formattedCreatedDate},${formattedUpdatedDate}`);

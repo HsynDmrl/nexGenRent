@@ -1,11 +1,13 @@
 .featured-card {
-  background-color: #ffffff; /* Kartın arka plan rengi beyaz */
-  border-radius: 16px; /* Daha fazla yuvarlak köşeler */
-  padding: 1.5rem; /* Daha fazla iç padding */
+  background-color: #edf3f7; /* Kartın arka plan rengi beyaz */
+  border-radius: 10px; /* Daha fazla yuvarlak köşeler */
+  padding: 0.5rem; /* Daha fazla iç padding */
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Daha hafif gölge */
   transition: all 0.3s ease; /* Genel animasyon geçişi */
   cursor: pointer;
   color: #333; /* Daha koyu yazı rengi */
+  max-width: 30vh;
+  justify-content: center;
 }
 
 .featured-card:hover {

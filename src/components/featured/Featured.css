@@ -1,35 +1,41 @@
 .featured {
-    padding: 2rem 0;
-    background: #f8f9fa; /* Daha açık arka plan rengi */
-  }
-  
-  .featured-heading {
-    text-align: center;
-    margin-bottom: 2rem;
-  }
-  
+  padding: 0;
+  margin: auto;
+  background: #ffffff !important; /* Daha açık arka plan rengi */
+}
+
+.featured-heading {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.featured-heading h1 {
+  font-size: 2rem;
+  color: #791111; /* Daha koyu metin rengi */
+  margin-bottom: 0.5rem;
+}
+
+.featured .container {
+  margin: auto;
+  text-align: center; /* İçeriği yatay olarak ortala */
+}
+
+.featured .row {
+  justify-content: space-around; /* Sağdan ve soldan eşit boşluk */
+  align-items: center; /* İçeriği dikey olarak hizala */
+}
+
+.featured .col {
+  margin: 0.5rem; /* Daha az marj */
+  padding: 0; /* Padding'i kaldır */
+}
+
+@media (max-width: 576px) {
   .featured-heading h1 {
-    font-size: 2rem;
-    color: #791111; /* Daha koyu metin rengi */
-    margin-bottom: 0.5rem;
-  }
-  
-  .featured .row {
-    justify-content: space-around; /* Kartlar arası eşit boşluk */
-  }
-  
-  .featured .col {
-    margin: 0 0.5rem; /* Daha az marj */
-    padding: 0; /* Padding'i kaldır */
-  }
-  
-  @media (max-width: 576px) {
-    .featured-heading h1 {
       font-size: 1.5rem;
-    }
-  
-    .featured .col {
-      margin: 0.5rem 0; /* Daha düzenli boşluk */
-    }
   }
-  
+
+  .featured .col {
+      margin: 0.5rem 0; /* Daha düzenli boşluk */
+  }
+}

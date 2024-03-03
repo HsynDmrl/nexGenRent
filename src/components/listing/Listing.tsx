@@ -10,12 +10,13 @@ import { CarFilterModel } from '../../services/filterService';
 import { useAppDispatch } from '../../store/configStore/useAppDispatch';
 import OrderPage from '../orderPage/OrderPage';
 import { GetAllCarFilterResponse } from '../../models/cars/response/getAllCarFilterResponse';
+import { GetAllCarResponse } from '../../models/cars/response/getAllCarResponse';
 
 const CarsPage = () => {
   const dispatch = useAppDispatch();
-  const [selectedCar, setSelectedCar] = useState<GetAllCarFilterResponse | null>(null);
+  const [selectedCar, setSelectedCar] = useState<GetAllCarResponse | null>(null);
 
-  const handleCarSelect = (car: GetAllCarFilterResponse) => {
+  const handleCarSelect = (car: GetAllCarResponse) => {
     setSelectedCar(car);
   };
 

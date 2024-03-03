@@ -11,6 +11,7 @@ import employeeReducer from "../employee/employeeSlice";
 import carReducer from "../car/carSlice";
 import customerReducer from "../customer/customerSlice";
 import rentalReducer from "../rental/rentalSlice";
+import rentalsReducer from "../rentals/rentalsSlice";
 import invoiceReducer from "../invoice/invoiceSlice";
 import { loadingReducer } from "../loading/loadingSlice";
 
@@ -29,6 +30,7 @@ const rootReducer = combineReducers({
 	employee: employeeReducer,
 	customer: customerReducer,
 	toggleAdminSidebar: adminToggleReducer,
+	rentals:rentalsReducer,
 });
 
 export const store = configureStore({

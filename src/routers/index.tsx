@@ -34,9 +34,9 @@ const AppRouters = () => {
         <Route element={<UserProtectedRoute />}>
           <Route path="/profile" element={<UserProfilePage />} />
         </Route>
-        <Route element={<UserProtectedRoute />}>
+
           <Route path="/payment" element={<PaymentPage />} />
-        </Route>
+
       </Routes>
       {isAdminPage?"":<Footer/>}
     </> 

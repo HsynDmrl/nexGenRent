@@ -16,7 +16,7 @@
     top: 0;
     z-index: 1001;
 	box-shadow: 0 2px 5px rgba(1, 1, 1, 11);
-	color: black;
+	color: rgb(158, 149, 149);
 }
 
 /* @media (max-width: 768px) {

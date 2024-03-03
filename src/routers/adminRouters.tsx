@@ -5,7 +5,7 @@ import BrandPage from '../pages/AdminPanel/BrandPage/BrandPage';
 import ColorPage from '../pages/AdminPanel/ColorPage/ColorPage';
 import ModelPage from '../pages/AdminPanel/ModelPage/ModelPage';
 import RolePage from '../pages/AdminPanel/RolePage/rolePage';
-import AdminUserPage from '../pages/AdminPanel/AdminUserPage/AdminUserPage';
+import UserPage from '../pages/AdminPanel/UserPage/UserPage';
 import EmployeePage from '../pages/AdminPanel/EmployeePage/EmployeePage';
 import CarPage from '../pages/AdminPanel/CarPage/CarPage';
 import CustomerPage from '../pages/AdminPanel/CustomerPage/CustomerPage';
@@ -21,7 +21,7 @@ const AdminRouters = () => {
           <Route path="/" element={<AdminDashboard />} />
           <Route path="/dashboard" element={<AdminDashboard />} />
           <Route path="/cars" element={<CarPage />} />
-          <Route path="/users" element={<AdminUserPage />} />
+          <Route path="/users" element={<UserPage />} />
           <Route path="/brands" element={<BrandPage />} />
           <Route path="/colors" element={<ColorPage />} />
           <Route path="/models" element={<ModelPage />} />

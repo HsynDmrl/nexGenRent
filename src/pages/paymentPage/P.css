@@ -1,40 +1,39 @@
-/* payment-page stil bilgileri */
+
 .payment-page {
     background-color: #f8f9fa;
-    padding: 20px; /* Artırılmış üst ve alt boşluklar */
-    min-height: 80vh; /* Tam sayfa yüksekliği */
+    padding: 20px; 
+    min-height: 80vh; 
     display: flex;
     justify-content: center;
     align-items: center;
     background: linear-gradient(135deg, #faf8f5 0%, #c3cfe2 100%);
 }
 
-/* justify-content-md-center stil bilgileri */
 .justify-content-md-center {
     padding: 20px;
     border-radius: 8px;
-    background-color: #ffffff; /* Beyaz arka plan */
-    border: 1px solid #eaeaea; /* Hafif bir sınır */
-    margin: 20px auto; /* Merkezde hizalama */
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Hafif bir gölge */
+    background-color: #ffffff; 
+    border: 1px solid #eaeaea; 
+    margin: 20px auto; 
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); 
 }
 
-/* Form grup içerisindeki ikon stil bilgileri */
+
 .form-group i.fa {
-    /* 'fa' class'ı Font Awesome için kullanılmıştır. */
+
     position: absolute;
-    left: 16px; /* İkon konumu ayarı */
+    left: 16px; 
     top: 50%;
     transform: translateY(-50%);
-    color: #666; /* İkon rengi */
+    color: #666; 
 }
 
-/* Form alanı etiketleri için stil bilgileri */
+
 .form-label {
     font-weight: bold;
 }
 
-/* Ödeme yap düğmesi stil bilgileri */
+
 .payment-button {
     margin-top: 20px;
 }
@@ -43,23 +42,23 @@
   color: black;
 }
 .payment-page {
-    color: black; /* Tüm metinleri siyah yapar */
+    color: black; 
   }
   
   .payment-page h2 {
-    color: #007bff; /* Başlıkları açık mavi yapar */
+    color: #007bff; 
   }
   
   .payment-page p {
-    color: black; /* Paragrafları siyah yapar */
+    color: black; 
   }
   
   .payment-page .form-label {
-    color: black; /* Form etiketlerini siyah yapar */
+    color: black; 
   }
   
   .payment-page .form-control {
-    color: black; /* Form inputlarının metinlerini siyah yapar */
+    color: black; 
   }
 .car-image-container {
   display: flex;

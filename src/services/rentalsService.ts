@@ -2,7 +2,7 @@ import { AxiosResponse } from "axios";
 import { BaseService } from "./baseService";
 import axiosInstance from "../core/utils/interceptors/axiosInterceptors";
 
-// Kiralama ile ilgili model türlerini import edin
+
 import { AddRentalRequest } from "../models/rentals/requests/addRentalRequest";
 import { UpdateRentalRequest } from "../models/rentals/requests/updateRentalRequest";
 import { AddRentalResponse } from "../models/rentals/response/addRentalResponse";
@@ -20,7 +20,7 @@ class RentalService extends BaseService<
 > {
     constructor() {
         super();
-        this.apiUrl = "rentals"; // Backend servisinizdeki kiralama ile ilgili endpoint
+        this.apiUrl = "rentals"; 
     }
 }
 

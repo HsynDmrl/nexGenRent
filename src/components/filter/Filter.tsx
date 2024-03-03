@@ -21,7 +21,7 @@ interface Props {
 
 const Filter: React.FC<Props> = ({ onFilterChange }) => {
   const [filters, setFilters] = useState<CarFilterModel>({
-    brandId: undefined, // undefined, çünkü başlangıçta bu alanların değeri yok
+    brandId: undefined, 
     modelId: undefined,
     year: undefined,
     colorId: undefined,
@@ -32,12 +32,12 @@ const Filter: React.FC<Props> = ({ onFilterChange }) => {
   });
   const dispatch = useAppDispatch();
 
-  /////
+
   
   const [filterServiceInstance] = useState(new FilterService());
 
   useEffect(() => {
-    // Sayfa ilk yüklendiğinde tüm arabaları getir
+ 
     const initialFilters = {
       brandId: undefined,
       modelId: undefined,
@@ -50,8 +50,8 @@ const Filter: React.FC<Props> = ({ onFilterChange }) => {
     };
     filterServiceInstance.fetchCarsWithFilters(initialFilters)
       .then(filteredCars => {
-        onFilterChange(filteredCars); // Filtreleme sonuçlarını güncelle
-        dispatch(setFilteredCars(filteredCars)); // Sonuçları Redux store'a kaydet
+        onFilterChange(filteredCars); 
+        dispatch(setFilteredCars(filteredCars)); 
       })
       .catch(error => {
         console.error('Arabaları yüklerken bir hata oluştu:', error);
@@ -59,11 +59,6 @@ const Filter: React.FC<Props> = ({ onFilterChange }) => {
   }, [filterServiceInstance, onFilterChange, dispatch]);
 
 
-
-
-
-
-///////////
 
   const years = Array.from({ length: 2024 - 1900 + 1 }, (_, index) => 1900 + index);
 
@@ -120,10 +115,10 @@ const Filter: React.FC<Props> = ({ onFilterChange }) => {
     e.preventDefault();
     try {
       const filteredCars = await filterServiceInstance.fetchCarsWithFilters(filters);
-      onFilterChange(filteredCars); // Bu fonksiyon artık filtreden geçmiş arabaları alacak
+      onFilterChange(filteredCars); 
       dispatch(setFilteredCars(filteredCars));
     } catch (error) {
-      // Hata durumunda kullanıcıya bilgi verme veya hata loglama
+     
       console.error('Arabaları filtrelerken bir hata oluştu:', error);
     }
   };

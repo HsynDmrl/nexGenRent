@@ -20,7 +20,7 @@ export const fetchFilteredCars = createAsyncThunk(
   
 
 interface FilterState {
-  cars: any[]; // Burada araçların tipini belirtmelisiniz
+  cars: any[];
   loading: boolean;
   error: string | null;
 }
@@ -54,9 +54,9 @@ export const filterSlice = createSlice({
       .addCase(fetchFilteredCars.rejected, (state, action) => {
         state.loading = false;
         if (action.payload !== null && action.payload !== undefined) {
-          state.error = action.payload.toString(); // Nesneyi stringe dönüştürerek ata
+          state.error = action.payload.toString();
         } else {
-          state.error = "Bir hata oluştu"; // Varsayılan hata mesajını atayabilirsiniz
+          state.error = "Bir hata oluştu"; 
         }
       });
       

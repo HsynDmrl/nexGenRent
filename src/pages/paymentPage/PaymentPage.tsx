@@ -13,9 +13,9 @@ import { AddRentalRequest } from '../../models/rentals/requests/addRentalRequest
 import { useAppDispatch } from '../../store/configStore/useAppDispatch';
 
 interface PaymentPageProps {
-  car: GetAllCarResponse; // Araba bilgileri
-  pickupDate: string; // Alış tarihi
-  dropoffDate: string; // Bırakış tarihi
+  car: GetAllCarResponse; 
+  pickupDate: string; 
+  dropoffDate: string; 
 }
 
 
@@ -47,8 +47,8 @@ const PaymentPage = () => {
         event.preventDefault();
     
         const rentalData: AddRentalRequest = {
-          // Formdan alınan verileri burada doldurun
-          id: 0, // Yeni kayıtlar için ID genellikle gereksizdir veya sunucu tarafından atanır
+    
+          id: 0,
           startDate: new Date(),
           endDate: new Date(),
           totalPrice: 100,

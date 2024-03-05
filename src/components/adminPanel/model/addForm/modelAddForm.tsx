@@ -49,7 +49,6 @@ const ModelAddForm = () => {
       }, 1000);
       resetForm();
     } catch (error: any) {
-      console.error('Model eklenirken hata oluştu:', error);
     }
   };
 

@@ -56,7 +56,6 @@ const InvoiceAddForm = () => {
 			}, 1000);
 			resetForm();
 		} catch (error: any) {
-			console.error('Fatura Eklenirken hata oluştu:', error);
 		}
 	};
 

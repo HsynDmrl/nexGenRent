@@ -124,7 +124,6 @@ const CarAddForm = () => {
             const response = await carService.customAdd(formData);
             setIsSuccess(true);
         } catch (error) {
-            console.error("Form gönderilirken hata oluştu:", error);
             setIsSuccess(false);
         }
     };

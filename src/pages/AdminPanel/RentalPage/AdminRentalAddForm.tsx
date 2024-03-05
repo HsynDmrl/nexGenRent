@@ -85,7 +85,6 @@ const AdminRentalAddForm = () => {
 			}, 1000);
 			resetForm();
 		} catch (error: any) {
-			console.error('Araba Eklerken Sorun çıktı :', error);
 		}
 	};
 

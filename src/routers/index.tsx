@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
 import Homepage from "../pages/Homepage/Homepage";
 import OverlayLoader from "../components/OverlayLoader/OverlayLoader";
-import NavScrollExample from "../components/Nav/NavScrollExample";
+import Navi from "../components/Nav/navi";
 import Register from "../pages/Register/Register";
 import AdminRouters from "./adminRouters";
 import AdminNav from "../pages/AdminPanel/AdminNav/AdminNav";
@@ -24,7 +24,7 @@ const AppRouters = () => {
   return (
     <>
       <OverlayLoader />
-      {isAdminPage ? <AdminNav /> : <NavScrollExample />}
+      {isAdminPage ? <AdminNav /> : <Navi />}
       <Routes>
         <Route path="/" element={<Homepage />} />
         <Route path="/register" element={<Register />} />

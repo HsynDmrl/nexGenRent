@@ -44,7 +44,6 @@ const CustomerAddForm = () => {
       }, 1000);
       resetForm();
     } catch (error: any) {
-      console.error('Error adding customer:', error);
     }
   };
 

@@ -4,7 +4,6 @@ import RecentCard from './RecentCard';
 import { getAll } from '../../store/car/carSlice';
 import { useAppSelector } from '../../store/configStore/useAppSelector';
 import { useAppDispatch } from '../../store/configStore/useAppDispatch';
-import { GetAllCarFilterResponse } from '../../models/cars/response/getAllCarFilterResponse';
 import { RootState } from '../../store/configStore/configureStore';
 import OrderPage from '../orderPage/OrderPage';
 import { useEffect } from 'react';

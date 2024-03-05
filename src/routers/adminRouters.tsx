@@ -9,7 +9,7 @@ import UserPage from '../pages/AdminPanel/UserPage/UserPage';
 import EmployeePage from '../pages/AdminPanel/EmployeePage/EmployeePage';
 import CarPage from '../pages/AdminPanel/CarPage/CarPage';
 import CustomerPage from '../pages/AdminPanel/CustomerPage/CustomerPage';
-import AdminRentalPage from '../pages/AdminPanel/AdminRentalPage/AdminRentalPage';
+import AdminRentalPage from '../pages/AdminPanel/RentalPage/AdminRentalPage';
 import InvoicePage from '../pages/AdminPanel/InvoicePage/InvoicePage';
 
 const AdminRouters = () => {

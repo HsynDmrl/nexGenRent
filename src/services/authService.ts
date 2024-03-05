@@ -1,6 +1,4 @@
 import axiosInstance from "../core/utils/interceptors/axiosInterceptors";
-import { updateTokenDetails } from "../store/auth/authSlice";
-import { useAppDispatch } from "../store/configStore/useAppDispatch";
 import tokenService from "./tokenService";
 
 class AuthService {

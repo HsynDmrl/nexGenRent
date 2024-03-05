@@ -11,7 +11,7 @@ const Footer: React.FC = () => {
           <Row className="justify-content-between align-items-center">
             <Col lg={8} md={7}>
               <h1 style={{ fontSize: '2.5rem' }}>Sorularınız mı Var?</h1>
-              <p className="mb-0">Kariyerinizin ve büyümenizin yardımcı olacağız.</p>
+              <p className="mb-0">Bir mesaj kadar uzaktayız! Hemen yardımcı olacağız.</p>
             </Col>
             <Col lg={4} md={5} className="mt-3 mt-md-0">
               <Button variant="outline-light" className="px-4 py-2">Bizimle İletişime Geçin</Button>
@@ -24,7 +24,7 @@ const Footer: React.FC = () => {
         <Container>
           <Row>
             <Col lg={6} md={12}>
-              <h2 style={{ fontSize: '1.5rem' }}>RentUP</h2>
+              <h2 style={{ fontSize: '1.5rem' }}>Nex Gen Rental</h2>
               <p className="my-4">Bir Şeylerle Mi Yardıma İhtiyacınız Var?</p>
               <p className="small mb-4">Her ay gelen güncellemeleri, sıcak fırsatları, öğreticileri, indirimleri doğrudan gelen kutunuza alın.</p>
               <Form.Control type="text" placeholder="Email Adresi" className="mb-2" />
@@ -62,7 +62,7 @@ const Footer: React.FC = () => {
       </footer>
       <div className="legal text-center py-3" style={{ backgroundColor: '#1d2636', borderTop: '1px solid rgba(255, 255, 255, 0.1)' }}>
         <Container>
-          <span>© {new Date().getFullYear()} RentUP. GorkCoder tarafından tasarlandı.</span>
+          <span>© {new Date().getFullYear()} Nex Gen Rental. Tüm Hakları Saklıdır..</span>
         </Container>
       </div>
     </>

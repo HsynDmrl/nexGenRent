@@ -1,4 +1,3 @@
-import React from "react";
 import "./overlayloader.css";
 import { useAppSelector } from "../../store/configStore/useAppSelector";
 import { RootState } from "../../store/configStore/configureStore";

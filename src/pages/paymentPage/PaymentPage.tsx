@@ -1,22 +1,12 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Container, Row, Col, Form, Button,Alert } from 'react-bootstrap';
-import { GetAllCarFilterResponse } from '../../models/cars/response/getAllCarFilterResponse';
 import { useLocation } from 'react-router-dom';
 import './P.css';
-import { useDispatch } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCreditCard, faUser } from '@fortawesome/free-solid-svg-icons'; 
-import { GetAllCarResponse } from '../../models/cars/response/getAllCarResponse';
-import axios from 'axios';
 import { addRentalAsync } from '../../store/rentals/rentalsSlice';
 import { AddRentalRequest } from '../../models/rentals/requests/addRentalRequest';
 import { useAppDispatch } from '../../store/configStore/useAppDispatch';
-
-interface PaymentPageProps {
-  car: GetAllCarResponse; 
-  pickupDate: string; 
-  dropoffDate: string; 
-}
 
 
 const PaymentPage = () => {
@@ -28,9 +18,9 @@ const PaymentPage = () => {
     const [cardHolder, setCardHolder] = useState('');
     const [expiryDate, setExpiryDate] = useState('');
     const [cvv, setCvv] = useState('');
-    const [isSubmitSuccessful, setIsSubmitSuccessful] = useState(false); // Başarılı submit durumu için state
+    const [isSubmitSuccessful, setIsSubmitSuccessful] = useState(false); 
   
-    const { car, pickupDate, dropoffDate } = location.state as any; // Burada daha iyi bir tip tanımı kullanılmalı
+    const { car, pickupDate, dropoffDate } = location.state as any;
   
     if (!car || !pickupDate || !dropoffDate) {
       return <div>Ödeme bilgileri eksik veya hatalı.</div>;

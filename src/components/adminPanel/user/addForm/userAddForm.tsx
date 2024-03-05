@@ -47,7 +47,6 @@ const UserAddForm = () => {
       }, 1000);
       resetForm();
     } catch (error: any) {
-      console.error('Kullanıcı eklenirken hata oluştu:', error);
     }
   };
 

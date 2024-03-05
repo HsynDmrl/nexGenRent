@@ -26,7 +26,6 @@ const InvoiceDeleteForm: React.FC = () => {
 				dispatch(setSelectedId(null));
 				setStatus({ success: true });
 			  } catch (error) {
-				console.error('Bir hata oluştu:', error);
 				setStatus({ success: false });
 			  } finally {
 				setSubmitting(false);

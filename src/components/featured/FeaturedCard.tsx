@@ -3,6 +3,7 @@ import { Card } from 'react-bootstrap';
 import { FaBolt, FaGasPump, FaOilCan, FaLeaf, FaCar } from 'react-icons/fa';
 import { IconType } from 'react-icons';
 import './FeaturedCard.css'; 
+import { FuelType, getFuelTypeLabel } from '../../models/cars/entity/fuelType';
 
 
 interface Icons {
@@ -16,9 +17,7 @@ const icons: Icons = {
   Hibrit: FaLeaf,
 };
 
-
 const DefaultIcon = FaCar;
-
 
 interface FeaturedCardProps {
   type: keyof Icons;
@@ -26,18 +25,17 @@ interface FeaturedCardProps {
 }
 
 const FeaturedCard: React.FC<FeaturedCardProps> = ({ type, count }) => {
-  const IconComponent = icons[type] || DefaultIcon;
+  const fuelType: FuelType = type as FuelType;
+  const IconComponent = icons[getFuelTypeLabel(fuelType)] || DefaultIcon;
 
   return (
-    <Card className="featured-card">
+    <Card className="featured-card mx-5">
       <Card className="text-center p-4">
         <IconComponent size="3em" className="icon mb-2" />
-        <Card.Title>{type}</Card.Title>
+        <Card.Title>{getFuelTypeLabel(fuelType)}</Card.Title>
         <Card.Text>{`${count} araç`}</Card.Text>
       </Card>
     </Card>
-
-    
   );
 };
 

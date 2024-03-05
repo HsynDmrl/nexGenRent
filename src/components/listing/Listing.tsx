@@ -1,15 +1,12 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import CarFilter from '../filter/Filter';
 import Recent from '../recent/Recent';
 import Heading from '../heading/Heading';
-import { useDispatch } from 'react-redux';
 import { fetchFilteredCars } from '../../store/filter/filterSlice';
-import { AppDispatch } from '../../store/configStore/configureStore';
 import { CarFilterModel } from '../../services/filterService';
 import { useAppDispatch } from '../../store/configStore/useAppDispatch';
 import OrderPage from '../orderPage/OrderPage';
-import { GetAllCarFilterResponse } from '../../models/cars/response/getAllCarFilterResponse';
 import { GetAllCarResponse } from '../../models/cars/response/getAllCarResponse';
 
 const CarsPage = () => {

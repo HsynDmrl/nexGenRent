@@ -1,6 +1,6 @@
 import React from 'react';
 import { Card, Button } from 'react-bootstrap';
-import { FaRoad, FaGasPump, FaCarBattery, FaPalette,FaCalendarAlt,FaCar } from 'react-icons/fa';
+import { FaRoad,FaCalendarAlt,FaCar } from 'react-icons/fa';
 
 interface RecentCardProps {
   cover: string;

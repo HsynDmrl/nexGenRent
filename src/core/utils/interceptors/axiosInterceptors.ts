@@ -27,13 +27,13 @@ axiosInstance.interceptors.response.use(
 	  tokenService.removeToken();
 	  window.location.href = "/";
     removeRequest();
-	  return Promise.reject(error);
+	  return Promise.reject();
 	}
     if (error.response?.status === 401 && originalRequest.url.includes("/auth/refresh-token")) {
       tokenService.removeToken();
       window.location.href = "/";
       removeRequest();
-      return Promise.reject(error);
+      return Promise.reject();
     }
 
     if (!originalRequest._retry && error.response?.status === 403) {
@@ -49,11 +49,11 @@ axiosInstance.interceptors.response.use(
         }
       } catch (refreshError) {
         removeRequest();
-        return Promise.reject(refreshError);
+        return Promise.reject();
       }
     }
     removeRequest();
-    return Promise.reject(error);
+    return Promise.reject();
   }
 );
 

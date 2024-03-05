@@ -18,7 +18,6 @@ const Hero = () => {
 
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("Arama Terimi:", searchTerm);
 
     const pickupDateTime = new Date(pickupDate);
     const returnDateTime = new Date(returnDate);

@@ -1,7 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { CarFilterModel } from '../../models/filter/response/getCarFilter';
 import { FilterService } from '../../services/filterService';
-import { Car } from '../../models/cars/entity/car';
 
 const filterService = new FilterService();
 

@@ -5,7 +5,6 @@ import { GetAllCarResponse } from '../../models/cars/response/getAllCarResponse'
 import { AddCarRequest } from '../../models/cars/requests/addCarRequest';
 import { GetByIdCarResponse } from '../../models/cars/response/getByIdCarResponse';
 import { UpdateCarRequest } from '../../models/cars/requests/updateCarRequest';
-import { AddCarResponse } from '../../models/cars/response/addCarResponse';
 import { GetAllCarFilterResponse } from '../../models/cars/response/getAllCarFilterResponse';
 
 interface CarState {

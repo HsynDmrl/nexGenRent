@@ -50,7 +50,6 @@ const EmployeeAddForm = () => {
       }, 1000);
       resetForm();
     } catch (error: any) {
-      console.error('Çalışan eklenirken hata oluştu:', error);
     }
   };
 

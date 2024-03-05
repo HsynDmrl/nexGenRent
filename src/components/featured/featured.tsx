@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import FeaturedCard from './FeaturedCard';
-import BrandBar from '../brandBar/BrandBar'; // BrandBar'ı import edin
+import BrandBar from '../brandBar/BrandBar';
 import { Container, Row, Col } from 'react-bootstrap';
 import { useAppSelector } from '../../store/configStore/useAppSelector';
 import { useAppDispatch } from '../../store/configStore/useAppDispatch';

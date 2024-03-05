@@ -8,6 +8,7 @@ import { CarFilterModel } from '../../services/filterService';
 import { useAppDispatch } from '../../store/configStore/useAppDispatch';
 import OrderPage from '../orderPage/OrderPage';
 import { GetAllCarResponse } from '../../models/cars/response/getAllCarResponse';
+import { GetAllCarFilterResponse } from '../../models/cars/response/getAllCarFilterResponse';
 
 const CarsPage = () => {
   const dispatch = useAppDispatch();
@@ -35,7 +36,7 @@ const CarsPage = () => {
         <Col lg={9}>
           {!selectedCar ? (
            
-            <Recent onCarSelect={handleCarSelect} />
+            <Recent onCarSelect={handleCarSelect as unknown as (car: GetAllCarFilterResponse) => void} />
           ) : (
             
             <OrderPage car={selectedCar} onBack={() => setSelectedCar(null)} />

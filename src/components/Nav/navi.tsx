@@ -39,7 +39,9 @@ function Navi() {
 
 
 	useEffect(() => {
-		dispatch(getByEmail());
+		if (isUserLoggedIn){
+			dispatch(getByEmail());
+		}
 	}, [dispatch, isUserLoggedIn]);
 
 	const navigate = useNavigate();

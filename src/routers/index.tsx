@@ -27,6 +27,7 @@ const AppRouters = () => {
       {isAdminPage ? <AdminNav /> : <Navi />}
       <Routes>
         <Route path="/" element={<Homepage />} />
+        <Route path="/nexGenRent" element={<Homepage />} />
         <Route path="/register" element={<Register />} />
         <Route element={<AdminProtectedRoute />}>
           <Route path="/admin/*" element={<AdminRouters />} />

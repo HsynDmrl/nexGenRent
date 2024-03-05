@@ -26,11 +26,12 @@ export class FilterService extends BaseService<any, any, CarFilterModel, any, Ca
         return axiosInstance.get<any>(`${this.apiUrl}/filters`, { params: filters });
     }
 
-    async fetchCarsWithFilters(filters: CarFilterModel) {
+    async fetchCarsWithFilters(filters: any) {
         try {
           const response = await axiosInstance.get('filters/car', { params: filters });
           return response.data;
         } catch (error) {
+          console.log('error', error);
           throw new Error('Filtreleme işlemi başarısız oldu');
         }
       }

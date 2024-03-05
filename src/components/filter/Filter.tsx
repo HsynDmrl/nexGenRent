@@ -4,14 +4,10 @@ import { CarFilterModel } from '../../models/filter/response/getCarFilter';
 import { FilterService } from '../../services/filterService';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store/configStore/configureStore';
-import { Model } from '../../models/models/entity/model';
 import { getAll as getAllModels } from '../../store/model/modelSlice';
 import { getAll as getAllBrand } from '../../store/brand/brandSlice';
 import { getAll as getAllColors } from '../../store/color/colorSlice';
 import { useAppDispatch } from '../../store/configStore/useAppDispatch';
-import { getAll } from '../../store/car/carSlice';
-import { Brand } from '../../models/brands/entity/brand';
-import { Color } from '../../models/colors/entity/color';
 import { setFilteredCars } from '../../store/car/carSlice'
 
 
@@ -31,98 +27,33 @@ const Filter: React.FC<Props> = ({ onFilterChange }) => {
     maxDailyPrice: undefined
   });
   const dispatch = useAppDispatch();
-
-
-  
   const [filterServiceInstance] = useState(new FilterService());
-
-  useEffect(() => {
- 
-    const initialFilters = {
-      brandId: undefined,
-      modelId: undefined,
-      year: undefined,
-      colorId: undefined,
-      gearType: '',
-      fuelType: '',
-      minDailyPrice: undefined,
-      maxDailyPrice: undefined
-    };
-    filterServiceInstance.fetchCarsWithFilters(initialFilters)
-      .then(filteredCars => {
-        onFilterChange(filteredCars); 
-        dispatch(setFilteredCars(filteredCars)); 
-      })
-      .catch(error => {
-        console.error('Arabaları yüklerken bir hata oluştu:', error);
-      });
-  }, [filterServiceInstance, onFilterChange, dispatch]);
-
-
-
   const years = Array.from({ length: 2024 - 1900 + 1 }, (_, index) => 1900 + index);
-
-  const [colors, setColors] = useState<Color[]>([]);
-  const allColors = useSelector((state: RootState) => state.color.allData);
-  useEffect(() => {
-    dispatch(getAllColors());
-  }, [dispatch]);
-
-  useEffect(() => {
-    if (allColors.length > 0) {
-      setColors(allColors);
-    }
-  }, [allColors]);
-
-  const [model, setModel] = useState<Model[]>([]);
-  const [brand, setBrand] = useState<Brand[]>([]);
-
-  
   const allModels = useSelector((state: RootState) => state.model.allData);
   const allBrand = useSelector((state: RootState) => state.brand.allData);
-  
+  const allColors = useSelector((state: RootState) => state.color.allData);
 
   useEffect(() => {
+    dispatch(getAllColors());
     dispatch(getAllModels());
-      dispatch(getAll());
-    }, [dispatch]);
-  
-    useEffect(() => {
-      if (allModels.length > 0) {
-        setModel(allModels);
-      }
-    }, [allModels]);
+    dispatch(getAllBrand());
+  }, [dispatch]);
 
-    useEffect(() => {
-      dispatch(getAllBrand());
-        dispatch(getAll());
-      }, [dispatch]);
-    
-      useEffect(() => {
-        if (allBrand.length > 0) {
-          setBrand(allBrand);
-        }
-      }, [allBrand]);
+  
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log("seçtim", e.target.value)
     const { name, value } = e.target;
     setFilters(prevFilters => ({ ...prevFilters, [name]: value }));
   };
   
-
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    try {
-      const filteredCars = await filterServiceInstance.fetchCarsWithFilters(filters);
-      onFilterChange(filteredCars); 
-      dispatch(setFilteredCars(filteredCars));
-    } catch (error) {
-     
-      console.error('Arabaları filtrelerken bir hata oluştu:', error);
-    }
-  };
-  
+    onFilterChange(filters);
+    filterServiceInstance.fetchCarsWithFilters(filters).then((response) => {
+      dispatch(setFilteredCars(response));
+    });
+  }
 
   return (
     <Form onSubmit={handleSubmit}>
@@ -130,7 +61,7 @@ const Filter: React.FC<Props> = ({ onFilterChange }) => {
     <Form.Label>Marka</Form.Label>
     <Form.Control as="select" name="brandId" value={filters.brandId} onChange={handleChange}>
       <option value="">Marka Seçiniz</option>
-      {brand.map(brand => (
+      {allBrand.map(brand => (
         <option key={brand.id} value={brand.id}>{brand.name}</option>
       ))}
     </Form.Control>
@@ -140,7 +71,7 @@ const Filter: React.FC<Props> = ({ onFilterChange }) => {
     <Form.Label>Model</Form.Label>
     <Form.Control as="select" name="modelId" value={filters.modelId} onChange={handleChange}>
       <option value="">Model Seçiniz</option>
-      {model.map(item => (
+      {allModels.map(item => (
         <option key={item.id} value={item.id}>{item.name}</option>
       ))}
     </Form.Control>
@@ -160,7 +91,7 @@ const Filter: React.FC<Props> = ({ onFilterChange }) => {
     <Form.Label>Renk</Form.Label>
     <Form.Control as="select" name="colorId" value={filters.colorId} onChange={handleChange}>
       <option value="">Renk Seçiniz</option>
-      {colors.map(color => (
+      {allColors.map(color => (
         <option key={color.id} value={color.id}>{color.name}</option>
       ))}
     </Form.Control>
@@ -170,10 +101,8 @@ const Filter: React.FC<Props> = ({ onFilterChange }) => {
     <Form.Label>Vites Tipi</Form.Label>
     <Form.Control as="select" name="gearType" value={filters.gearType} onChange={handleChange}>
       <option value="">Vites tipi seçiniz</option>
-      <option value="MANUAL">Manuel</option>
-      <option value="AUTOMATIC">Otomatik</option>
-      <option value="SEMI_AUTOMATIC">Yarı Otomatik</option>
-      <option value="CVT">CVT</option>
+      <option value="MANUEL">Manuel</option>
+      <option value="AUTO">Otomatik</option>
     </Form.Control>
   </Form.Group>
 

@@ -4,7 +4,7 @@ import { Color } from "../../colors/entity/color";
 export interface GetAllCarFilterResponse {
   kilometer: number;
     id:number;
-    colorName: string;
+    brandName: string;
     dailyPrice: number;
     plate: string;
     imagePath: string;
@@ -12,5 +12,6 @@ export interface GetAllCarFilterResponse {
     gearType: string;
     fuelType: string;
 	modelName: string;
+    colorName: string;
     year:number;
 }
